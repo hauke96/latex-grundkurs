@@ -1,3 +1,0 @@
-\beamer@endinputifotherversion {3.24pt}
-\select@language {ngerman}
-\beamer@sectionintoc {1}{Was ist \textlatin {T\kern -.1667em\lower .5ex\hbox {E}\kern -.125emX\spacefactor \@m }{} und \textlatin {\LaTeX }{}}{3}{0}{1}
