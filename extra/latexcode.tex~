@@ -1,0 +1,12 @@
+% Defines an environment for latexcode
+\newenvironment{latexcode}
+ {\VerbatimEnvironment
+  \begin{VerbatimOut}{latexcode.out}}
+  {\end{VerbatimOut}%
+  \inputminted{latex}{latexcode.out}}
+
+\newenvironment{tinylatexcode}
+ {\VerbatimEnvironment
+  \begin{VerbatimOut}{latexcode.out}}
+  {\end{VerbatimOut}%
+  \inputminted[fontsize=\scriptsize]{latex}{latexcode.out}}

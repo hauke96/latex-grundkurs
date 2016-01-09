@@ -1,0 +1,19 @@
+% Patch fancyvrb to support unicode
+% It basically \detokenize everything before writing it to a file.
+\makeatletter
+\newcommand{\verbments@write@detok}[1]{%
+  \immediate\write\FV@OutFile{\detokenize{#1}}}
+\newcommand{\verbments@FVB@VerbatimOut}[1]{%
+  \@bsphack
+  \begingroup
+  \FV@UseKeyValues
+  \FV@DefineWhiteSpace
+  \def\FV@Space{\space}%
+  \FV@DefineTabOut
+  \let\FV@ProcessLine\verbments@write@detok
+  \immediate\openout\FV@OutFile #1\relax
+  \let\FV@FontScanPrep\relax
+  \let\@noligs\relax
+  \FV@Scan}
+\let\FVB@VerbatimOut\verbments@FVB@VerbatimOut
+\makeatother

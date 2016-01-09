@@ -3,6 +3,12 @@
 \usepackage[ngerman]{babel}
 \usepackage{url}
 \usepackage{xcolor}
+\usepackage{minted}
+\usepackage[absolute,overlay]{textpos}
+
+\input{extra/miniframescontrol}
+\input{extra/latexcode}
+\input{extra/patchfancyvrb}
 
 \usetheme[compress]{Berlin}
 \setbeamerfont{headline}{size=\large}
@@ -141,5 +147,28 @@
 				\item[Scrreprt/report:] Reports, Umfang mehr als 15 Seiten
 				\item[Scrbook/book:] Bücher
 			\end{description}
+		\end{frame}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\begin{frame}[containsverbatim]{Mein erstes Dokument}
+			\begin{latexcode}
+\documentclass[a4paper,10pt]{scrartcl}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{lmodern}
+
+\author{Max Mustermann}
+\title{Mein erstes Dokument}
+
+\begin{document}
+\maketitle{}
+Hello World!
+\end{document}
+			\end{latexcode}
+			\begin{textblock}{10}(7.5,10.5)
+				\includegraphics[width=5.5cm]{images/erstes-dokument}
+			\end{textblock}
 		\end{frame}
 \end{document}
