@@ -1,4 +1,4 @@
- *.aux
+*.aux
 *.glo
 *.idx
 *.log
@@ -20,4 +20,6 @@
 *.mtc
 *.mtc1
 *.out
+*.nav
+*.snm
 *.synctex.gz

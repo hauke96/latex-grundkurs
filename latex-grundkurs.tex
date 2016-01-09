@@ -35,8 +35,11 @@
 			\includegraphics[width=\textwidth]{./images/gib-word-keine-chance}
 		\end{minipage}
 	\end{frame}
+		
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
 	\section{Was ist \TeX{} und \LaTeX{}}
-		\subsection*{asd}
+		\subsection*{}
 		\begin{frame}{Was ist \LaTeX{}}
 			\textbf{\LaTeX{} und \TeX{}:}
 			\begin{itemize}
@@ -55,5 +58,88 @@
 				Suchmaschine: ``latex X'' eingeben $\rightarrow$
 				Ergebnis in den Quelltext kopieren
 			\end{itemize}
+		\end{frame}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\begin{frame}{\LaTeX{} installieren}
+			\textbf{\LaTeX-Distribution:}
+			\begin{description}
+				\item[GNU/Linux] Nutzt den Paketmanager eurer Distribution. Debian/Ubuntu: \texttt{apt-get install texlive} 
+				\item[Windows] MiKTeX herunterladen und installieren. \url{http://miktex.org/}
+				\item[Mac OS] MacTex herunterladen und installieren. \url{http://tug.org/mactex/} 
+			\end{description}
+			\textbf{\LaTeX-Editoren:}
+			\begin{description}
+				\item[Kile] Guter Editor für GNU/Linux (KDE).
+				\item[Gummi] Editor für GNU/Linux (GTK) mit Live-Preview
+				\item[AUCTeX] für Emacs-Benutzer
+				\item[Texmaker] Editor für alle Betriebssysteme
+			\end{description}
+			 und viele mehr \dots
+		\end{frame}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\begin{frame}{Verschiedene \LaTeX{}-Compiler}
+			Es gibt verschiedenen Compiler für \LaTeX{}. Heute: \textbf{pdflatex}
+			\vspace{0.2cm}
+			\textbf{Vorteile von pdflatex:}
+			\begin{itemize}
+				\item Direktes erzeugen einer PDF
+				\item Viele PDF-Features nutzbar
+				\item Einfach zu verwenden
+			\end{itemize}
+			\vspace{0.1cm}
+			\textbf{Nachteile von pdflatex:}
+			\begin{itemize}
+				\item Kein \texttt{pstricks} nutzbar.
+				\item Postscript-Dateien nicht direkt einbindbar
+				\item Keine vollständige Unicode-Unterstützung (wie Xe\LaTeX)
+			\end{itemize}
+		\end{frame}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\begin{frame}{Detexify -- \LaTeX-Symbolerkennung}
+			\begin{center}
+				\includegraphics[width=0.95\textheight]{images/detexify}
+				\vspace{0.3cm}
+				
+				\Large \href{http://detexify.kirelabs.org/}{http://detexify.kirelabs.org/}
+			\end{center}
+		\end{frame}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\begin{frame}{Anmerkungen}
+			\textbf{Achtung:} \TeX{} ist eine Programmiersprache! Lasst nur vertrauenswürdige
+			Menschen \TeX/\LaTeX-Code auf eurem Rechner/Server ausführen.
+			
+			\vspace{0.2cm}
+			\textbf{Anmerkung:} Wenn du dir diese Folien anschaust, ist das System
+			nicht mehr online. Es war nur zum Ausprobieren während des
+			KunterBuntenSeminars gedacht.
+		\end{frame}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\section{Textsatz-Grundlagen mit \LaTeX{}}
+		\subsection*{}
+		
+		\begin{frame}{Dokumentenklassen}
+			\begin{itemize}
+				\item Die Dokumentenklasse beschreibt wie ein Dokument aussieht
+				\item Ihr beschreibt was ihr schreibt (z.\,B. was eine Überschrift ist)
+				\item \LaTeX{} formatiert euer Dokument mit Hilfe der Dokumentenklasse, nicht ihr!
+			\end{itemize}
+			\vspace{0.2cm}
+			Beispiele für Dokumentenklassen:
+			\begin{description}
+				\item[Scrartcl/article:] Artikel im Umfang von mehreren Seiten
+				\item[Scrllr2/letter:] Briefe
+				\item[Scrreprt/report:] Reports, Umfang mehr als 15 Seiten
+				\item[Scrbook/book:] Bücher
+			\end{description}
 		\end{frame}
 \end{document}
