@@ -190,7 +190,7 @@
 		
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		
-		\section{Theorie in \LaTeX{}}
+		\section{Theorie}
 		\subsection{Textsatz}
 		
 		\begin{frame}{Dokumentenklassen}
@@ -239,6 +239,24 @@
 				\item Inhalte schreiben
 				\item Dokument schließen
 			\end{enumerate}
+		\end{frame}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\begin{frame}{Schriftgrößen}
+			\slideheading{Schriftgrößen:}
+			\begin{tabular}{l l}
+				tiny 			& \tiny\textbackslash tiny\normalsize\\
+				scriptsize 		& \scriptsize\textbackslash scriptsize\normalsize\\
+				footnotesize 	& \footnotesize\textbackslash footnotesize\normalsize\\
+				small 			& \small\textbackslash small\normalsize\\
+				normalsize 		& \normalsize\textbackslash normalsize\normalsize\\
+				large 			& \large\textbackslash large\normalsize\\
+				Large 			& \Large\textbackslash Large\normalsize\\
+				LARGE 			& \LARGE\textbackslash LARGE\normalsize\\
+				huge 			& \huge\textbackslash huge\normalsize\\
+				Huge 			& \Huge\textbackslash Huge\normalsize
+			\end{tabular}
 		\end{frame}
 		
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -430,7 +448,7 @@ oder \textit{kursiv}. Oder einfach nur
 				\slideheading{\LaTeX-Code:}
 				\begin{latexcode}
 \usepackage{enumerate}
-%% ...
+% ...
 \begin{enumerate}[I.]
 	\item Erster Punkt
 	    \begin{enumerate}[A]
@@ -464,7 +482,7 @@ oder \textit{kursiv}. Oder einfach nur
 				\slideheading{\LaTeX-Code:}
 				\begin{latexcode}
 \usepackage{enumerate}
-%% ...
+% ...
 \begin{enumerate}[1]
 	\item Erster Punkt
 	    \begin{enumerate}[(a).]
@@ -607,7 +625,7 @@ Bar & Lorem ipsum [...]
 			\vspace{0.5cm}
 			\slideheading{\LaTeX{}-Code:}
 			\begin{latexcode}
-%% Im Header
+% Im Header
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
@@ -823,7 +841,7 @@ Die Probleminstanz \(\mathfrak{B}\) sei gegeben Durch die Menge \(\mathbb{N}\) u
 \subsection{Cliquen in bipartiten Graphen}
 \label{sec:cliques}
 
-%% Irgendwo anders
+% Irgendwo anders
 Im Abschnitt \ref{sec:cliques} auf Seite
 \pageref{sec:cliques} wurde das Finden von
 Cliquen in bipartiten Graphen beschrieben.
@@ -841,11 +859,11 @@ Cliquen in bipartiten Graphen beschrieben.
 			\begin{latexcode}
 \begin{figure}[t]
 	\includegraphics[width=7cm]{images/lichtstrahl}
-	\caption{Brechung eines Lichtstrahls beim Wechsel des Mediums}
+	\caption{Brechung eines Lichtstrahls beim Wechsel
+			 des Mediums}
 	\label{fig:lichtbrechung}
 \end{figure}
-
-%% Irgendwo anders
+% Irgendwo anders
 Der Lichtstrahl wird gebrochen, wie
 Abbildung \ref{fig:lichtbrechung} zeigt.
 			\end{latexcode}
@@ -871,15 +889,15 @@ Abbildung \ref{fig:lichtbrechung} zeigt.
 		\begin{frame}[containsverbatim]{Bib\TeX}
 			\slideheading{\LaTeX{}-Code:}
 			\begin{latexcode}
-%% Im Header
+% Im Header
 \bibliographystyle{alpha}
 
-%% Beim Zitat
+% Beim Zitat
 Für die Lösung des Travelling-Salesman-Problems
 wurde ein heuristischer Algorithmus \cite{lin19973}
 gewählt.
 
-%% An der Stelle des Literaturverzeichnis
+% An der Stelle des Literaturverzeichnis
 \bibliography{literatur}
 			\end{latexcode}
 		\end{frame}
@@ -938,7 +956,7 @@ gewählt.
 			\slideheading{\LaTeX-Code:}
 			\begin{latexcode}
 \usepackage{minted}
-%% ...
+% ...
 \begin{minted}{java}
 class MeineKlasse{
 	private int meineVariable; // Deklaration
@@ -1072,7 +1090,7 @@ class MeineKlasse{
 		\begin{frame}[containsverbatim]{\TikZ}
 			\begin{smalllatexcode}
 \usepackage{pgf}
-%% ...
+% ...
 \begin{tikzpicture}[>=latex,semithick,font=\scriptsize,scale=0.75]
 	\draw[very thin,color=lightgray] (-3.2,-1.2) grid (3.2,4.2);
 	\draw[->] (-3.2,0) -- (3.4,0) node[right] {$x$};
@@ -1284,7 +1302,7 @@ class MeineKlasse{
 		
 		\subsection{Automaten}
 
-		\begin{frame}[containsverbatim]{Nodes}
+		\begin{frame}[containsverbatim]{Einführung}
 			\begin{itemize}
 				\item Automaten (state-machines) per \texttt{automata}-Paket
 				\item Für Positionierung \texttt{positioning}-Paket
@@ -1332,7 +1350,7 @@ class MeineKlasse{
 
 		\begin{frame}[containsverbatim]{Positionierung}
 			\slideheading{\TikZ-Code:}
-			\begin{smalllatexcode}
+			\begin{latexcode}
 \begin{tikzpicture}[->,
 	>=stealth',
 	semithick,
@@ -1342,7 +1360,7 @@ class MeineKlasse{
 	\node [state] (b) [above right=1cm and 2cm of a] {$b$};
 	\node [state] (c) [below right of = a]           {$c$};
 \end{tikzpicture}
-			\end{smalllatexcode}
+			\end{latexcode}
 		\end{frame}
 
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
