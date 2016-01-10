@@ -2,10 +2,40 @@
 \usepackage[utf8]{inputenc}
 \usepackage[ngerman]{babel}
 \usepackage{url}
-\usepackage{xcolor}
 \usepackage{minted}
 \usepackage[absolute,overlay]{textpos}
 \usepackage{lastpage}
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{pblue}{rgb}{0.13,0.13,1}
+\definecolor{pgreen}{rgb}{0,0.5,0}
+\definecolor{light-light-gray}{gray}{0.95}
+\definecolor{myBlue}{rgb}{0,0.55,0.8}
+
+\lstset{ %
+	language=Java,   							% choose the language of the code
+	basicstyle=\small\ttfamily,  				% the size of the fonts that are used for the code
+	numbers=left,                   			% where to put the line-numbers
+	numbersep=5pt,                  			% how far the line-numbers are from the code
+	backgroundcolor=\color{light-light-gray},   % choose the background color. You must add
+	frame=lrtb,           						% adds a frame around the code
+	tabsize=4,          						% sets default tabsize to 2 spaces
+	captionpos=b,           					% sets the caption-position to bottom
+	breaklines=true,        					% sets automatic line breaking
+	xleftmargin=1.5cm,							% space from the left paper edge
+	commentstyle=\color{pgreen},
+	keywordstyle=\color{pblue},
+	literate=%
+	    {Ö}{{\"O}}1
+	    {Ä}{{\"A}}1
+	    {Ü}{{\"U}}1
+	    {ß}{{\ss}}1
+	    {ü}{{\"u}}1
+	    {ä}{{\"a}}1
+	    {ö}{{\"o}}1
+	    {~}{{\textasciitilde}}1
+}
 
 \input{extra/miniframescontrol}
 \input{extra/latexcode}
@@ -27,7 +57,6 @@
 	\thepage\,/\,\pageref{LastPage}
 }
 
-\definecolor{myBlue}{rgb}{0,0.55,0.8}
 \usecolortheme[named=myBlue]{structure}
 
 \newcommand{\slideheading}[1]{\textbf{#1}\\}
@@ -279,7 +308,7 @@ Das Problem ist NP-vollständig.
 			\begin{latexcode}
 Dieser Text besitzt einen\\
 Zeilenumbruch.
-Dieser Text\newline
+Dieser       Text\newline
 auch
 
 Dies ist ein Absatz
@@ -289,7 +318,7 @@ Dies ist ein Absatz
 			\vspace{0.1cm}
 			Dieser Text besitzt einen\\
 			Zeilenumbruch
-			Dieser Text\newline
+			Dieser       Text\newline
 			auch
 			
 			~~~~Dies ist ein Absatz
@@ -885,8 +914,85 @@ gewählt.
 			\end{tabular}
 		\end{frame}
 		
+		\subsection{Code-Highlighten}
+		
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		
+		\begin{frame}[containsverbatim]{Mit \texttt{minted}}
+			\begin{itemize}
+				\item \texttt{minted} arbeitet mit Pygments (python-library).
+				\item Benötigt \texttt{-shell-escape} als Parameter von \texttt{pdflatex}. 
+			\end{itemize}
+			
+			\slideheading{\LaTeX-Code:}
+			\begin{latexcode}
+\usepackage{minted}
+%% ...
+\begin{minted}{java}
+class MeineKlasse{
+	private int meineVariable; // Deklaration
+	
+	public void meineMethode(){
+		meineVariable = 42; // Initialisierung
+	}
+}
+\end{minted}
+			\end{latexcode}
+		\end{frame}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\begin{frame}[containsverbatim]{Mit \texttt{minted}}
+			\slideheading{Ergebnis:}
+			\begin{minted}{java}
+class MeineKlasse{
+	private int meineVariable; // Deklaration
+	
+	public void meineMethode(){
+		meineVariable = 42; // Initialisierung
+	}
+}
+			\end{minted}
+		\end{frame}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\begin{frame}[containsverbatim]{Mit \texttt{lstlisting}}
+			\slideheading{\LaTeX-Code:}
+			\begin{latexcode}
+\usepackage{listings}
+\lstset{...} % style-einstellungen
+% ...
+\begin{lstlisting}[caption=Variablen]
+class MeineKlasse{
+	private int meineVariable; // Deklaration
+	
+	public void meineMethode(){
+		meineVariable = 42; // Initialisierung
+	}
+}
+\end{lstlisting}
+			\end{latexcode}
+		\end{frame}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\begin{frame}[containsverbatim]{Mit \texttt{lstlisting}}
+			\slideheading{Ergebnis:}
+			\begin{lstlisting}[caption=Variablen]
+class MeineKlasse{
+	private int meineVariable; // Deklaration
+	
+	public void meineMethode(){
+		meineVariable = 42; // Initialisierung
+	}
+}
+			\end{lstlisting}
+		\end{frame}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\section{Präsentationen}
 		\subsection{Präsentationen}
 		
 		\begin{frame}[containsverbatim]{\LaTeX{}-Beamer}
