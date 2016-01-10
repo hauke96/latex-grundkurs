@@ -8,6 +8,7 @@
 \usepackage{listings}
 \usepackage{color}
 \usepackage{tikz}
+\usepackage{pgf}
 
 \usetikzlibrary{calc,
 	intersections,
@@ -1002,7 +1003,7 @@ class MeineKlasse{
 		
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		
-		\section{Präsentationen}
+		\section{Beamer}
 		\subsection{Präsentationen}
 		
 		\begin{frame}[containsverbatim]{\LaTeX{}-Beamer}
@@ -1045,7 +1046,6 @@ class MeineKlasse{
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 		\section{\protect\TikZ}
-		\subsection{Grundlagen}
 		
 		\begin{frame}[containsverbatim]{\TikZ}
 			\begin{itemize}
@@ -1067,10 +1067,66 @@ class MeineKlasse{
 
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+		\subsection{Funktionen Zeichnen}
+		
+		\begin{frame}[containsverbatim]{\TikZ}
+			\begin{smalllatexcode}
+\usepackage{pgf}
+%% ...
+\begin{tikzpicture}[>=latex,semithick,font=\scriptsize,scale=0.75]
+	\draw[very thin,color=lightgray] (-3.2,-1.2) grid (3.2,4.2);
+	\draw[->] (-3.2,0) -- (3.4,0) node[right] {$x$};
+	\draw[->] (0,-1.2) -- (0,4.4) node[above] {$y$};
+    
+	\foreach \x/\xtext in {-3/-3, -2/-2, -1/-1, 1/1, 2/2, 3/3}
+	\draw[shift={(\x,0)}] (0pt,2pt) -- (0pt,-2pt) node[below] {$\xtext$};
+	
+	\foreach \y/\ytext in {-1/-1, 1/1, 2/2, 3/3, 4/4}
+	\draw[shift={(0,\y)}] (2pt,0pt) -- (-2pt,0pt) node[left] {$\ytext$};
+    
+	\draw[thin,domain=-2.075:2.075,smooth,variable=\x,black]
+		plot ({\x},{\x*\x});
+	\draw[thin] node[inner sep=1mm,
+					fill=white,
+					draw=lightgray] at (2.25,3) {$f(x)=x^2$};
+\end{tikzpicture}
+			\end{smalllatexcode}
+		\end{frame}
+
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		\begin{frame}{\TikZ}
+			\begin{center}
+				\slideheading{Ergebnis:}
+				\begin{tikzpicture}[>=latex,semithick,font=\scriptsize,scale=0.75]
+					\draw[very thin,color=lightgray] (-3.2,-1.2) grid (3.2,4.2);
+				    
+					\draw[->] (-3.2,0) -- (3.4,0) node[right] {$x$};
+					\draw[->] (0,-1.2) -- (0,4.4) node[above] {$y$};
+				    
+					\foreach \x/\xtext in {-3/-3, -2/-2, -1/-1, 1/1, 2/2, 3/3}
+					\draw[shift={(\x,0)}] (0pt,2pt) -- (0pt,-2pt) node[below] {$\xtext$};
+				    
+					\foreach \y/\ytext in {-1/-1, 1/1, 2/2, 3/3, 4/4}
+					\draw[shift={(0,\y)}] (2pt,0pt) -- (-2pt,0pt) node[left] {$\ytext$};
+				    
+					\draw[thin,domain=-2.075:2.075,smooth,variable=\x,black]
+						plot ({\x},{\x*\x});
+					\draw[thin] node[inner sep=1mm,
+									fill=white,
+									draw=lightgray] at (2.25,3) {$f(x)=x^2$};
+				\end{tikzpicture}
+			\end{center}
+		\end{frame}
+
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\subsection{Grundlagen}
+
 		\begin{frame}[containsverbatim]{\TikZ}
 			\begin{columns}[t]
 				\column{0.7\textwidth}
-				\slideheading{Ergebnis:}
+				\slideheading{\LaTeX{}-Code:}
 				\begin{latexcode}
 \begin{tikzpicture}
 	\draw[thick,rounded corners=8pt]
@@ -1082,7 +1138,7 @@ class MeineKlasse{
 				
 				\column{0.3\textwidth}
 				\hspace{3mm}
-				\slideheading{\LaTeX{}-Code:}
+				\slideheading{Ergebnis:}
 				\hspace{3mm}
 				\begin{tikzpicture}
 					\draw[thick,rounded corners=8pt]
