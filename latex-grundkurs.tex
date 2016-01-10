@@ -5,6 +5,7 @@
 \usepackage{xcolor}
 \usepackage{minted}
 \usepackage[absolute,overlay]{textpos}
+\usepackage{lastpage}
 
 \input{extra/miniframescontrol}
 \input{extra/latexcode}
@@ -16,6 +17,15 @@
 \setbeamertemplate{toc}{circle}
 \setbeamertemplate{itemize subitem}[triangle] % if you want a triangle
 \setbeamercovered{transparent}
+
+%Für [Seite]/[Anzahl-Seiten] in der unteren rechten ecke
+\newcommand*\oldmacro{}%
+\let\oldmacro\insertshorttitle%
+\renewcommand*\insertshorttitle
+{
+	\oldmacro\hfill%
+	\thepage\,/\,\pageref{LastPage}
+}
 
 \definecolor{myBlue}{rgb}{0,0.55,0.8}
 \usecolortheme[named=myBlue]{structure}
@@ -33,20 +43,23 @@
 
 \begin{document}
 	\maketitle
-	\begin{frame}
 		
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+	\begin{frame}
+		\begin{center}
+			Danke Henning (\texttt{8pridoeh}) dass wir deine Folien aus dem WS14/15 benutzen dürfen :D
+		\end{center}
 	\end{frame}
 		
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		
 	\begin{frame}
-		\begin{minipage}[t][0.5\textheight]{0.5\textwidth}
-			\vspace{0pt} 
+		\begin{minipage}[0.5\textheight]{0.5\textwidth}
 			\tableofcontents
 		\end{minipage}
-		\begin{minipage}[t]{0.45\textwidth} 
-			\vspace{0pt}  
-			\includegraphics[width=\textwidth]{./images/gib-word-keine-chance}
+		\begin{minipage}{0.45\textwidth}
+			\includegraphics[width=1.05\textwidth]{./images/gib-word-keine-chance}
 		\end{minipage}
 	\end{frame}
 		
@@ -59,7 +72,7 @@
 			\begin{itemize}
 				\item \TeX{} ist ein Textsatzsystem von Donald E. Knuth
 				\item \LaTeX{} ist ein Satz von Makros für \TeX
-				\item WYSIWYT (What You See Is What You Type)
+				\item WYSIWYM (What You See Is What You Mean)
 			\end{itemize}
 			\vspace{0.2cm}
 			\slideheading{Vorteile von \LaTeX{}:}
@@ -71,6 +84,7 @@
 				\item ``Ich möchte X mit \LaTeX{} machen'' $\rightarrow$
 				Suchmaschine: ``latex X'' eingeben $\rightarrow$
 				Ergebnis in den Quelltext kopieren
+				\item Der meiste Code ist wiederverwendbar
 			\end{itemize}
 		\end{frame}
 		
@@ -131,9 +145,7 @@
 			Menschen \TeX/\LaTeX-Code auf eurem Rechner/Server ausführen.
 			
 			\vspace{0.2cm}
-			\slideheading{Anmerkung:} Wenn du dir diese Folien anschaust, ist das System
-			nicht mehr online. Es war nur zum Ausprobieren während des
-			KunterBuntenSeminars gedacht.
+			\slideheading{Anmerkung:} Man kann \textbf{\href{https://www.overleaf.com}{https://www.overleaf.com}} zum live-nachcoden benutzen.
 		\end{frame}
 		
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -184,7 +196,7 @@
 				\item Pakete laden
 				\item Einstellungen vornehmen, Styles ändern, Befehle definieren, et.
 				\item Dokument öffnen
-				\item Zeugs schreiben
+				\item Inhalte schreiben
 				\item Dokument schließen
 			\end{enumerate}
 		\end{frame}
@@ -341,7 +353,7 @@ oder \textit{kursiv}. Oder einfach nur
 		
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		
-		\begin{frame}[t,containsverbatim]{(Nummerierte) Auflistungen}
+		\begin{frame}[t,containsverbatim]{Geschachtelte Auflistungen}
 			\begin{columns}[t]
 				\column{.5\textwidth}
 				\slideheading{\LaTeX-Code:}
@@ -367,6 +379,74 @@ oder \textit{kursiv}. Oder einfach nur
 					\item Butter
 					\item Milch
 				\end{itemize}
+			\end{columns}
+		\end{frame}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\begin{frame}[containsverbatim]{\texttt{enumerate}-Packet}
+			\begin{columns}[t]
+				\column{.5\textwidth}
+				\slideheading{\LaTeX-Code:}
+				\begin{latexcode}
+\usepackage{enumerate}
+%% ...
+\begin{enumerate}[I.]
+	\item Erster Punkt
+	    \begin{enumerate}[A]
+	    \item Erster Unterpunkt
+	    \item Zweiter Unterpunkte
+	    \end{enumerate}
+	\item Zweiter Punkt
+	\item Dritter Punkt
+\end{enumerate}
+				\end{latexcode}
+				
+				\column{.45\textwidth}
+				\slideheading{Ergebnis:}
+				\begin{enumerate}[I.]
+					\item Erster Punkt
+					    \begin{enumerate}[A]
+					    \item Erster Unterpunkt
+					    \item Zweiter Unterpunkte
+					    \end{enumerate}
+					\item Zweiter Punkt
+					\item Dritter Punkt
+				\end{enumerate}
+			\end{columns}
+		\end{frame}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\begin{frame}[containsverbatim]{\texttt{enumerate}-Packet}
+			\begin{columns}[t]
+				\column{.5\textwidth}
+				\slideheading{\LaTeX-Code:}
+				\begin{latexcode}
+\usepackage{enumerate}
+%% ...
+\begin{enumerate}[1]
+	\item Erster Punkt
+	    \begin{enumerate}[(a).]
+	    \item Erster Unterpunkt
+	    \item Zweiter Unterpunkte
+	    \end{enumerate}
+	\item Zweiter Punkt
+	\item Dritter Punkt
+\end{enumerate}
+				\end{latexcode}
+				
+				\column{.5\textwidth}
+				\slideheading{Ergebnis:}
+				\begin{enumerate}[1]
+					\item Erster Punkt
+					    \begin{enumerate}[(a).]
+					    \item Erster Unterpunkt
+					    \item Zweiter Unterpunkte
+					    \end{enumerate}
+					\item Zweiter Punkt
+					\item Dritter Punkt
+				\end{enumerate}
 			\end{columns}
 		\end{frame}
 		
@@ -506,7 +586,7 @@ Bar & Lorem ipsum [...]
 				\end{itemize}
 				\item Die \texttt{\textbackslash(...\textbackslash)} Umgebung
 				\begin{itemize}
-					\item Mathe innerhalb von Text (stammt aus \LaTeX und funktioniert besser mit den Mathe-Paketen)
+					\item Mathe innerhalb von Text (stammt aus \LaTeX und funktioniert besser mit den \texttt{ams}-Paketen)
 				\end{itemize}
 				\item Die \texttt{\textbackslash[...\textbackslash]} Umgebung
 				\begin{itemize}
@@ -517,7 +597,6 @@ Bar & Lorem ipsum [...]
 		
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		
-		\subsection{Mathematischer Textsatz}
 		\begin{frame}[containsverbatim]{Mathe-Umgebung}
 			\slideheading{\LaTeX{}-Code:}
 			\begin{latexcode}
@@ -530,18 +609,10 @@ verwenden. Oder auch Matheformeln als ganzen Block:
 			Wir können im Text Wurzeln, wie z.\,B. \( \sqrt{2} \)
 			verwenden. Oder auch Matheformeln als ganzen Block:
 			\[ \sum_{k=1}^n k = \frac{n(n+1)}{2} \]
-			
-			\vspace{0.1cm}
-			%% Rule fügt eine horizontale Linie ein. Diese ist so breit wie die 
-			%% maximale Textbreite (\textwidth) und 0.3mm dick.
-			\rule{\textwidth}{.3mm}
-			\scriptsize{\slideheading{Merke:}
-			Das \$-Symbol für Mathemodus ist aus \TeX{} und nicht aus \LaTeX{}. Die \LaTeX{}-Variante geht besser mit \texttt{ams}-Macros und Fehlern um.\vfill}
 		\end{frame}
 		
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		
-		\subsection{Mathematischer Textsatz}
 		\begin{frame}[containsverbatim]{Mathe-Umgebung}
 			\slideheading{\LaTeX{}-Code:}
 			\begin{latexcode}
@@ -556,7 +627,6 @@ Neben Summen ($\sum$) gibt es auch Integrale:
 		
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		
-		\subsection{Mathematischer Textsatz}
 		\begin{frame}[containsverbatim]{Mathe-Umgebung}
 			\slideheading{\LaTeX{}-Code:}
 			\begin{latexcode}
