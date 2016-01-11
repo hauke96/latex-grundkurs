@@ -10,3 +10,9 @@
   \begin{VerbatimOut}{latexcode.out}}
   {\end{VerbatimOut}%
   \inputminted[fontsize=\scriptsize,breaksymbolindentleft=2,tabsize=4]{latex}{latexcode.out}}
+
+\newenvironment{smallerlatexcode}
+ {\VerbatimEnvironment
+  \begin{VerbatimOut}{latexcode.out}}
+  {\end{VerbatimOut}%
+  \inputminted[fontsize=\small,breaksymbolindentleft=2,tabsize=4]{latex}{latexcode.out}}

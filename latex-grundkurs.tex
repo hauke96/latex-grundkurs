@@ -10,13 +10,47 @@
 \usepackage{tikz}
 \usepackage{pgf}
 
-\usetikzlibrary{calc,
+\usetikzlibrary{
+	calc,
 	intersections,
 	through,
 	positioning,
 	hobby,
 	automata,
 	arrows}
+	
+\newcommand\pgfmathsinandcos[3]{%
+    \pgfmathsetmacro#1{sin(#3)}%
+    \pgfmathsetmacro#2{cos(#3)}%
+}
+\newcommand\LongitudePlane[3][current plane]{%
+    \pgfmathsinandcos\sinEl\cosEl{#2} % elevation
+    \pgfmathsinandcos\sint\cost{#3}   % azimuth
+    \tikzset{#1/.estyle={cm={\cost,\sint*\sinEl,0,\cosEl,(0,0)}}}
+}
+\newcommand\LatitudePlane[3][current plane]{%
+    \pgfmathsinandcos\sinEl\cosEl{#2} % elevation
+    \pgfmathsinandcos\sint\cost{#3}   % latitude
+    \pgfmathsetmacro\yshift{\cosEl*\sint}
+    \tikzset{#1/.estyle={cm={\cost,0,0,\cost*\sinEl,(0,\yshift)}}} %
+}
+\newcommand\DrawLongitudeCircle[2][1]{
+    \LongitudePlane{\angEl}{#2}
+    \tikzset{current plane/.prefix style={scale=#1}}
+    % angle of "visibility"
+    \pgfmathsetmacro\angVis{atan(sin(#2)*cos(\angEl)/sin(\angEl))} %
+    \draw[current plane] (\angVis:1) arc (\angVis:\angVis+180:1);
+    \draw[current plane,dashed] (\angVis-180:1) arc (\angVis-180:\angVis:1);
+}
+\newcommand\DrawLatitudeCircle[2][1]{
+    \LatitudePlane{\angEl}{#2}
+    \tikzset{current plane/.prefix style={scale=#1}}
+    \pgfmathsetmacro\sinVis{sin(#2)/cos(#2)*sin(\angEl)/cos(\angEl)}
+    % angle of "visibility"
+    \pgfmathsetmacro\angVis{asin(min(1,max(\sinVis,-1)))}
+    \draw[current plane] (\angVis:1) arc (\angVis:-\angVis-180:1);
+    \draw[current plane,dashed] (180-\angVis:1) arc (180-\angVis:\angVis:1);
+}
 
 \definecolor{pblue}{rgb}{0.13,0.13,1}
 \definecolor{pgreen}{rgb}{0,0.5,0}
@@ -71,9 +105,10 @@
 
 \newcommand{\slideheading}[1]{\textbf{#1}\\}
 \newcommand{\TikZ}{Ti\textit{k}Z}
+\newcommand{\bus}[4]{Ein Bus der Linie #1 Richtung #2 fährt von #3 um #4 ab.}
 
 \title{Das \LaTeX-KBS}
-\subtitle{\small Grundlagen von \LaTeX, Ti\textit{k}Z und Co.}
+\subtitle{\small Grundlagen von \LaTeX, Ti\textit{k}Z, Beamer und Tipps für Hausaufgaben, Seminararbeiten, etc.}
 \author
 {
 	Walter Stieben \texttt{\href{mailto:4stieben@informatik.uni-hamburg.de}{4stieben@inf}}\\
@@ -96,7 +131,7 @@
 		
 	\begin{frame}
 		\begin{minipage}[0.5\textheight]{0.5\textwidth}
-			\tableofcontents
+			\tableofcontents[hideallsubsections]
 		\end{minipage}
 		\begin{minipage}{0.45\textwidth}
 			\includegraphics[width=1.05\textwidth]{./images/gib-word-keine-chance}
@@ -105,7 +140,7 @@
 		
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		
-	\section{Was ist \TeX{} und \LaTeX{}}
+	\section{Was ist \LaTeX{}}
 		\subsection*{}
 		\begin{frame}{Was ist \LaTeX{}}
 			\slideheading{\LaTeX{} und \TeX{}:}
@@ -190,8 +225,8 @@
 		
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		
-		\section{Theorie}
-		\subsection{Textsatz}
+		\section{Grundlagen von \LaTeX{} und \TeX}
+		\subsection{Theorie}
 		
 		\begin{frame}{Dokumentenklassen}
 			\begin{itemize}
@@ -261,7 +296,6 @@
 		
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		
-		\section{Grundlagen mit \LaTeX{}}
 		\subsection{Textsatz-Grundlagen}
 		
 		\begin{frame}[containsverbatim]{Mein erstes Dokument}
@@ -1021,44 +1055,65 @@ class MeineKlasse{
 		
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		
-		\section{Beamer}
-		\subsection{Präsentationen}
-		
-		\begin{frame}[containsverbatim]{\LaTeX{}-Beamer}
-			\slideheading{\LaTeX{}-Code:}
+		\subsection{Makros}
+		\begin{frame}[containsverbatim]{Eigene Befehle}
+			\slideheading{\LaTeX-Code:}
 			\begin{latexcode}
-\documentclass{beamer}
-% Normaler Header mit inputenc, fontenc, babel etc.
-\begin{document}
-	\section{Erster Unterpunkt}
-	\begin{frame}{Hallo Welt}
-		\begin{itemize}
-			\item Erster Punkt
-			\item Zweiter Punkt
-		\end{itemize}
-	\end{frame}
-\end{document}
+% TeX-style
+\def\heute{Heute ist der \today.}
+% LaTeX-style (besser)
+\newcommand{\heute}{Heute ist der \today.}
+\newcommand{\TikZ}{Ti\textit{k}Z}
+% Verwendung
+\heute
+\TikZ
 			\end{latexcode}
+			\slideheading{Ergebnis:}
+			Heute ist der \today.\\
+			\TikZ
 		\end{frame}
 		
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		
-		\begin{frame}[containsverbatim]{Themes bei Präsentationen}
-			\slideheading{\LaTeX{}-Code:}
+		\begin{frame}[containsverbatim]{Eigene Befehle}
+			\slideheading{\LaTeX-Code:}
 			\begin{latexcode}
-\usetheme[compress]{Berlin}
-\setbeamerfont{headline}{size=\large}
-\setbeamerfont*{section in head/foot}{size=\tiny}
-\setbeamertemplate{toc}{circle}
-\setbeamertemplate{itemize subitem}[triangle]
-\setbeamercovered{transparent}
-
-\definecolor{myBlue}{rgb}{0,0.55,0.8}
-\usecolortheme[named=myBlue]{structure}
+% LaTeX-style
+\newcommand{\bus}[4]{Ein Bus der Linie #1 Richtung 
+                    #2 fährt von der Haltestelle
+                    #3 um #4 ab.}
+% Verwendung
+\bus{181}{Sternschanze}{Informatikum}{13:39}
 			\end{latexcode}
-			
 			\slideheading{Ergebnis:}
-			Siehe diese Präsentation :-)
+			\bus{181}{Sternschanze}{Informatikum}{13:39}
+		\end{frame}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\begin{frame}[containsverbatim]{Eigene Umgebungen}
+			\slideheading{\LaTeX-Code:}
+			\begin{latexcode}
+\newenvironment{textttit}
+               {\begingroup\ttfamily\itshape}
+               {\endgroup}
+% Verwendung
+\begin{textttit}
+	Dies ist ein Test
+\end{textttit}
+			\end{latexcode}
+			\slideheading{Ergebnis:}
+			\texttt{\textit{Dies ist ein Test}}
+		\end{frame}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\section{HA-Tipps}
+		
+		\begin{frame}[containsverbatim]{\LaTeX{}-Beamer}
+			\begin{center}
+				Und jetzt ein paar Tipps für Hausaufgaben/-arbeiten
+			\end{center}
 		\end{frame}
 
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1071,6 +1126,8 @@ class MeineKlasse{
 				\item Abbildungen werden mit TikZ beschrieben und durch PGF gerendert.
 				\item Sehr umfangreiches Paket (Dokumentation: $>$1000 Seiten), viele Möglichkeiten.
 				\item Hat direkte Unterstützung für Petrinetze :-)
+				\item Overkill: Animationen in einer PDF mittels\\
+				JavaScript und \TikZ ~:o
 			\end{itemize}
 			
 			
@@ -1312,8 +1369,6 @@ class MeineKlasse{
 		\end{frame}
 
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-		
-		\subsection{Automaten}
 
 		\begin{frame}[containsverbatim]{Zustände}
 			\slideheading{\TikZ-Code:}
@@ -1350,7 +1405,7 @@ class MeineKlasse{
 
 		\begin{frame}[containsverbatim]{Positionierung}
 			\slideheading{\TikZ-Code:}
-			\begin{latexcode}
+			\begin{smallerlatexcode}
 \begin{tikzpicture}[->,
 	>=stealth',
 	semithick,
@@ -1360,7 +1415,7 @@ class MeineKlasse{
 	\node [state] (b) [above right=1cm and 2cm of a] {$b$};
 	\node [state] (c) [below right of = a]           {$c$};
 \end{tikzpicture}
-			\end{latexcode}
+			\end{smallerlatexcode}
 		\end{frame}
 
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1521,6 +1576,111 @@ class MeineKlasse{
 							(E)	edge [bend left,below]  node {0} (R)
 								edge [loop,above]       node {0,1} (E);
 				\end{tikzpicture}
+			\end{center}
+		\end{frame}
+
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%		\begin{frame}[containsverbatim]{Pfeile}
+%			\begin{center}
+%				... mehrere kaputte Kaffeemaschinen später ...
+%			\end{center}
+%		\end{frame}
+%
+%		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%		\begin{frame}[containsverbatim]{\TikZ at its best}
+%			\begin{center}
+%				\begin{tikzpicture}[scale=0.6,
+%				        %Option for nice arrows%
+%				        >=latex,%
+%				        inner sep=0pt,%
+%				        outer sep=2pt,%
+%				        mark coordinate/.style={outer sep=0pt,
+%				            minimum size=3pt, fill=black,circle}%
+%				    ]
+%				    %% some definitions
+%				    \def\R{0.5}       % sphere radius
+%				    \def\angEl{30}    % elevation angle
+%				    \def\angAz{-140}  % azimuth angle
+%				    \def\angPhi{-105} % longitude of point
+%				    \def\angBeta{55}  % latitude of point
+%				    \def\angGam{-190} % longitude of point
+%				    %% working planes
+%				    \pgfmathsetmacro\H{\R*cos(\angEl)}          % Distance to north pole
+%				    \LongitudePlane[xzplane]{\angEl}{\angAz}    % x-axis plane
+%				    %
+%				    \coordinate (O) at (0,0);
+%				    %
+%				    \begin{scope}[rotate around={-11.1:(0,0)},
+%				        field line/.style={color=red, smooth,
+%				            variable=\t, samples at={0,-5,-10,...,-360}}
+%				    ]
+%				        \clip[rotate around={11.1:(0,0)}] (-7,5) rectangle (7,-5);
+%				
+%				        % Computes a point on a field line given r and t
+%				        \newcommand{\fieldlinecurve}[2]{%
+%				            {(pow(#1,2))*(3*cos(#2)+cos(3*#2))}, {(pow(#1,2))*(sin(#2)+sin(3*#2))}%
+%				        }
+%				
+%				        % Longitudinal plnaes
+%				        \foreach \u in {0,-40,...,-160}{
+%				            \LongitudePlane[{{\u}zplane}]{\angEl}{\u}
+%				            \foreach \r in {0.25,0.5,...,2.25} {
+%				                \draw[{{\u}zplane}, field line]
+%				                plot (\fieldlinecurve{\r}{\t});
+%				            }
+%				        }
+%				        \foreach \u in {-200,-240,...,-320}{
+%				            \LongitudePlane[{{\u}zplane}]{\angEl}{\u}
+%				            \foreach \r in {0.25,0.5,...,2.25}{
+%				            \draw[{{\u}zplane}, dashed, field line]
+%				                plot (\fieldlinecurve{\r}{\t});
+%				            }
+%				        }
+%				        % Drawing plane for the B-vectors
+%				        \LongitudePlane[bzplane]{\angEl}{0}
+%				            \foreach \r in {0.25,0.5,...,2.25}{
+%				            \draw[bzplane, thick, field line]
+%				                plot (\fieldlinecurve{\r}{\t});
+%				        }
+%				
+%				        \begin{scope}[bzplane, very thick, ->, >=stealth]
+%				            \draw (\fieldlinecurve{1.25}{-30}) -- +(-30:0.79cm)  node[right] {$\vec{B_{r}}$};
+%				            \draw (\fieldlinecurve{1.25}{-30}) -- +(60:0.68cm)   node[right] {$\vec{B_{\theta}}$};
+%				            \draw (\fieldlinecurve{1.25}{30})  -- +(-150:0.79cm) node[below] {$\vec{B_{r}}$};
+%				            \draw (\fieldlinecurve{1.25}{30})  -- +(120:0.68cm)  node[above] {$\vec{B_{\theta}}$};
+%				        \end{scope}
+%				        %
+%				        \begin{scope}[rotate around={11.1:(0,0)}]
+%				            \fill[ball color=white,opacity=0.3] (O) circle (\R); %3D lighting effect
+%				            \draw (O) circle (\R);
+%				            \DrawLongitudeCircle[\R]{\angAz}      % xzplane
+%				            \DrawLongitudeCircle[\R]{\angAz + 90} % vzplane
+%				            \DrawLatitudeCircle[\R]{0}            % equator
+%				            \DrawLatitudeCircle[\R]{70}           % Latitude 70
+%				            \DrawLatitudeCircle[\R]{-70}          % Latitude -70
+%				        \end{scope}
+%				        %
+%				        \coordinate[mark coordinate] (Sm) at (0, \H);
+%				        \coordinate[mark coordinate] (Nm) at (0,-\H);
+%				        \path[xzplane] (Nm) -- +(0,-0.75) coordinate (Nm1) node[below] {$\mathbf{N}_m$}
+%				                       (Sm) -- +(0,0.75)  coordinate (Sm1) node[above] {$\mathbf{S}_m$};
+%				        \draw[very thick, dashed]    (Sm) -- (Nm);
+%				        \draw[very thick]            (Sm1) -- (Sm);
+%				        \draw[very thick,->,>=latex'](Nm) -- (Nm1);
+%				    \end{scope}
+%				\end{tikzpicture}
+%			\end{center}
+%		\end{frame}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\section{Beamer}
+		
+		\begin{frame}[containsverbatim]{\LaTeX{}-Beamer}
+			\begin{center}
+				Und jetzt \LaTeX-Beamer
 			\end{center}
 		\end{frame}
 \end{document}
