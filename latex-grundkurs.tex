@@ -1108,13 +1108,13 @@ class MeineKlasse{
 		
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		
-		\section{HA-Tipps}
-		
-		\begin{frame}[containsverbatim]{\LaTeX{}-Beamer}
-			\begin{center}
-				Und jetzt ein paar Tipps für Hausaufgaben/-arbeiten
-			\end{center}
-		\end{frame}
+%		\section{HA-Tipps}
+%		
+%		\begin{frame}[containsverbatim]{\LaTeX{}-Beamer}
+%			\begin{center}
+%				Und jetzt ein paar Tipps für Hausaufgaben/-arbeiten
+%			\end{center}
+%		\end{frame}
 
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1138,60 +1138,6 @@ class MeineKlasse{
 				(0,0) -- (0,2) -- (1,3.25) -- (2,2) -- 
 				(2,0) -- (0,2) -- (2,2) -- (0,0) -- (2,0);
 			\end{tikzpicture}
-		\end{frame}
-
-		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-		\subsection{Funktionen Zeichnen}
-		
-		\begin{frame}[containsverbatim]{\TikZ}
-			\begin{smalllatexcode}
-\usepackage{pgf}
-% ...
-\begin{tikzpicture}[>=latex,semithick,font=\scriptsize,scale=0.75]
-	\draw[very thin,color=lightgray] (-3.2,-1.2) grid (3.2,4.2);
-	\draw[->] (-3.2,0) -- (3.4,0) node[right] {$x$};
-	\draw[->] (0,-1.2) -- (0,4.4) node[above] {$y$};
-    
-	\foreach \x/\xtext in {-3/-3, -2/-2, -1/-1, 1/1, 2/2, 3/3}
-	\draw[shift={(\x,0)}] (0pt,2pt) -- (0pt,-2pt) node[below] {$\xtext$};
-	
-	\foreach \y/\ytext in {-1/-1, 1/1, 2/2, 3/3, 4/4}
-	\draw[shift={(0,\y)}] (2pt,0pt) -- (-2pt,0pt) node[left] {$\ytext$};
-    
-	\draw[thin,domain=-2.075:2.075,smooth,variable=\x,black]
-		plot ({\x},{\x*\x});
-	\draw[thin] node[inner sep=1mm,
-					fill=white,
-					draw=lightgray] at (2.25,3) {$f(x)=x^2$};
-\end{tikzpicture}
-			\end{smalllatexcode}
-		\end{frame}
-
-		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-		\begin{frame}{\TikZ}
-			\begin{center}
-				\slideheading{Ergebnis:}
-				\begin{tikzpicture}[>=latex,semithick,font=\scriptsize,scale=0.75]
-					\draw[very thin,color=lightgray] (-3.2,-1.2) grid (3.2,4.2);
-				    
-					\draw[->] (-3.2,0) -- (3.4,0) node[right] {$x$};
-					\draw[->] (0,-1.2) -- (0,4.4) node[above] {$y$};
-				    
-					\foreach \x/\xtext in {-3/-3, -2/-2, -1/-1, 1/1, 2/2, 3/3}
-					\draw[shift={(\x,0)}] (0pt,2pt) -- (0pt,-2pt) node[below] {$\xtext$};
-				    
-					\foreach \y/\ytext in {-1/-1, 1/1, 2/2, 3/3, 4/4}
-					\draw[shift={(0,\y)}] (2pt,0pt) -- (-2pt,0pt) node[left] {$\ytext$};
-				    
-					\draw[thin,domain=-2.075:2.075,smooth,variable=\x,black]
-						plot ({\x},{\x*\x});
-					\draw[thin] node[inner sep=1mm,
-									fill=white,
-									draw=lightgray] at (2.25,3) {$f(x)=x^2$};
-				\end{tikzpicture}
-			\end{center}
 		\end{frame}
 
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1581,106 +1527,160 @@ class MeineKlasse{
 
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%		\begin{frame}[containsverbatim]{Pfeile}
-%			\begin{center}
-%				... mehrere kaputte Kaffeemaschinen später ...
-%			\end{center}
-%		\end{frame}
-%
-%		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%		\begin{frame}[containsverbatim]{\TikZ at its best}
-%			\begin{center}
-%				\begin{tikzpicture}[scale=0.6,
-%				        %Option for nice arrows%
-%				        >=latex,%
-%				        inner sep=0pt,%
-%				        outer sep=2pt,%
-%				        mark coordinate/.style={outer sep=0pt,
-%				            minimum size=3pt, fill=black,circle}%
-%				    ]
-%				    %% some definitions
-%				    \def\R{0.5}       % sphere radius
-%				    \def\angEl{30}    % elevation angle
-%				    \def\angAz{-140}  % azimuth angle
-%				    \def\angPhi{-105} % longitude of point
-%				    \def\angBeta{55}  % latitude of point
-%				    \def\angGam{-190} % longitude of point
-%				    %% working planes
-%				    \pgfmathsetmacro\H{\R*cos(\angEl)}          % Distance to north pole
-%				    \LongitudePlane[xzplane]{\angEl}{\angAz}    % x-axis plane
-%				    %
-%				    \coordinate (O) at (0,0);
-%				    %
-%				    \begin{scope}[rotate around={-11.1:(0,0)},
-%				        field line/.style={color=red, smooth,
-%				            variable=\t, samples at={0,-5,-10,...,-360}}
-%				    ]
-%				        \clip[rotate around={11.1:(0,0)}] (-7,5) rectangle (7,-5);
-%				
-%				        % Computes a point on a field line given r and t
-%				        \newcommand{\fieldlinecurve}[2]{%
-%				            {(pow(#1,2))*(3*cos(#2)+cos(3*#2))}, {(pow(#1,2))*(sin(#2)+sin(3*#2))}%
-%				        }
-%				
-%				        % Longitudinal plnaes
-%				        \foreach \u in {0,-40,...,-160}{
-%				            \LongitudePlane[{{\u}zplane}]{\angEl}{\u}
-%				            \foreach \r in {0.25,0.5,...,2.25} {
-%				                \draw[{{\u}zplane}, field line]
-%				                plot (\fieldlinecurve{\r}{\t});
-%				            }
-%				        }
-%				        \foreach \u in {-200,-240,...,-320}{
-%				            \LongitudePlane[{{\u}zplane}]{\angEl}{\u}
-%				            \foreach \r in {0.25,0.5,...,2.25}{
-%				            \draw[{{\u}zplane}, dashed, field line]
-%				                plot (\fieldlinecurve{\r}{\t});
-%				            }
-%				        }
-%				        % Drawing plane for the B-vectors
-%				        \LongitudePlane[bzplane]{\angEl}{0}
-%				            \foreach \r in {0.25,0.5,...,2.25}{
-%				            \draw[bzplane, thick, field line]
-%				                plot (\fieldlinecurve{\r}{\t});
-%				        }
-%				
-%				        \begin{scope}[bzplane, very thick, ->, >=stealth]
-%				            \draw (\fieldlinecurve{1.25}{-30}) -- +(-30:0.79cm)  node[right] {$\vec{B_{r}}$};
-%				            \draw (\fieldlinecurve{1.25}{-30}) -- +(60:0.68cm)   node[right] {$\vec{B_{\theta}}$};
-%				            \draw (\fieldlinecurve{1.25}{30})  -- +(-150:0.79cm) node[below] {$\vec{B_{r}}$};
-%				            \draw (\fieldlinecurve{1.25}{30})  -- +(120:0.68cm)  node[above] {$\vec{B_{\theta}}$};
-%				        \end{scope}
-%				        %
-%				        \begin{scope}[rotate around={11.1:(0,0)}]
-%				            \fill[ball color=white,opacity=0.3] (O) circle (\R); %3D lighting effect
-%				            \draw (O) circle (\R);
-%				            \DrawLongitudeCircle[\R]{\angAz}      % xzplane
-%				            \DrawLongitudeCircle[\R]{\angAz + 90} % vzplane
-%				            \DrawLatitudeCircle[\R]{0}            % equator
-%				            \DrawLatitudeCircle[\R]{70}           % Latitude 70
-%				            \DrawLatitudeCircle[\R]{-70}          % Latitude -70
-%				        \end{scope}
-%				        %
-%				        \coordinate[mark coordinate] (Sm) at (0, \H);
-%				        \coordinate[mark coordinate] (Nm) at (0,-\H);
-%				        \path[xzplane] (Nm) -- +(0,-0.75) coordinate (Nm1) node[below] {$\mathbf{N}_m$}
-%				                       (Sm) -- +(0,0.75)  coordinate (Sm1) node[above] {$\mathbf{S}_m$};
-%				        \draw[very thick, dashed]    (Sm) -- (Nm);
-%				        \draw[very thick]            (Sm1) -- (Sm);
-%				        \draw[very thick,->,>=latex'](Nm) -- (Nm1);
-%				    \end{scope}
-%				\end{tikzpicture}
-%			\end{center}
-%		\end{frame}
+		\subsection{Funktionen Zeichnen}
+		
+		\begin{frame}[containsverbatim]{\TikZ}
+			\begin{smalllatexcode}
+\usepackage{pgf}
+% ...
+\begin{tikzpicture}[>=latex,semithick,font=\scriptsize,scale=0.75]
+	\draw[very thin,color=lightgray] (-3.2,-1.2) grid (3.2,4.2);
+	\draw[->] (-3.2,0) -- (3.4,0) node[right] {$x$};
+	\draw[->] (0,-1.2) -- (0,4.4) node[above] {$y$};
+    
+	\foreach \x/\xtext in {-3/-3, -2/-2, -1/-1, 1/1, 2/2, 3/3}
+	\draw[shift={(\x,0)}] (0pt,2pt) -- (0pt,-2pt) node[below] {$\xtext$};
+	
+	\foreach \y/\ytext in {-1/-1, 1/1, 2/2, 3/3, 4/4}
+	\draw[shift={(0,\y)}] (2pt,0pt) -- (-2pt,0pt) node[left] {$\ytext$};
+    
+	\draw[thin,domain=-2.075:2.075,smooth,variable=\x,black]
+		plot ({\x},{\x*\x});
+	\draw[thin] node[inner sep=1mm,
+					fill=white,
+					draw=lightgray] at (2.25,3) {$f(x)=x^2$};
+\end{tikzpicture}
+			\end{smalllatexcode}
+		\end{frame}
+
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		\begin{frame}{\TikZ}
+			\begin{center}
+				\slideheading{Ergebnis:}
+				\begin{tikzpicture}[>=latex,semithick,font=\scriptsize,scale=0.75]
+					\draw[very thin,color=lightgray] (-3.2,-1.2) grid (3.2,4.2);
+				    
+					\draw[->] (-3.2,0) -- (3.4,0) node[right] {$x$};
+					\draw[->] (0,-1.2) -- (0,4.4) node[above] {$y$};
+				    
+					\foreach \x/\xtext in {-3/-3, -2/-2, -1/-1, 1/1, 2/2, 3/3}
+					\draw[shift={(\x,0)}] (0pt,2pt) -- (0pt,-2pt) node[below] {$\xtext$};
+				    
+					\foreach \y/\ytext in {-1/-1, 1/1, 2/2, 3/3, 4/4}
+					\draw[shift={(0,\y)}] (2pt,0pt) -- (-2pt,0pt) node[left] {$\ytext$};
+				    
+					\draw[thin,domain=-2.075:2.075,smooth,variable=\x,black]
+						plot ({\x},{\x*\x});
+					\draw[thin] node[inner sep=1mm,
+									fill=white,
+									draw=lightgray] at (2.25,3) {$f(x)=x^2$};
+				\end{tikzpicture}
+			\end{center}
+		\end{frame}
+
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		\begin{frame}[containsverbatim]{Pfeile}
+			\begin{center}
+				... mehrere kaputte Kaffeemaschinen später ...
+			\end{center}
+		\end{frame}
+
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		\begin{frame}[containsverbatim]{\TikZ at its best}
+			\begin{center}
+				\begin{tikzpicture}[scale=0.6,
+				        %Option for nice arrows%
+				        >=latex,%
+				        inner sep=0pt,%
+				        outer sep=2pt,%
+				        mark coordinate/.style={outer sep=0pt,
+				            minimum size=3pt, fill=black,circle}%
+				    ]
+				    %% some definitions
+				    \def\R{0.5}       % sphere radius
+				    \def\angEl{30}    % elevation angle
+				    \def\angAz{-140}  % azimuth angle
+				    \def\angPhi{-105} % longitude of point
+				    \def\angBeta{55}  % latitude of point
+				    \def\angGam{-190} % longitude of point
+				    %% working planes
+				    \pgfmathsetmacro\H{\R*cos(\angEl)}          % Distance to north pole
+				    \LongitudePlane[xzplane]{\angEl}{\angAz}    % x-axis plane
+				    %
+				    \coordinate (O) at (0,0);
+				    %
+				    \begin{scope}[rotate around={-11.1:(0,0)},
+				        field line/.style={color=red, smooth,
+				            variable=\t, samples at={0,-5,-10,...,-360}}
+				    ]
+				        \clip[rotate around={11.1:(0,0)}] (-7,5) rectangle (7,-5);
+				
+				        % Computes a point on a field line given r and t
+				        \newcommand{\fieldlinecurve}[2]{%
+				            {(pow(#1,2))*(3*cos(#2)+cos(3*#2))}, {(pow(#1,2))*(sin(#2)+sin(3*#2))}%
+				        }
+				
+				        % Longitudinal plnaes
+				        \foreach \u in {0,-40,...,-160}{
+				            \LongitudePlane[{{\u}zplane}]{\angEl}{\u}
+				            \foreach \r in {0.25,0.5,...,2.25} {
+				                \draw[{{\u}zplane}, field line]
+				                plot (\fieldlinecurve{\r}{\t});
+				            }
+				        }
+				        \foreach \u in {-200,-240,...,-320}{
+				            \LongitudePlane[{{\u}zplane}]{\angEl}{\u}
+				            \foreach \r in {0.25,0.5,...,2.25}{
+				            \draw[{{\u}zplane}, dashed, field line]
+				                plot (\fieldlinecurve{\r}{\t});
+				            }
+				        }
+				        % Drawing plane for the B-vectors
+				        \LongitudePlane[bzplane]{\angEl}{0}
+				            \foreach \r in {0.25,0.5,...,2.25}{
+				            \draw[bzplane, thick, field line]
+				                plot (\fieldlinecurve{\r}{\t});
+				        }
+				
+				        \begin{scope}[bzplane, very thick, ->, >=stealth]
+				            \draw (\fieldlinecurve{1.25}{-30}) -- +(-30:0.79cm)  node[right] {$\vec{B_{r}}$};
+				            \draw (\fieldlinecurve{1.25}{-30}) -- +(60:0.68cm)   node[right] {$\vec{B_{\theta}}$};
+				            \draw (\fieldlinecurve{1.25}{30})  -- +(-150:0.79cm) node[below] {$\vec{B_{r}}$};
+				            \draw (\fieldlinecurve{1.25}{30})  -- +(120:0.68cm)  node[above] {$\vec{B_{\theta}}$};
+				        \end{scope}
+				        %
+				        \begin{scope}[rotate around={11.1:(0,0)}]
+				            \fill[ball color=white,opacity=0.3] (O) circle (\R); %3D lighting effect
+				            \draw (O) circle (\R);
+				            \DrawLongitudeCircle[\R]{\angAz}      % xzplane
+				            \DrawLongitudeCircle[\R]{\angAz + 90} % vzplane
+				            \DrawLatitudeCircle[\R]{0}            % equator
+				            \DrawLatitudeCircle[\R]{70}           % Latitude 70
+				            \DrawLatitudeCircle[\R]{-70}          % Latitude -70
+				        \end{scope}
+				        %
+				        \coordinate[mark coordinate] (Sm) at (0, \H);
+				        \coordinate[mark coordinate] (Nm) at (0,-\H);
+				        \path[xzplane] (Nm) -- +(0,-0.75) coordinate (Nm1) node[below] {$\mathbf{N}_m$}
+				                       (Sm) -- +(0,0.75)  coordinate (Sm1) node[above] {$\mathbf{S}_m$};
+				        \draw[very thick, dashed]    (Sm) -- (Nm);
+				        \draw[very thick]            (Sm1) -- (Sm);
+				        \draw[very thick,->,>=latex'](Nm) -- (Nm1);
+				    \end{scope}
+				\end{tikzpicture}
+			\end{center}
+		\end{frame}
 		
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		
-		\section{Beamer}
-		
-		\begin{frame}[containsverbatim]{\LaTeX{}-Beamer}
-			\begin{center}
-				Und jetzt \LaTeX-Beamer
-			\end{center}
-		\end{frame}
+%		\section{Beamer}
+%		
+%		\begin{frame}[containsverbatim]{\LaTeX{}-Beamer}
+%			\begin{center}
+%				Und jetzt \LaTeX-Beamer
+%			\end{center}
+%		\end{frame}
 \end{document}
