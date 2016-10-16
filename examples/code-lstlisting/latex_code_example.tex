@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{pblue}{rgb}{0.13,0.13,1}
+\definecolor{pgreen}{rgb}{0,0.5,0}
+\definecolor{light-light-gray}{gray}{0.95}
+
+\lstset{ %
+language=Java,   							% choose the language of the code
+basicstyle=\small\ttfamily,  				% the size of the fonts that are used for the code
+numbers=left,                   			% where to put the line-numbers
+numbersep=5pt,                  			% how far the line-numbers are from the code
+backgroundcolor=\color{light-light-gray},   % choose the background color. You must add
+frame=lrtb,           						% adds a frame around the code
+tabsize=4,          						% sets default tabsize to 2 spaces
+captionpos=b,           					% sets the caption-position to bottom
+breaklines=true,        					% sets automatic line breaking
+xleftmargin=1.5cm,							% space from the left paper edge
+commentstyle=\color{pgreen},
+keywordstyle=\color{pblue},
+literate=%
+    {Ö}{{\"O}}1
+    {Ä}{{\"A}}1
+    {Ü}{{\"U}}1
+    {ß}{{\ss}}1
+    {ü}{{\"u}}1
+    {ä}{{\"a}}1
+    {ö}{{\"o}}1
+    {~}{{\textasciitilde}}1
+}
+\renewcommand{\lstlistingname}{Code}
+
+\begin{document}
+	
+		Hier noch ein kleines Beispiel:\\\\
+		\begin{minipage}{\linewidth}
+			\begin{lstlisting}[caption=Deklaration von Variablen]
+class MeineKlasse
+{
+	private int meineVariable; // Deklaration einer Exemplarvariable
+	private float b1, b2; // Mit Komma getrennt geht auch
+	
+	public void meineMethode()
+	{
+		float meinFloat; // Deklaration einer lokalen Variable
+	}
+}
+			\end{lstlisting}
+		\end{minipage}
+\end{document}

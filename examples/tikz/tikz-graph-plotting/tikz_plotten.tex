@@ -1,0 +1,216 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{multicol}
+\usepackage{spverbatim}
+\usepackage{hyperref}
+\setlength{\columnsep}{3cm}
+\pagestyle{plain}
+
+\textwidth = 15cm
+\textheight = 24cm
+\hoffset = -2cm
+\voffset = -2.75cm
+
+\usepackage{tikz}
+\usepackage{pgf,tikz}
+\usetikzlibrary{arrows}
+
+%add a 1 to the authors thanks (instead of a *)
+\makeatletter
+\let\@fnsymbol\@arabic
+\makeatother
+
+\author{Hauke Stieler \thanks{Für Fragen und Anmerkungen, etc. auch gerne an \href{mailto:mail@hauke-stieler.de}{mail@hauke-stieler.de}}}
+\date{\today}
+\title{Mit Ti\textit{k}Z Graphen plotten}
+
+\begin{document}
+	\maketitle
+	\section{Pure Ti\textit{k}Z}
+	\begin{multicols}{2} % 2.1 (a),(b)
+	\subsection*{Example 1:}
+	\begin{itemize}
+		\item \texttt{latex} Pfeilspitze
+		\item \texttt{solid} Gitterlinien
+		\item \texttt{draw=lightgray} Kasten um Funktion
+	\end{itemize}
+	\begin{tikzpicture}[>=latex,semithick]
+		% Das gitter zeichnen als dünne, graue linien:
+	    \draw[very thin,color=lightgray] (-3.2,-1.2) grid (3.2,4.2);
+	    
+	    % Die Achsen mit Pfeilspitze (deswegen die option [->], weil Linie [-] mit Spitze [>], also zusammen [->]
+	    % (-3.2,0) -- (3.2,0) - gibt Start- und Endkoordinaten an
+	    % node[right] und so - sagt, wo die Schrift sein soll, rechts, links, über oder unter
+	    \draw[->] (-3.2,0) -- (3.4,0) node[right] {$x$};
+	    \draw[->] (0,-1.2) -- (0,4.4) node[above] {$y$};
+	    
+	    % \foreach - macht eine Schleife die was kann (normale forach-Schleife)
+	    % \x/\xtext - für alle x (x wird dahinter spezifiziert), schreibe einen Text
+	    % in - Schlüsselwort
+	    % {-2/-2,...} - gibt an welche x man betrachtet und was geschrieben werden soll
+	    %		Bsp.: -2/hauke schreibt im Koordinatensystem an die x-Achse an Position -2 das Wort hauke
+	    \foreach \x/\xtext in {-3/-3, -2/-2, -1/-1, 1/1, 2/2, 3/3}
+	    % Zeichnet nun den Text "\xtext" (also die -2 oder hauke oder so).
+	    % shift{[x,y]} - ist quasi in offset Vektor. Er soll also das Label um [x,0] verschieben, sprich entlang der x-Achse
+	    % (0pt,2pt) -- (0pt,-2pt) - Gibt Art des striches der x-Achse an, also der erste punkt ist (0,2), der zweite (0,-2). Das -- zwischen sagt, dass es eine Linie sein soll
+	    % node[below] sagt einfach, dass der Text unterhalb des Striches sein soll
+	    % {$\xtext$} - schreibt den Wert aus \xtext hin. \xtext ist hier quasi eine string Variable, wenn man so möchte
+	    \draw[shift={(\x,0)}] (0pt,2pt) -- (0pt,-2pt) node[below] {$\xtext$};
+	    
+	    % selbiges wie oben, nur dieses mal mit y.
+	    \foreach \y/\ytext in {-1/-1, 1/1, 2/2, 3/3, 4/4}
+	    \draw[shift={(0,\y)}] (2pt,0pt) -- (-2pt,0pt) node[left] {$\ytext$};
+	    
+	    % Hier wird nun der graph geplottet.
+	    % domain=-2:2 - gibt an, in welchem x-Bereich der sein soll
+	    % smooth - ist selbstredent
+	    % variable=\x - halt x als Variable. Kannst auch anders nennen, musst das nur später beachten
+	    % blue - setzt Farbe
+	    % plot ({\x},{\x*\x}) - ist quasi das f(x)=x*x. Also erster Parameter sagt welche Variable laufen soll, zweiter, wie gerechnet werden soll
+		\draw[thin,domain=-2.075:2.075,smooth,variable=\x,black] plot ({\x},{\x*\x}) node[inner sep=1mm,below=1.3cm,right=-0.25cm,fill=white,draw=lightgray] {$f(x)=x^2$};
+	\end{tikzpicture}
+	\subsection*{Beispiel 2:}
+	\begin{itemize}
+		\item \texttt{stealth'} Pfeilspitze
+		\item \texttt{densely dotted} Gitterlinien
+		\item Kein Kasten um Funktion
+	\end{itemize}
+	\begin{tikzpicture}[>=stealth',semithick]
+	    \draw[thin,densely dotted,color=gray] (-3.2,-1.2) grid (3.2,4.2);
+	    
+	    \draw[->] (-3.2,0) -- (3.4,0) node[right] {$x$};
+	    \draw[->] (0,-1.2) -- (0,4.4) node[above] {$y$};
+	    
+	    \foreach \x/\xtext in {-3/-3, -2/-2, -1/-1, 1/1, 2/2, 3/3}
+	    \draw[shift={(\x,0)}] (0pt,2pt) -- (0pt,-2pt) node[below] {$\xtext$};
+	    
+	    \foreach \y/\ytext in {-1/-1, 1/1, 2/2, 3/3, 4/4}
+	    \draw[shift={(0,\y)}] (2pt,0pt) -- (-2pt,0pt) node[left] {$\ytext$};
+	    
+		\draw[thin,domain=-2.075:2.075,smooth,variable=\x,black] plot ({\x},{\x*\x}) node[inner sep=1mm,below=1.3cm,right=-0.25cm,fill=white] {$f(x)=x^2$};
+	\end{tikzpicture}
+	\end{multicols}
+	\section{Ti\textit{k}Z von GeoGebra}
+	\begin{multicols*}{2} % 2.1 (a),(b)
+\definecolor{cqcqcq}{rgb}{0.75,0.75,0.75}
+	\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
+	\draw [color=cqcqcq,dash pattern=on 1pt off 1pt, xstep=1.0cm,ystep=1.0cm] (-2.1,-1.1) grid (2.1,4.1);
+	\draw[->,color=black] (-2.1,0) -- (2.1,0);
+	\foreach \x in {-2,-1,1,2}
+	\draw[shift={(\x,0)},color=black] (0pt,2pt) -- (0pt,-2pt) node[below] {\footnotesize $\x$};
+	\draw[->,color=black] (0,-1.1) -- (0,4.1);
+	\foreach \y in {-1,1,2,3,4}
+	\draw[shift={(0,\y)},color=black] (2pt,0pt) -- (-2pt,0pt) node[left] {\footnotesize $\y$};
+	\draw[color=black] (0pt,-10pt) node[right] {\footnotesize $0$};
+	\clip(-2.1,-1.1) rectangle (2.1,4.1);
+	\draw[smooth,samples=100,domain=-2.1:2.1] plot(\x,{(\x)^2});
+	\begin{scriptsize}
+	\draw[color=black] (-1.09,2.11) node {$f(x) = x^2$};
+	\end{scriptsize}
+	\end{tikzpicture}\columnbreak
+	\begin{itemize}
+		\item \texttt{triangle 45} als Pfeilspitze
+		\item Ungenaue Positionierung des Labels, sowie kein Hintergrund
+		\item keine Bezeichnungen der Achsen
+		\item \texttt{dash pattern=on} als Zeichenstil für das Gitter
+	\end{itemize}
+	\end{multicols*}
+	\newpage
+%	\voffset = -2.5cm
+%\newgeometry{textheight=24cm}
+	\section{Code der Funktionen}
+	\subsection*{Für Beispiel 1:}
+	\subsubsection*{Mit Kommentaren:}
+	\begin{spverbatim}
+\begin{tikzpicture}[>=latex,semithick]
+    % Das Gitter zeichnen als dünne, graue linien:
+    \draw[very thin,color=lightgray] (-3.2,-1.2) grid (3.2,4.2);
+    
+    % Die Achsen mit Pfeilspitze (deswegen die option [->], weil Linie [-] mit Spitze [>], also zusammen [->]
+    % (-3.2,0) -- (3.2,0) - gibt Start- und Endkoordinaten an
+    % node[right] und so - sagt, wo die Schrift sein soll, rechts, links, über oder unter
+    \draw[->] (-3.2,0) -- (3.4,0) node[right] {$x$};
+    \draw[->] (0,-1.2) -- (0,4.4) node[above] {$y$};
+    
+    % \foreach - macht eine Schleife die was kann (normale forach-Schleife)
+    % \x/\xtext - für alle x (x wird dahinter spezifiziert), schreibe einen Text
+    % in - Schlüsselwort
+    % {-2/-2,...} - gibt an welche x man betrachtet und was geschrieben werden soll
+    %		Bsp.: -2/hauke schreibt im Koordinatensystem an die x-Achse an Position -2 das Wort hauke
+    \foreach \x/\xtext in {-3/-3, -2/-2, -1/-1, 1/1, 2/2, 3/3}
+    % Zeichnet nun den Text "\xtext" (also die -2 oder hauke oder so).
+    % shift{[x,y]} - ist quasi in offset Vektor. Er soll also das Label um [x,0] verschieben, sprich entlang der x-Achse
+    % (0pt,2pt) -- (0pt,-2pt) - Gibt Art des striches der x-Achse an, also der erste punkt ist (0,2), der zweite (0,-2). Das -- zwischen sagt, dass es eine Linie sein soll
+    % node[below] sagt einfach, dass der Text unterhalb des Striches sein soll
+    % {$\xtext$} - schreibt den Wert aus \xtext hin. \xtext ist hier quasi eine string Variable, wenn man so möchte
+    \draw[shift={(\x,0)}] (0pt,2pt) -- (0pt,-2pt) node[below] {$\xtext$};
+    
+    % selbiges wie oben, nur dieses mal mit y.
+    \foreach \y/\ytext in {-1/-1, 1/1, 2/2, 3/3, 4/4}
+    \draw[shift={(0,\y)}] (2pt,0pt) -- (-2pt,0pt) node[left] {$\ytext$};
+    
+    % Hier wird nun der graph geplottet.
+    % domain=-2:2 - gibt an, in welchem x-Bereich der sein soll
+    % smooth - ist selbstredent
+    % variable=\x - halt x als Variable. Kannst auch anders nennen, musst das nur später beachten
+    % blue - setzt Farbe
+    % plot ({\x},{\x*\x}) - ist quasi das f(x)=x*x. Also erster Parameter sagt welche Variable laufen soll, zweiter, wie gerechnet werden soll
+	\draw[thin,domain=-2.075:2.075,smooth,variable=\x,black] plot ({\x},{\x*\x}) node[inner sep=1mm,below=1.3cm,right=-0.25cm,fill=white,draw=lightgray] {$f(x)=x^2$};
+\end{tikzpicture}
+	\end{spverbatim}\newpage
+	\subsubsection*{Ohne Kommentare:}
+	\begin{spverbatim}
+\begin{tikzpicture}[>=latex,semithick]
+    \draw[very thin,color=lightgray] (-3.2,-1.2) grid (3.2,4.2);
+    
+    \draw[->] (-3.2,0) -- (3.4,0) node[right] {$x$};
+    \draw[->] (0,-1.2) -- (0,4.4) node[above] {$y$};
+    
+    \foreach \x/\xtext in {-3/-3, -2/-2, -1/-1, 1/1, 2/2, 3/3}
+    \draw[shift={(\x,0)}] (0pt,2pt) -- (0pt,-2pt) node[below] {$\xtext$};
+    
+    \foreach \y/\ytext in {-1/-1, 1/1, 2/2, 3/3, 4/4}
+    \draw[shift={(0,\y)}] (2pt,0pt) -- (-2pt,0pt) node[left] {$\ytext$};
+    
+	\draw[thin,domain=-2.075:2.075,smooth,variable=\x,black] plot ({\x},{\x*\x}) node[inner sep=1mm,below=1.3cm,right=-0.25cm,fill=white,draw=lightgray] {$f(x)=x^2$};
+\end{tikzpicture}
+	\end{spverbatim}
+	\subsection*{Für Beispiel 2:}
+	\begin{spverbatim}
+\begin{tikzpicture}[>=stealth',semithick]
+    \draw[thin,densely dotted,color=gray] (-3.2,-1.2) grid (3.2,4.2);
+    
+    \draw[->] (-3.2,0) -- (3.4,0) node[right] {$x$};
+    \draw[->] (0,-1.2) -- (0,4.4) node[above] {$y$};
+    
+    \foreach \x/\xtext in {-3/-3, -2/-2, -1/-1, 1/1, 2/2, 3/3}
+    \draw[shift={(\x,0)}] (0pt,2pt) -- (0pt,-2pt) node[below] {$\xtext$};
+    
+    \foreach \y/\ytext in {-1/-1, 1/1, 2/2, 3/3, 4/4}
+    \draw[shift={(0,\y)}] (2pt,0pt) -- (-2pt,0pt) node[left] {$\ytext$};
+    
+	\draw[thin,domain=-2.075:2.075,smooth,variable=\x,black] plot ({\x},{\x*\x}) node[inner sep=1mm,below=1.3cm,right=-0.25cm,fill=white] {$f(x)=x^2$};
+\end{tikzpicture}
+	\end{spverbatim}
+	\subsection*{Für den GeoGebra Graphen:}
+	\begin{spverbatim}
+\definecolor{cqcqcq}{rgb}{0.75,0.75,0.75}
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
+\draw [color=cqcqcq,dash pattern=on 1pt off 1pt, xstep=1.0cm,ystep=1.0cm] (-2.1,-1.1) grid (2.1,4.1);
+\draw[->,color=black] (-2.1,0) -- (2.1,0);
+\foreach \x in {-2,-1,1,2}
+\draw[shift={(\x,0)},color=black] (0pt,2pt) -- (0pt,-2pt) node[below] {\footnotesize $\x$};
+\draw[->,color=black] (0,-1.1) -- (0,4.1);
+\foreach \y in {-1,1,2,3,4}
+\draw[shift={(0,\y)},color=black] (2pt,0pt) -- (-2pt,0pt) node[left] {\footnotesize $\y$};
+\draw[color=black] (0pt,-10pt) node[right] {\footnotesize $0$};
+\clip(-2.1,-1.1) rectangle (2.1,4.1);
+\draw[smooth,samples=100,domain=-2.1:2.1] plot(\x,{(\x)^2});
+\begin{scriptsize}
+\draw[color=black] (-1.09,2.11) node {$f(x) = x^2$};
+\end{scriptsize}
+\end{tikzpicture}
+	\end{spverbatim}
+\end{document}

@@ -1,0 +1,475 @@
+% This is a german version, but an english version is coming soon ;)
+
+\documentclass{article}
+
+% Normal packages
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{caption}
+
+%Tikz packages and libraries
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata,positioning}
+
+% add commands to create the Tikz font and a degree-symbol
+\newcommand{\logo}{Ti\textit{k}z }
+\newcommand{\grad}{$^\circ$}
+
+%to highlight the latex-code
+\lstset{
+	basicstyle=\small\ttfamily,						% sets the basic style of the code
+		language={[LaTeX]TeX},
+	numbersep=5mm, 									% space between line-number and code
+	numbers=left, 									% line-numbers on the left side
+	numberstyle=\small,								% style of line-numbers
+	breaklines=true,								% allows line-breaks
+	framexleftmargin=8mm,							% border begins 8mm earlier (include line numbers into box)
+	xleftmargin=1.5cm,								% 1.5cm space from the left of text-start
+	aboveskip=0.8cm,								% 0.8cm space above listing
+	belowskip=0.4cm,								% 0.4cm space below listing
+	backgroundcolor=\color{green!7},				% some slight-green background color
+	captionpos=b,									% caption should be below (b) the listing
+	frame=lrtb,										% adds a frame around the code
+	tabsize=4,										% sets default tabsize to 2 spaces
+	escapeinside=??,								% escape sequence inside lstlisting
+	rulecolor=\color{red},							% bordercolor
+	morekeywords={\usetikzlibrary,					% adds more custom keywords
+	\node,
+	\path,
+	\edge},
+	keywordstyle=\color[rgb]{0,0,1},				% style for the keywords
+    commentstyle=\color[rgb]{0.133,0.545,0.133},	% style for the comments
+    stringstyle=\color[rgb]{0.627,0.126,0.941}		% style for the strings
+}
+\renewcommand{\lstlistingname}{Code}
+\captionsetup[lstlisting]{font={footnotesize},margin=1.5cm,singlelinecheck=false } % removes "Listing 1: "
+\definecolor{light-light-gray}{gray}{0.95}
+
+%add a 1 to the authors thanks (instead of a *)
+\makeatletter
+\let\@fnsymbol\@arabic
+\makeatother
+
+% add some author and document
+\author{Hauke Stieler\\\vspace{10pt}\small\textit{Universität Hamburg} \thanks{Für weiteren Kontakt kerne auch über die Kennung \texttt{4stieler}.}}
+\title{\Huge{\logo für Automaten}\\\vspace{10pt}\large{Ein Paper über \logo für Informaiker zum zeichnen von Automaten}}
+\date{\today\\\small{ver.: 0.2 \texttt{de\_DE}}}
+
+\begin{document}
+	\maketitle
+	\begin{abstract}
+		Hier wird es eine kurze Erklärung zum zeichnen von Automaten mit Hilfe von \logo geben. Da ich selbst kein Profi im gebiet bin, bitte ich Ideen, Fehler, Anmerkungen und Anregungen an meine E--Mail--Adresse \href{mailto:mail@hauke-stieler.de}{mail@hauke-stieler.de} zu senden.
+		
+		Allgemein wird dies auch mehr eine Sammlung an Beispielen\footnote[2]{Für eine weitaus ausführlichere Darbietung von \logo gibt es diese 1165-Seiten-PDF als genüssliche Abendlektüre: \href{http://ftp.fau.de/ctan/graphics/pgf/base/doc/pgfmanual.pdf}{\logo manual}} zu verschidenen Automaten(modellen), die im Laufe der FGI I Vorlesung im SoSe15 fortgeführt wird.
+	\end{abstract}\newpage
+	\tableofcontents
+	\vfill
+	\subsubsection*{Copyright}
+	Auf Basis von Urheberrechtlichen Gründen (des Urheberrechtesgesetzes der Bundesrepublik Deutschland vom 9. September 1965 in der jeweils geltenden Fassung) ist die Vervielfältigung, Weiterhabe, Umwandlung in (Audio-)Visuelle Daten und deren Ausstrahlung, sowie das Übernehmen von wortgleichen Inhalten ist nur mit schriftlicher Genemigung erlaub.\\
+	Des weiteren garantiere ich für keinerlei Richtigkeit und Vollständigkeit dieses Dokumentes.
+	\newpage
+	\section{Seinen Editor vorbereiten}
+	Natürlich braucht man zum benutzen von \logo das gleichnamige Packet, welches man einfach mit \texttt{\textbackslash usepackage} einfach benutzen kann. Neben diesem müssen wir aber noch weitere, spezielle \logo -Bibliotheken importieren.\\
+	\begin{minipage}{\linewidth}
+		\begin{lstlisting}[caption={Alle Pakete, die wir benutzen (möchten).}]
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata,positioning}
+		\end{lstlisting}
+	\end{minipage}
+	Es gibt noch viele weitere Bibliotheken von \logo, doch die hier genannten brauchen wir (und sind für Automaten die wichtigsten).
+	\section{Die \logo Umgebung und ihre Parameter}
+	\subsection{Eine Umgebung erzeugen}
+		Hier nun ein kleines Beispiel zum zeichnen von Graphen (gezeichnete Automaten sind ja auch Zustands\textit{graphen} ;) ).
+		
+		\logo benutzt zum zeichnen von Graphen sogenannte \texttt{node}s und \texttt{path}s. Nodes sind dabei die Zustände/Boxen/Kreise eines Graphen, der path beschreibt eine oder mehrere Linien dazwischen.
+		
+		Um in \logo los zeichnen zu können, müssen wir eine Umbebung beginnen/erzeugen:\\
+		\begin{minipage}{\linewidth}
+			\begin{lstlisting}[caption={Eine einfache \logo Umgebung erstellen.}]
+\begin{tikzpicture}
+...
+\end{tikzpicture}
+			\end{lstlisting}
+		\end{minipage}
+	\subsection{Parameter einer Umgebung}
+		Für diese Umgebung können wir uns verschiedene Parameter heraussuchen, die wir nutzen möchten. Hier ein Beispiel:\\
+		\begin{minipage}{\linewidth}
+			\begin{lstlisting}[caption={Ein Beispiel mit Parametern in einer \logo Umgebung.}]
+\begin{tikzpicture}[->, 
+	>=stealth', 
+	shorten >= 5pt, 
+	node distance = 2.8cm,
+	semithick]
+...
+\end{tikzpicture}
+			\end{lstlisting}
+		\end{minipage}
+		Hier eine kurze Erklärung der Parameter:\\
+		\begin{itemize}
+			\item \texttt{->} : Alle Linien zwischen nodes sind nun Pfeile
+			\item \texttt{>=stealth'} : Die Pfeilspitzen sind ausgefüllt und dreieckig
+			\item \texttt{shorten >= 5pt} : Die Pfeilspitzen hören \texttt{5pt} vor der node auf
+			\item \texttt{node distance=2.8cm} : Alle nodes sind \texttt{2.8cm} voneinander entfernt
+			\item \texttt{semithick} : Gibt die Dicke eines paths an\\
+		\end{itemize}
+		Zu den einzelnen Parametern jedoch jetzt mehr.
+	\subsection{Grundlegende und verschiedene Parameter}
+		Hier nun ein paar grundlegende Parameter.
+		\begin{itemize}
+			\item \texttt{-} : Alle verbindungen sind normale Linien
+			\item \texttt{->} : Alle verbindungen sind Pfeile
+			\item \texttt{>= <Option>} : Legt die Art der Pfeilspitze fest
+			\item \texttt{shorten >= x} : Entfernung Pfeilspitze -- Node in x (z.B. 5pt, 1cm, ...)
+		\end{itemize}
+	\subsection{Farbe des Graphen}
+		Über die Parameter kann man auch gleich die Farbe des gesamten Bildes angeben. Dazu einfach \texttt{color=<color>} als Option wählen. 
+		
+		Dabei kann man Standardfarben, wie \texttt{red}, \texttt{green}, \texttt{blue}, ... wählen und diese in ihrer Helligkeit per \texttt{!<prozent>} beeinflussen.\\
+		\begin{minipage}{\linewidth}
+			\begin{lstlisting}[caption={Wählen einer hell roten Farbe (60\% rot, 40\% weiß/hintergrund)}]
+\begin{tikzpicture}[->,
+	thin,
+	color=red!60]
+...
+\end{tikzpicture}
+			\end{lstlisting}
+		\end{minipage}
+	\section{Pfeile und Linien}
+	\subsection{Dicke der Pfeile/Linien}
+		Es gibt verschiedene Dicken für Pfeile und Linien (oben: super dünn, unten: super dick):
+		\begin{itemize}	
+			\item \texttt{\textbackslash ultra thin}
+			\item \texttt{\textbackslash very thin}
+			\item \texttt{\textbackslash thin}
+			\item \texttt{\textbackslash semithick}
+			\item \texttt{\textbackslash thick}
+			\item \texttt{\textbackslash very thick}
+			\item \texttt{\textbackslash ultra thick}
+		\end{itemize}
+	\subsection{Pfeilspitzen}
+		Um Pfeile richtig nutzen zu können braucht man die \logo Bibliothek \texttt{arrows}:\\
+		\begin{minipage}{\linewidth}
+			\begin{lstlisting}[caption={Die Bibliothek \texttt{arrows} wird zum Pfeile zeichnen benötigt.}]
+\usetikzlibrary{arrows}
+			\end{lstlisting}
+		\end{minipage}
+		Es gibt viele verschiedene - teils seltsame - Pfeilarten. 
+		Die Pfeilart kann ebenfalls als Option am Anfang angegeben werden.\\
+		\begin{minipage}{\linewidth}
+			\begin{lstlisting}[caption={Angabe einer Pfeilart.}]
+\begin{tikzpicture}[->,
+	>=<Pfeilart>]
+...
+\end{tikzpicture}
+			\end{lstlisting}
+		\end{minipage}
+		Hier eine kleine - ebenfalls für Automaten interessante - Auswahl:
+		\begin{itemize}
+			\item keine Angabe : \tikz\draw[->,semithick] (0,0) -- (1,0) node [pos=0.2, right] {};
+			\item \texttt{latex} : \tikz\draw[->,>=latex,semithick] (0,0) -- (1,0) node [pos=0.2, right] {};
+			\item \texttt{latex'} : \tikz\draw[->,>=latex',semithick] (0,0) -- (1,0) node [pos=0.2, right] {};
+			\item \texttt{stealth} : \tikz\draw[->,>=stealth,semithick] (0,0) -- (1,0) node [pos=0.2, right] {};
+			\item \texttt{stealth'} : \tikz\draw[->,>=stealth',semithick] (0,0) -- (1,0) node [pos=0.2, right] {};
+			\item \texttt{triangle <Winkel>} und \texttt{open triangle <Winkel>} : \\
+				\hspace*{10pt} Mit 45\grad : \tikz\draw[->,>=triangle 45,semithick] (0,0) -- (1,0) node [pos=0.2, right] {}; \tikz\draw[->,>=open triangle 45,semithick] (2,0) -- (3,0) node [pos=0.2, right] {};\\
+				\hspace*{10pt} Mit 60\grad : \tikz\draw[->,>=triangle 60,semithick] (0,0) -- (1,0) node [pos=0.2, right] {}; \tikz\draw[->,>=open triangle 60,semithick] (2,0) -- (3,0) node [pos=0.2, right] {};\\
+				\hspace*{10pt} Mit 90\grad : \tikz\draw[->,>=triangle 90,semithick] (0,0) -- (1,0) node [pos=0.2, right] {}; \tikz\draw[->,>=open triangle 90,semithick] (2,0) -- (3,0) node [pos=0.2, right] {};
+			\item \texttt{angle <Winkel>} \\
+				\hspace*{10pt} Mit 45\grad : \tikz\draw[->,>=angle 45,semithick] (0,0) -- (1,0) node [pos=0.2, right] {};\\
+				\hspace*{10pt} Mit 60\grad : \tikz\draw[->,>=angle 60,semithick] (0,0) -- (1,0) node [pos=0.2, right] {};\\
+				\hspace*{10pt} Mit 90\grad : \tikz\draw[->,>=angle 90,semithick] (0,0) -- (1,0) node [pos=0.2, right] {};
+		\end{itemize}
+		Die Option \texttt{'} bewirkt bei \texttt{latex'} das hyperbolische zuspitzen des Dreiecks. Bei \texttt{stealth'} werden die Ecken abgerundet.
+		
+		Außerdem kann man mit der Option \texttt{->>} einen doppelten Pfeil erzeugen (z.B. mit der \texttt{stealth'} Option: \tikz\draw[->>,>=stealth',semithick] (0,0) -- (1,0) node [pos=0.2, right] {}; ). Dies geht bei allen Arten von Pfeilen.
+	\section{Nodes}
+		Nodes sind die Zustände in einem Automaten. Dank der Bibliothek \texttt{automata} gibt es schon verschiedene vordefinierte Eigenschaften.
+		
+		Um mit Automaten und verschiedenen Optionen zu Automaten arbeiten zu können muss die Bibliothek \texttt{automata} eingebunden werden.\\
+		Damit man die erzeugten Nodes auch einfach und schnell positionieren kann, sollte man zudem die Bibliothek \texttt{positioning} benutzen:\\
+		\begin{minipage}{\linewidth}
+			\begin{lstlisting}[caption={Nutzen der Bibliothek \texttt{automata} und \texttt{positioning}}]
+\usetikzlibrary{automata}
+\usetikzlibrary{positioning}
+			\end{lstlisting}
+		\end{minipage}
+	\subsection{Erstellen von Nodes}
+		Nun können wir die ersten Nodes mit \texttt{\textbackslash node} erstellen. Wobei folgende Syntax beachtet werden sollte:\\
+		\begin{minipage}{\linewidth}
+			\begin{lstlisting}[caption={Syntax des \texttt{\textbackslash node} Befehls.}]
+\node[<Optionen>] (name) [<Optional: Position>] {text};
+			\end{lstlisting}
+		\end{minipage}\\
+		Wird keine Position angegeben befindet sich der Zustand am Nullpunkt (normalerweise ganz links). Die Parameter der Positioniertung werden später noch besprochen.
+		
+		Wichtig zu bemerken ist auch, dass der Text auch im Mathe-Modus angegeben werden kann um so z.B. Indizes anzugeben.
+		\subsubsection{Beispielautomat ohne Übergänge}
+		So kann nun ein Automat aussehen, wenn man drei Zustände $z_0$, $z_1$, und $z_2$ erzeugt.\\
+		\begin{minipage}{\linewidth}
+			\begin{lstlisting}[mathescape,caption={Zeichnen eines einfachen Automaten.}]
+\begin{tikzpicture}[->,
+	>=stealth',
+	semithick]
+	
+	\node[state,initial]	(0)              {$z_0$};
+	\node[state]			(1) [right of=0] {$z_1$};
+	\node[state,accepting]	(2) [right of=1] {$z_2$};
+\end{tikzpicture}
+			\end{lstlisting}
+		\end{minipage}
+		Hier also das Ergebnis:\\\\
+		\begin{figure}[ht]
+			\centering
+			\begin{tikzpicture}[->,
+				>=stealth',
+				semithick]
+				
+				\node[state,initial]	(0)              {$z_0$};
+				\node[state]			(1) [right of=0] {$z_1$};
+				\node[state,accepting]	(2) [right of=1] {$z_2$};
+			\end{tikzpicture}
+			\caption{Ein simpler Automat mit 3 Zuständen.}
+		\end{figure}\\\\
+		Auch hier können dem Befehl \texttt{\textbackslash node} verschiedene Parameter aus \texttt{automata} übergeben werden.
+	\subsection{Optionen für Zustände}
+		Hier eine Liste an nützlichen Optionen für Zustände (\texttt{\textbackslash node}s):\\
+		\begin{itemize}
+			\item \texttt{state} : Muss angegeben werden, damit es sich um einen Zustand handelt
+			\item \texttt{initial} : Gibt an, dass dies der/ein Startzustand ist\\
+				\hspace*{10pt} Erzeugt ein automatisches \textit{start}-Label mit Pfeil
+			\item \texttt{accepting} : Gibt an, dass dies der/ein Endzustand ist\\
+				\hspace*{10pt} Erzeugt einen doppelten Kreis um den Zustand
+			\item \texttt{with output} : Erzeugt einen Zustand mit Ausgabe\\
+				\hspace*{10pt} Dazu jedoch mehr, \href{mailto:mail@hauke-stieler.de}{wenn gewünscht}
+		\end{itemize}
+	\subsection{Positionierung der Zustände}
+		Zustände können durch die Bibltiothek \texttt{positioning} ganz einfach angegeben werden.
+		\subsubsection{Optionen für die Positionierung}
+		Für die Positionierung von Nodes gibt es unter anderem folgende Optionen, die - wie weiter unten beschrieben - auch kombiniert werden können:\\
+		\begin{itemize}
+			\item \texttt{right, left, above, below} : Rechts, links, über oder unter einer Node
+			\item \texttt{of = <Node>} : Gibt von welcher Node man bei \texttt{right, left, ...} spricht
+			\item \texttt{and} : Wenn man mehrere Entfernungen angeben möchte, nutzt man \texttt{and}\\
+			Bsp.: \texttt{[...=2cm \underline{and} 1cm of A]}
+		\end{itemize}
+		\subsubsection{Automatische Entfernung}
+		Dabei ist für \textbf{automatische Entfernungen} die einfache Syntax zu beachten:\\
+		\begin{minipage}{\linewidth}
+			\begin{lstlisting}[caption={Syntax für die Positionierung von Nodes.}]
+[<Position> of = <Referenz-Node>]
+			\end{lstlisting}
+		\end{minipage}\\
+		Den Wert der automatischen Entfernung wird mit \texttt{node distance=...} in \texttt{cm, em, pt, ...} angegeben.
+		Also z.B.:\\
+		\begin{minipage}{\linewidth}
+			\begin{lstlisting}[mathescape,caption={Automatische Positionierung einer Node rechts von A.}]
+[right of = A]
+			\end{lstlisting}
+		\end{minipage}\\
+		Dies positioniert die eine Node rechts neben der Node A, wobei die durch \texttt{node distance=...} gewählte Entfernung genommen wird.
+		\subsubsection{Manuelle Entfernung}
+		Für \textbf{manuelle Entfernungen}, die man wie gewohnt per \texttt{cm, em, pt, ...} angeben kann (wie in \LaTeX{} üblich), benutzt man folgende Syntax:\\
+		\begin{minipage}{\linewidth}
+			\begin{lstlisting}[caption={Syntax für die Positionierung von Nodes.}]
+[<Positionen> = <Entfernungen > of <Referenz-Node>]
+			\end{lstlisting}
+		\end{minipage}\\
+		Also z.B.:\\
+		\begin{minipage}{\linewidth}
+			\begin{lstlisting}[mathescape,caption={Manuelle Positionierung einer Node rechts von A.}]
+[right = 2cm of A]
+			\end{lstlisting}
+		\end{minipage}\\
+		Dies positioniert die eine Node 2cm rechts neben der Node A.
+		\subsubsection{Beispiel für das Positionieren von Nodes}		
+		Man hat drei Nodes: $a$, $b$ und $c$.
+		\begin{itemize}
+			\item Node $b$ soll recht über (2cm rechts, 1cm über) der Node $a$ sein
+			\item Node $c$ soll automatisch unten rechts von $a$ angeordnert werden
+		\end{itemize}
+		Hierzu kann man die Optionen geschickt kombinieren:\\
+		\begin{minipage}{\linewidth}
+			\begin{lstlisting}[mathescape,caption={Kombination von Optionen zur Positionierung.}]
+\begin{tikzpicture}[->,
+	>=stealth',
+	semithick,
+	node distance=2cm]
+	
+\node [state] (a)                                {$a$};
+\node [state] (b) [above right=1cm and 2cm of a] {$b$};
+\node [state] (c) [below right of = a]           {$c$};
+
+\end{tikzpicture}
+			\end{lstlisting}
+		\end{minipage}\\
+		Wenn man als Abstand einzelner Nodes noch einen netten Wert (z.B. \texttt{node distance=2cm}) wählt, dann sirht das so aus:\\\\
+		\begin{figure}[ht]
+			\centering
+			\begin{tikzpicture}[->,
+				>=stealth',
+				semithick,
+				node distance=2cm]
+				
+				\node [state] (a)                                {$a$};
+				\node [state] (b) [above right=1cm and 2cm of a] {$b$};
+				\node [state] (c) [below right of = a]           {$c$};
+			\end{tikzpicture}
+			\caption{Drei unterschiedlich angeordnete Nodes.}
+		\end{figure}\\\\
+	\section{Nodes verbinden}
+	Damit man nicht nur einen Haufen Zustände hat, sondern einen Automaten, muss man diese logischerweise verbinden. Dazu kann man den \texttt{\textbackslash path} Befehl nehmen.
+	\subsection{Pfeile erstellen}
+		Auch \texttt{\textbackslash path} hat eine bestimmte Syntax, die man beachten muss:\\
+		\begin{minipage}{\linewidth}
+			\begin{lstlisting}[mathescape,caption={Syntax des \texttt{\textbackslash path} Befehls.}]
+\path (<von-Node>) edge [<Options>] node {text} (<nach-Node>);
+			\end{lstlisting}
+		\end{minipage}\\
+		Wichtig zu bemerken ist, dass man nur einmal \texttt{\textbackslash path} schreiben braucht (s. Beispiel unten).\\
+		Was es alles für Optionen gibt, kommt gleich, zunächst einmal das Beispiel:\\
+		\begin{minipage}{\linewidth}
+			\begin{lstlisting}[mathescape,caption={Der bekannte (leicht geänderte) Automat von vorhin. Diesmal mit Verbindungen untereinander, aber \textbf{ohne} Optionen.}]
+\begin{tikzpicture}[->,
+	>=stealth',
+	semithick,
+	node distance=2cm]
+	
+\node [state,initial] (a)                        {$a$};
+\node [state] (b) [above right=1cm and 2cm of a] {$b$};
+\node [state,accepting] (c) [below right of = a] {$c$};
+
+\path (a) edge node {0} (b)
+          edge node {1} (c)
+      (c) edge node {2} (b);
+
+\end{tikzpicture}
+			\end{lstlisting}
+		\end{minipage}\\
+		Dazu der passende \logo -Automat:\\
+		\begin{figure}[ht]
+			\centering
+			\begin{tikzpicture}[->,
+				>=stealth',
+				semithick,
+				node distance=2cm]
+	
+				\node [state,initial] (a)                        {$a$};
+				\node [state] (b) [above right=1cm and 2cm of a] {$b$};
+				\node [state,accepting] (c) [below right of = a] {$c$};
+			
+				\path (a) edge node {0} (b)
+				          edge node {1} (c)
+				      (c) edge node {2} (b);
+			
+			\end{tikzpicture}
+			\caption{Drei unterschiedlich angeordnete Nodes mit Verbindungen \textbf{ohne} Optionen.}
+		\end{figure}
+	\subsection{Optionen für den \texttt{\textbackslash path} Befehl}
+		Auch hier kann man verschiedene Optionen wählen:
+		\begin{itemize}
+			\item \texttt{right, left, above, below} : Optionen für die Beschriftung, legt fest, wo der Text dargestellt werden soll
+			\item \texttt{bend <right, left>} : Erzeugt eine gebogene Kante. Die Richtung der Biegung (nach rechts oder links) ist von Pfeilrichtung aus gesehen
+			\item \texttt{bend <right, left> = <Winkel>} : der \texttt{Winkel} beschreibt die Stärke der Biegung und wird in Grad angegeben
+			\item \texttt{loop <right, left, above, below>} : Erzeugt eine Schleife rechts, links, über oder unter einer Node
+		\end{itemize}
+	\section{Beispiele}
+		Da nun die wichtigsten Dinge behandelt wurden kommen hier ein paar Beispiele:
+	\subsection{Beispiel 1}
+		\begin{minipage}{\linewidth}
+			\begin{lstlisting}[mathescape,caption={}]
+\begin{tikzpicture}[->,>=stealth',
+	shorten >=5pt,
+	node distance=2.5cm,
+	semithick]
+
+\node[initial,state]   (R)              {$z_r$};
+\node[state]           (S) [right of=R] {$z_s$};
+\node[state]           (T) [right of=S] {$z_t$};
+\node[state,accepting] (E) [right of=T] {$z_e$};
+
+\path 	(R) edge [loop,above]       node {0} (R)
+            edge [below]            node {1} (S)
+		(S) edge [below]            node {0} (T)
+            edge [loop,above]       node {1} (S)
+		(T) edge [bend left,below]  node {0} (R)
+            edge [below]            node {1} (E)
+		(E) edge [loop,above]       node {0,1} (E)
+            ;
+\end{tikzpicture}
+			\end{lstlisting}
+		\end{minipage}\\
+		\begin{figure}[ht]
+			\centering
+			\begin{tikzpicture}[->,>=stealth',
+				shorten >=5pt,
+				node distance=2.5cm,
+				semithick]
+		
+				\node[initial,state]   (R)              {$z_r$};
+				\node[state]           (S) [right of=R] {$z_s$};
+				\node[state]           (T) [right of=S] {$z_t$};
+				\node[state,accepting] (E) [right of=T] {$z_e$};
+				
+				\path 	(R) edge [loop,above]       node {0} (R)
+				            edge [below]            node {1} (S)
+						(S) edge [below]            node {0} (T)
+				            edge [loop,above]       node {1} (S)
+						(T) edge [bend left,below]  node {0} (R)
+				            edge [below]            node {1} (E)
+						(E) edge [loop,above]       node {0,1} (E)
+			            ;
+			\end{tikzpicture}\\
+			\caption{Ein Automat, der die Sprache $L=\{0,1\}^*\cdot \{101\}\cdot \{0,1\}^*$ akzeptiert.}
+		\end{figure}
+	\subsection{Beispiel 2}
+		\begin{minipage}{\linewidth}
+			\begin{lstlisting}[mathescape,caption={}]
+\begin{tikzpicture}[->,
+	>=stealth',
+	node distance=2.8cm,
+	semithick]
+
+\node[initial,state]   (0)                    					{$z_0$};
+\node[state]           (1) [above right=0.65cm and 1.5cm of 0]	{$z_1$};
+\node[state]           (2) [below right=0.65cm and 1.5cm of 0]	{$z_2$};
+\node[state,accepting] (E) [right=3.75cm of 0] 					{$z_e$};
+
+\path	(0)	edge [above]				node {1} (1)
+			edge [below]				node {0} (2)
+		(1) edge [left, bend right=10]	node {0} (2)
+			edge [above]				node {1} (E)
+		(2) edge [right,bend right=10]	node {1} (1)
+			edge [below,loop below]		node {0} (2)
+		(E) edge [below]				node {0} (2)
+			edge [right,loop right]		node {1} (E)
+            ;
+\end{tikzpicture}
+			\end{lstlisting}
+		\end{minipage}\\
+		\begin{figure}[ht]
+			\centering
+			\begin{tikzpicture}[->,
+				>=stealth',
+				node distance=2.8cm,
+				semithick]
+			
+			  \node[initial,state]   (0)                    					{$z_0$};
+			  \node[state]           (1) [above right=0.65cm and 1.5cm of 0]	{$z_1$};
+			  \node[state]           (2) [below right=0.65cm and 1.5cm of 0]	{$z_2$};
+			  \node[state,accepting] (E) [right=3.75cm of 0] 					{$z_e$};
+			
+			  \path (0) edge [above]					node {1} (1)
+			            edge [below]					node {0} (2)
+		            (1) edge [left,bend right=10]		node {0} (2)
+			            edge [above]					node {1} (E)
+		            (2) edge [right,bend right=10]		node {1} (1)
+			            edge [loop below,below]		node {0} (2)
+		            (E) edge [below]					node {0} (2)
+			            edge [loop right,right]		node {1} (E)
+			            ;
+			\end{tikzpicture}\\
+			\caption{Ein Automat, der die Sprache $L=\{0,1\}^*\cdot \{0,11\}$ akzeptiert.}
+		\end{figure}
+\end{document}

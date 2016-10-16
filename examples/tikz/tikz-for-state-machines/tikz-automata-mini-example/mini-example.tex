@@ -1,0 +1,22 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata,positioning}
+
+\begin{document}
+	\section*{Zustandsübergangsdiagramm:}
+		\begin{tikzpicture}[->,>=stealth',node distance=3cm,semithick]
+			\node[state,initial] 	(s) 									{$z_s$};
+			\node[state,rectangle]	(t1)	[above right=-0.2 and 2 of s]	{\hspace{1cm}$T_1$\hspace*{1cm}};
+			\node[state,rectangle]	(t2)	[below right=-0.2 and 2 of s]	{\hspace{1cm}$T_2$\hspace*{1cm}};
+			
+			\path
+				(s)  edge[above left,in=180,out=0]		node {0} (t1)
+				(s)  edge[below left,in=180,out=0]		node {1} (t2);
+		\end{tikzpicture}
+\end{document}

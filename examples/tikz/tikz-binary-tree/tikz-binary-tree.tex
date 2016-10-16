@@ -1,0 +1,51 @@
+\documentclass[a4paper]{article}
+\usepackage[ngerman]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{nicefrac}
+\usepackage{multicol}
+
+\usepackage{tikz}
+\tikzstyle{level 1}=[level distance=1.5cm, sibling distance=4.5cm]
+\tikzstyle{level 2}=[level distance=1.5cm, sibling distance=2.25cm]
+\tikzstyle{level 3}=[level distance=1.5cm, sibling distance=1.25cm]
+\tikzstyle{level 4}=[level distance=1.5cm, sibling distance=1cm]
+
+\begin{document}
+	\section{Elemente löschen}
+		Originaler Baum:\\
+		\begin{tikzpicture}[level/.style={sibling distance=20mm/#1}]
+		\node [circle,draw] {20}
+			child {
+					node [circle,draw] {10}
+					child {node [circle,draw] {7}}
+					child[missing]}
+			child {
+				node [circle,draw] {25}
+				child {
+					node [circle,draw] {22}
+					child {node [circle,draw] {21}}
+					child {node [circle,draw] {24}}}
+				child {
+					node [circle,draw] {29}
+					child {node [circle,draw] {28}}
+					child {node [circle,draw] {31}}}};
+		\end{tikzpicture}\\\hfill\\
+		Nach Löschen der 25:\\
+		\begin{tikzpicture}[level/.style={sibling distance=20mm/#1}]
+		\node [circle,draw] {20}
+			child {
+					node [circle,draw] {10}
+					child {node [circle,draw] {7}}
+					child[missing]}
+			child {
+				node [circle,draw] {28}
+				child {
+					node [circle,draw] {22}
+					child {node [circle,draw] {21}}
+					child {node [circle,draw] {24}}}
+				child {
+					node [circle,draw] {29}
+					child[missing]
+					child {node [circle,draw] {31}}}};
+		\end{tikzpicture}
+\end{document}

@@ -1,0 +1,54 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata,positioning}
+
+\newcommand{\n}{\vspace{5pt}\\}
+
+\begin{document}
+	\section{Zustandsdiagramm von $T$:}
+		\begin{tikzpicture}[->,>=stealth',node distance=3.5cm,semithick]
+			\node[initial,state]	(S)									{$z_S$};
+			\node[state]			(R) [right of=S]					{$z_R$};
+			\node[state]			(L) [below of=S]					{$z_L$};
+			\node[state]			(h) [right of=L]					{$z_h$};
+			\node[state]			(a) [above right=0.5 and 2.5 of h]	{$z_a$};
+			\node[state]			(b) [below right=0.5 and 2.5 of h]	{$z_b$};
+			\node[state,accepting]	(e) [below right=0.5 and 2.5 of a]	{$z_e$};
+			\node[state]			(f) [below of=L]					{$z_{fehler}$};
+			
+			\path
+					(S) edge [above]				node [align=left]	{$\#,?,R$}		(R)
+						edge [loop,above]       	node [align=left]	{$a,a,L$\\
+																		 $b,b,L$}		(S)
+					(R)	edge [loop,above]			node [align=left]	{$a.a.R$\\
+																		 $b.b.R$}		(R)
+						edge [above,bend right,
+								in=-133,out=15,
+								sloped]				node [align=left]	{$\#,\$,L$}		(L)%$
+					(L) edge [loop left,left]		node [align=left]	{$a,a,L$\\
+																		 $b,b,L$\\
+																		 $\#,\#,L$}		(L)
+						edge [above]				node [align=left]	{$?,?,R$}		(h)
+						edge [left]					node [align=left]	{$\$,\$,H$}		(f)%$
+					(h) edge [above,sloped]			node [align=left]	{$a,\#,R$}		(a)
+						edge [above,sloped]			node [align=left]	{$b,\#,R$}		(b)
+						edge [loop below,below]		node [align=left]	{$\#,\#,R$}		(h)
+					(a) edge [bend right=40,
+								sloped,below]		node [align=left]	{$b,\#,L$}		(L)
+						edge [above,sloped]			node [align=left]	{$\$,\$,H$}		(e)%$
+						edge [loop above,above]		node [align=left]	{$\#,\#,R$\\
+																		 $a,a,R$}		(a)
+					(b) edge [bend left=40,
+								sloped,below]		node [align=left]	{$a,\#,L$}		(L)
+						edge [above,sloped]			node [align=left]	{$\$,\$,H$}		(e)%$
+						edge [loop below,below]		node [align=left]	{$\#,\#,R$\\
+																		 $b,b,R$}		(b)
+			            ;
+		\end{tikzpicture}
+\end{document}

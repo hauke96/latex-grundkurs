@@ -1,0 +1,58 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata,positioning}
+
+\newcommand{\tikzmark}[1]{\tikz[baseline,remember picture] \coordinate (#1) {};}
+\newcommand{\tikznode}[2]{\tikz[remember picture] \coordinate (#1)++(#2,-1.5em) {};}
+\newcommand{\tikznodes}[3]{\tikz[remember picture] \coordinate (#1)++(#3++0.5em,-1em){}; \tikz[remember picture]\coordinate (#2)++(#3++-0.5em,-1em) {};}
+
+\begin{document}
+	\section{Substitution $sub(F)=G$ finden:}
+	Die Substitution ist $sub(A)=sub(C)=(B\vee \neg C)$ und $sub(B)=\neg C$:
+	\begin{gather*}  
+		((\tikzmark{a}A\Leftrightarrow \tikzmark{b}B)\wedge \tikzmark{c}B\wedge \neg \tikzmark{d}C)\\[2ex]
+		(((\tikznode{e}{-2.05em}\overbrace{B\vee \neg C)}\Leftrightarrow \tikznode{f}{-1em}\overbrace{\neg C})\wedge \tikznode{g}{-1em}\overbrace{\neg C} \wedge \neg\tikznode{h}{-2.1em}\overbrace{(B\vee \neg C)})
+		\tikz[remember picture,overlay]
+		{
+			\draw[->] (a.south)++(.35em,-.65ex) to (e.north) ;
+			\draw[->] (b.south)++(.35em,-.65ex) to (f.north) ;
+			\draw[->] (c.south)++(.35em,-.65ex) to (g.north) ;
+			\draw[->] (d.south)++(.35em,-.65ex) to (h.north) ;
+		}  
+	\end{gather*}
+	\section{Folgerbarkeit Prüfen}
+	\begin{gather*}
+		\{\neg A\tikzmark{nab}, B\}\qquad
+		\{\neg \tikzmark{nb}B\}\qquad
+		\{A,\tikzmark{abd}B,D\}\qquad
+		\{B\tikzmark{bnd},\neg D\}
+		\\[5ex]
+		\hspace*{1cm}\tikznodes{-na1}{-na2}{-0.4cm}\{\neg \tikzmark{na}A\}
+		\hspace*{1cm} \tikznodes{-ad1}{-ad2}{-0.65cm}\{A\tikzmark{ad}, D\}
+		\hspace*{1cm} \{\neg \tikznodes{-nd1}{-nd2}{0cm}\tikzmark{nd}D\}
+		\hspace*{1cm}
+		\\[5ex]
+		\{\tikznodes{-d1}{-d2}{0cm}\tikzmark{d}D\}
+		\\[5ex]
+		\hspace*{2.5cm}\tikznode{-sq1}{-0.05cm}\tikznode{-sq2}{-0.2cm}\square
+		\tikz[remember picture,overlay]
+		{
+			\draw[->] (nab.south)++(.35em,-.65ex) to (-na1.north) ;
+			\draw[->] (nb.south)++(.35em,-.65ex) to (-na2.north) ;
+			\draw[->] (nb.south)++(.35em,-.65ex) to (-ad1.north) ;
+			\draw[->] (abd.south)++(.35em,-.65ex) to (-ad2.north) ;
+			\draw[->] (abd.south)++(.35em,-.65ex) to (-nd1.north) ;
+			\draw[->] (bnd.south)++(.35em,-.65ex) to (-nd2.north) ;
+			\draw[->] (na.south)++(.35em,-.65ex) to (-d1.north) ;
+			\draw[->] (ad.south)++(.35em,-.65ex) to (-d2.north) ;			
+			\draw[->] (nd.south)++(.35em,-.65ex) to (-sq2.north) ;
+			\draw[->] (d.south)++(.35em,-.65ex) to (-sq1.north) ;
+		}  
+	\end{gather*}
+\end{document}
