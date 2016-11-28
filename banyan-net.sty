@@ -1,0 +1,150 @@
+\usepackage{fp}
+\usepackage{ifthen}
+\usepackage{fmtcount}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usetikzlibrary{calc}
+\usetikzlibrary{shapes}
+
+\newcounter{binaryNumber}
+
+\newcommand{\banyan}[1]
+{
+	\padzeroes[#1]
+	
+	\FPeval{\n}{round(2^(#1-1), 0)}
+	\FPeval{\nodeDistance}{round(2^(#1/2), 0)}
+	
+	\begin{scope}
+	[
+		every node/.style={draw, rectangle},
+		font=\scriptsize,
+		node distance=2 cm,
+	]
+		\node[draw=none] (0a0) at (0, 0) {};
+		\foreach \x in {1,...,#1}
+		{
+			\FPeval{\xold}{round(\x-1, 0)}
+			\node[draw=none] (\x a0) [right = \nodeDistance of \xold a0] {};
+			
+			\foreach \y in {1,...,\n}
+			{
+				\FPeval{\yold}{round(\y-1, 0)}
+				\banyanNode{\x}{\y}{\x a\yold}
+			}
+		}
+		
+		\drawLines{1}{1}{\n}{#1}
+		
+		\setcounter{binaryNumber}{0}
+		
+		\FPeval{\nmax}{round(\n-1, 0)}
+		
+		\foreach \i in {0,...,\nmax}
+		{
+			\FPeval{\j}{round(\i+1, 0)}
+			
+			\node[draw=none] (#1a\j a3label) [right = 0.25cm of #1a\j a3] {\binary{binaryNumber}};
+			\node[draw=none] (1a\j a3label) [left = 1.75cm of 1a\j a3] {\binary{binaryNumber}};
+			\addtocounter{binaryNumber}{1}
+			
+			\node[draw=none] (#1a\j a4label) [right = 0.25cm of #1a\j a4] {\binary{binaryNumber}};
+			\node[draw=none] (1a\j a4label) [left = 1.75cm of 1a\j a4] {\binary{binaryNumber}};
+			\addtocounter{binaryNumber}{1}
+		}
+	\end{scope}
+}
+
+\newcommand{\drawLines}[4]
+{
+	% #1 -> x-coord
+	% #2 -> y-coord
+	% #3 -> height
+	% #4 -> spaltenanzahl
+
+	\FPeval{\colAmount}{round(#4-1, 0)}
+	\FPeval{\height}{round(#3, 0)}
+	
+	\foreach \x in {1,...,\colAmount}
+	{
+		\FPeval{\amountBlocks}{round(2^(\x-1), 0)}
+		
+		\FPeval{\xstart}{round(\x, 0)}
+		\FPeval{\blockHeight}{round(2^(\colAmount-\x+1), 0)}
+		
+		\foreach \ycounter in {1,...,\amountBlocks}
+		{
+			\FPeval{\ystart}{round((\ycounter-1)*(\height/\amountBlocks)+1, 0)}
+			\FPeval{\halfHeight}{round(0.5*\blockHeight, 0)}
+			\FPeval{\xnew}{round(\xstart+1, 0)}
+			
+			% horizontal
+			\FPeval{\yend}{round(\ystart+\halfHeight-1, 0)}
+			\foreach \y in {\ystart,...,\yend}
+			{
+				\draw (\xstart a\y a3) -- (\xnew a\y a1);
+			}
+			
+			% horizontal (untere hälfte)
+			\FPeval{\yend}{round(\yend+1, 0)}
+			\FPeval{\yendnew}{round(\yend+\halfHeight-1, 0)}
+			\foreach \y in {\yend,...,\yendnew}
+			{
+				\draw (\xstart a\y a4) -- (\xnew a\y a2);
+			}
+
+			% Diagonalen
+			\FPeval{\yend}{round(\halfHeight+\ystart-1, 0)}
+			\foreach \y in {\ystart,...,\yend}
+			{
+				\FPeval{\ynew}{round(\y+0.5*\blockHeight, 0)}
+				
+				\draw (\xstart a\y a4) -- (\xnew a\ynew a1);
+				\draw (\xnew a\y a2) -- (\xstart a\ynew a3);
+			}
+		}
+	}
+}
+
+\newcommand{\banyanNode}[3]
+{
+	% #1 -> x-coord
+	% #2 -> y-coord
+	% #3 -> node above
+	
+	\def\width{0.75}	
+	
+	\node
+	[
+		minimum width=\width cm,
+		minimum height=1cm,
+	]
+	(#1a#2) [below of = #3] {};
+	
+	\draw (#1a#2)++(-1*\width, 0.25) -- ++(0.5*\width, 0);
+	\draw (#1a#2)++(-1*\width, -0.25) -- ++(0.5*\width, 0);
+	
+	\draw (#1a#2)++(0.5*\width, 0.25) -- ++(0.5*\width, 0);
+	\draw (#1a#2)++(0.5*\width, -0.25) -- ++(0.5*\width, 0);
+	
+	\node[draw=none] (#1a#2b) at ($(#1a#2) + (0.5*\width - 0.15,  0.25)$) {0};
+	\node[draw=none] (#1a#2c) at ($(#1a#2) + (0.5*\width - 0.15, -0.25)$) {1};
+	
+	% Nodes für die Linien:
+	%     ___
+	% 1 -|   |- 3
+	%    |   |
+	% 2 -|___|- 4
+	
+	\coordinate (#1a#2a1)  at ($(#1a#2) + (  -1*\width, 0.25)$) {};
+	\coordinate (#1a#2a1b) at ($(#1a#2) + (-0.5*\width, 0.25)$) {};
+	
+	\coordinate (#1a#2a2)  at ($(#1a#2) + (  -1*\width,-0.25)$) {};
+	\coordinate (#1a#2a2b) at ($(#1a#2) + (-0.5*\width,-0.25)$) {};
+	
+	\coordinate (#1a#2a3)  at ($(#1a#2) + (     \width, 0.25)$) {};
+	\coordinate (#1a#2a3b) at ($(#1a#2) + ( 0.5*\width, 0.25)$) {};
+	
+	\coordinate (#1a#2a4)  at ($(#1a#2) + (     \width,-0.25)$) {};
+	\coordinate (#1a#2a4b) at ($(#1a#2) + ( 0.5*\width,-0.25)$) {};
+}

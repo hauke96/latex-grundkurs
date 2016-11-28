@@ -1,0 +1,92 @@
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usetikzlibrary{arrows}
+\usetikzlibrary{calc}
+\usepackage{ifthen}
+
+\newcommand{\cube}[3]
+{
+	\begin{scope}
+	[
+		node distance = 2cm,
+		every node/.style=
+		{
+			draw,
+			circle,
+			fill=black,
+			minimum width=0.15cm,
+			inner sep=0cm,
+		}
+	]
+		% #1 -> Name für Ecken
+		% #2 -> x-offset
+		% #3 -> y-offset
+		
+		\def\x{#2}
+		\def\y{#3}
+		
+		% Ecken des Würfels ... ja ich weiß, dass das hier kein Würdel ist -.-
+		%	
+		%	      10--------11
+		%	     /|        /|
+		%	    / |       / |
+		%	   /  |      /  |
+		%	  /  12-----/--13
+		%	 /   /     /   /
+		%	00-------01   /
+		%	|  /      |  /
+		%	| /       | /
+		%	|/        |/
+		%	02--------03
+		
+		\node (#100) at (\x, \y)		{};
+		\node (#101) [right of = #100]			{};
+		\node (#102) [below of = #100]			{};
+		\node (#103) [right of = #102]			{};
+		
+		\node (#110) [above right of = #100]	{};
+		\node (#111) [right of = #110]			{};
+		\node (#112) [below of = #110]			{};
+		\node (#113) [right of = #112]			{};
+		
+		\foreach \x in {0,...,3}
+		{
+			\draw (#10\x) -- (#11\x);
+		}
+		\foreach \i in {0,1}
+		{
+			\path[draw] (#1\i0) -- (#1\i1) -- (#1\i3) -- (#1\i2) -- (#1\i0);
+		}
+	\end{scope}
+}
+\newcommand{\connectCubes}[3]
+{
+	% #1 -> prefix von Würfel 1
+	% #2 -> prefix von Würfel 2
+	% #3 -> Farbe
+	
+	\foreach \x in {0,1}
+	{
+		\foreach \i in {0,1}
+		{
+			\draw[draw=#3, semithick] (#1\x\i) -- (#2\x\i);
+		}
+		\foreach \i in {2,3}
+		{
+			\draw[draw=#3, dashed, thick] (#1\x\i) -- (#2\x\i);
+		}
+	}
+}
+\newcommand{\hypercube}
+{
+	\cube{a}{0}{-1}
+	\cube{b}{7}{0}
+	\cube{c}{-3.5}{5}
+	\cube{d}{2.5}{6}
+	
+	\connectCubes{a}{b}{red}
+	\connectCubes{c}{d}{red}
+	
+	\connectCubes{a}{c}{blue}
+	\connectCubes{b}{d}{blue}
+}
