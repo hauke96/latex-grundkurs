@@ -1,3 +1,5 @@
+*.pygstyle
+*.pygtex
 *.aux
 *.glo
 *.idx
