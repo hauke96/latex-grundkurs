@@ -167,21 +167,27 @@
 		\end{frame}
 		
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-		
-		\begin{frame}{\LaTeX{} installieren}
-			\slideheading{\LaTeX-Distribution:}
+		\subsection{\LaTeX{} installieren}
+		\begin{frame}{\LaTeX-Distribution}
+%			\slideheading{\LaTeX-Distribution:}
+Die \LaTeX-Distribution stellt eine Sammlung von Paketen und Programmen zum Kompilieren bereit (Backend). \\
 			\begin{description}
-				\item[GNU/Linux] Nutzt den Paketmanager eurer Distribution. Debian/Ubuntu: \texttt{apt-get install texlive} 
-				\item[Windows] MiKTeX: \url{http://miktex.org/}
-				\item[Mac OS] MacTex: \url{http://tug.org/mactex/} 
+				\item[GNU/Linux] Nutzt den Paketmanager eurer Distribution. Debian/Ubuntu: \texttt{apt-get install texlive} \\
+				oder \texttt{apt-get install texlive-full} (\(>\) 2 GB)
+				\item[Windows] MiKTeX  oder TeX Live herunterladen und installieren. \url{http://miktex.org/} \url{http://www.tug.org/texlive/}
+				\item[Mac OS] MacTex herunterladen und installieren. \url{http://tug.org/mactex/} 
 			\end{description}
-			\vspace{0.1cm}
-			\slideheading{\LaTeX-Editoren:}
+			\end{frame}	
+			
+			
+		\begin{frame}{\LaTeX-Editoren}
+%			\slideheading{\LaTeX-Editoren:}
 			\begin{description}
+				\item[Kile] Guter Editor für GNU/Linux (KDE).
 				\item[Gummi] Editor für GNU/Linux (GTK) mit Live-Preview
 				\item[AUCTeX] für Emacs-Benutzer
 				\item[Texmaker] Editor für alle Betriebssysteme
-				\item[TeXstudio] Fork vom Texmaker mit mehr Features
+				\item[Texstudio] Fork von Texmaker mit mehr Funktionen
 			\end{description}
 			 und viele mehr \dots
 		\end{frame}
@@ -217,13 +223,24 @@
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		
 		\begin{frame}{Detexify -- \LaTeX-Symbolerkennung}
+		\begin{minipage}[0.5\textheight]{0.5\textwidth}
 			\begin{center}
-				\includegraphics[width=0.95\textheight]{images/detexify}
-				\vspace{0.3cm}
-				
-				\Large \href{http://detexify.kirelabs.org/}{http://detexify.kirelabs.org/}
+			\includegraphics[height=0.48\textheight]{images/detexify}
+			\vspace{0.5cm}
+			\Large \href{http://detexify.kirelabs.org/}{detexify.kirelabs.org}
 			\end{center}
+		\end{minipage}
+		\begin{minipage}{0.45\textwidth}
+			\begin{center}
+			\includegraphics[height=0.48\textheight]{images/detexify-app1}
+			\includegraphics[height=0.48\textheight]{images/detexify-app2}
+			\vspace{0.5cm}
+			\Large \href{https://play.google.com/store/apps/details?id=website.marty.detexify}{Detexify im Play Store}
+			\end{center}
+		\end{minipage}
+				
 		\end{frame}
+
 		
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		
@@ -703,7 +720,7 @@ Bar & Lorem ipsum [...]
 			\begin{itemize}
 				\item Die \texttt{\$...\$} Umgebung
 				\begin{itemize}
-					\item Mathe innerhalb von Text (stammt nicht aus \LaTeX, sondern aus \TeX)
+					\item Mathe innerhalb von Text (stammt nicht aus \LaTeX, sondern aus \TeX{} und sollte vermieden werden)
 				\end{itemize}
 				\item Die \texttt{\textbackslash(...\textbackslash)} Umgebung
 				\begin{itemize}
