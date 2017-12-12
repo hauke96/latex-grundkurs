@@ -449,6 +449,23 @@ oder \textit{kursiv}. Oder einfach nur
 				\end{enumerate}
 			\end{columns}
 		\end{frame}
+	
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\begin{frame}[t]{Übung}
+			\slideheading{Übung:}
+			\vspace{0.1cm}\\
+			Schachtel eine Aufzählung, so wie hier:\vspace{0.2cm}\\
+			\begin{itemize}
+				\item Kartoffeln
+				\begin{itemize}
+					\item Festkochend
+					\item Mehligkochend
+				\end{itemize}
+				\item Butter
+				\item Milch
+			\end{itemize}
+		\end{frame}
 		
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		
@@ -601,25 +618,20 @@ oder \textit{kursiv}. Oder einfach nur
 				\end{tabular}
 			\end{columns}
 		\end{frame}
-		
+			
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		
-%		\begin{frame}{Probleme mit Tabellen}
-%			\begin{itemize}
-%			\item \LaTeX{} handhabt \texttt{tabular} als Buchstaben
-%			\item Kein automatischer Umbruch bei Seitenumbruch. Keine Tabelle länger als eine Seite.
-%			\item Bei \texttt{l/r/c} keine automatische Spaltenbereite
-%			\end{itemize}
-%			
-%			\vspace{0.2cm}
-%			\slideheading{Effekt:}
-%			\begin{tabular}{l|l}
-%				Spalte 1 & Spalte 2 \\
-%				\hline
-%				Foo & Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet nunc condimentum augue hendrerit rutrum. \\
-%				Bar & Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet nunc condimentum augue hendrerit rutrum.
-%			\end{tabular}
-%		\end{frame}
+		\begin{frame}[t]{Übung}
+			\slideheading{Übung:}
+			\vspace{0.1cm}\\
+			Erstelle eine Tabelle mit \textbf{automatischem} Zeilenumbruch:\vspace{0.2cm}\\
+			
+			\begin{tabular}{l|p{7cm}}
+				Spalte 1 & Spalte 2 \\ \hline
+				Foo & Lorem ipsum dolor sit amet, consectetur adipiscing elit. \\
+				Bar & Lorem ipsum [...]
+			\end{tabular}
+		\end{frame}
 		
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		
@@ -635,7 +647,7 @@ Bar & Lorem ipsum [...]
 			
 			\slideheading{Ergebnis:}
 			\vspace{0.1cm}\\
-			\begin{tabular}{l|p{8cm}}
+			\begin{tabular}{l|p{7cm}}
 				Spalte 1 & Spalte 2 \\ \hline
 				Foo & Lorem ipsum dolor sit amet, consectetur adipiscing elit. \\
 				Bar & Lorem ipsum [...]
@@ -871,7 +883,36 @@ Die Probleminstanz \(\mathfrak{B}\) sei gegeben Durch die Menge \(\mathbb{N}\) u
 		 \end{cases}
 		\]
 		\end{frame}
-
+	
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\begin{frame}[t]{Finale Übung}
+			\slideheading{Übung:} Bilde dieses Dokument nach:\vspace{0.2cm}
+			
+			\begin{center}
+				\includegraphics[width=0.95\textwidth]{images/mathe-uebung-1}
+			\end{center}
+		\end{frame}
+			
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\begin{frame}[containsverbatim]{Finale Übung}
+			\slideheading{\LaTeX{}-Code:}\\
+			{\footnotesize
+			\begin{latexcode}
+\section{Aufgabe 1: Vereinfacung von \(\mathcal{Z}\)}
+Wir \textit{vereinfachen} den Term
+\(w\cdot\frac{1}{w\cdot\frac{1}{w+1}}\) für später:
+\begin{align}
+	\mathcal{Z} &= w\cdot\frac{1}{w\cdot\frac{1}{w+1}}           \\
+	\mathcal{Z} &=       \frac{w}{w\cdot\frac{1}{w+1}}\label{foo}\\
+	\mathcal{Z} &=       \frac{w}{      \frac{w}{w+1}}           \\
+	\mathcal{Z} &= w+1
+\end{align}
+Schritt \textbf{\ref{foo}} ist sehr wichtig.
+			\end{latexcode}
+			}
+		\end{frame}
 \end{document}
 
 		\section{\LaTeX Advanced}
