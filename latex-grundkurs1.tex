@@ -106,7 +106,7 @@
 
 \usecolortheme[named=myBlue]{structure}
 
-\newcommand{\slideheading}[1]{\textbf{#1}\\}
+\newcommand{\slideheading}[1]{\textbf{#1}}
 \newcommand{\TikZ}{Ti\textit{k}Z}
 \newcommand{\bus}[4]{Ein Bus der Linie #1 Richtung #2 fährt von #3 um #4 ab.}
 
@@ -117,7 +117,7 @@
 	Walter Stieben \texttt{\href{mailto:4stieben@informatik.uni-hamburg.de}{4stieben@inf}}\\
 	\href{http://hauke-stieler.de/}{Hauke Stieler} \texttt{\href{mailto:4stieler@informatik.uni-hamburg.de}{4stieler@inf}}
 }
-\date{\footnotesize 12.01.2016}
+\date{\footnotesize \today}
 
 \begin{document}
 	\maketitle
@@ -147,7 +147,6 @@
 		\subsection*{}
 		\begin{frame}{Was ist \LaTeX{}}
 			\slideheading{\LaTeX{} und \TeX{}:}
-			\vspace{-0.35cm}
 			\begin{itemize}
 				\item \TeX{} ist ein Textsatzsystem von Donald E. Knuth
 				\item \LaTeX{} ist ein Satz von Makros für \TeX
@@ -155,7 +154,6 @@
 			\end{itemize}
 			\vspace{0.1cm}
 			\slideheading{Vorteile von \LaTeX{}:}
-			\vspace{-0.35cm}
 			\begin{itemize}
 				\item Ergebnis sieht hübsch aus
 				\item \LaTeX{} kümmert sich um die Formatierung
@@ -172,14 +170,13 @@
 		
 		\begin{frame}{\LaTeX{} installieren}
 			\slideheading{\LaTeX-Distribution:}
-			\vspace{-0.35cm}
 			\begin{description}
 				\item[GNU/Linux] Nutzt den Paketmanager eurer Distribution. Debian/Ubuntu: \texttt{apt-get install texlive} 
 				\item[Windows] MiKTeX: \url{http://miktex.org/}
 				\item[Mac OS] MacTex: \url{http://tug.org/mactex/} 
 			\end{description}
+			\vspace{0.1cm}
 			\slideheading{\LaTeX-Editoren:}
-			\vspace{-0.35cm}
 			\begin{description}
 				\item[Gummi] Editor für GNU/Linux (GTK) mit Live-Preview
 				\item[AUCTeX] für Emacs-Benutzer
@@ -225,7 +222,7 @@
 			Menschen \TeX/\LaTeX-Code auf eurem Rechner/Server ausführen.
 			
 			\vspace{0.2cm}
-			\slideheading{Anmerkung:} Man kann \textbf{\href{https://www.overleaf.com}{https://www.overleaf.com}} zum live-nachcoden benutzen.
+			\slideheading{Anmerkung:} Man kann \textbf{\url{https://www.overleaf.com}} zum live-nachcoden benutzen.
 		\end{frame}
 		
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -239,8 +236,8 @@
 				\item Ihr beschreibt was ihr schreibt (z.\,B. was eine Überschrift ist)
 				\item \LaTeX{} formatiert euer Dokument mit Hilfe der Dokumentenklasse, \textbf{nicht ihr}!
 			\end{itemize}
-			\vspace{0.2cm}
-			Beispiele für Dokumentenklassen:
+			\vspace{0.1cm}
+			\slideheading{Beispiele für Dokumentenklassen:}
 			\begin{description}
 				\item[Scrartcl, article:] Artikel im Umfang von mehreren Seiten
 				\item[Scrllr2, letter:] Briefe
@@ -284,7 +281,7 @@
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		
 		\begin{frame}{Schriftgrößen}
-			\slideheading{Schriftgrößen:}
+			\slideheading{Schriftgrößen:}\hspace{5mm}
 			\begin{tabular}{l l}
 				tiny 			& \tiny\textbackslash tiny\normalsize\\
 				scriptsize 		& \scriptsize\textbackslash scriptsize\normalsize\\
@@ -360,35 +357,40 @@ Das Problem ist NP-vollständig.
 			
 			\vspace{0.1cm}
 			\slideheading{Ergebnis:}
-			\vspace{0.3cm}
-			{\Large \textbf{1 Finden von maximalen Cliquen}}\\
-			Maximale Cliquen haben viele reale Anwendungsfälle.\\
-			\vspace{2mm}
-			\textbf{1.1 NP-Vollständigkeit}\\
+			\vspace{0.3cm}\\
+			{\Large \textbf{1 Finden von maximalen Cliquen}}
+			\vspace{2mm}\\
+			Maximale Cliquen haben viele reale Anwendungsfälle.
+			\vspace{4mm}\\
+			\textbf{1.1 NP-Vollständigkeit}
+			\vspace{2mm}\\
 			Das Problem ist NP-vollständig.
 		\end{frame}
 		
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		
 		\begin{frame}[containsverbatim]{Einfache Textformatierung}
-			\slideheading{\LaTeX-Code:}
-			\begin{latexcode}
-Dieser Text besitzt einen\\
+			\begin{columns}[t]
+				\column{.5\textwidth}
+				\slideheading{\LaTeX-Code:}
+				\begin{latexcode}
+Dieser Text hat einen\\
 Zeilenumbruch.
 Dieser       Text\newline
 auch
 
 Dies ist ein Absatz
-			\end{latexcode}
-			
-			\slideheading{Ergebnis:}
-			\vspace{0.1cm}
-			Dieser Text besitzt einen\\
-			Zeilenumbruch
-			Dieser       Text\newline
-			auch
-			
-			~~~~Dies ist ein Absatz
+				\end{latexcode}
+				\column{.5\textwidth}
+				\slideheading{Ergebnis:}
+				\vspace{1mm}\\
+				Dieser Text hat einen\\
+				Zeilenumbruch
+				Dieser       Text\newline
+				auch
+				
+				~~~~Dies ist ein Absatz
+			\end{columns}
 		\end{frame}
 		
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -401,8 +403,9 @@ oder \textit{kursiv}. Oder einfach nur
 \emph{hervorgehoben}.
 			\end{latexcode}
 			
-			\slideheading{Ergebnis:}
 			\vspace{0.1cm}
+			\slideheading{Ergebnis:}
+			\vspace{0.1cm}\\
 			Dies ist \textbf{fett} oder \texttt{typewriter} oder
 			\textit{kursiv}. Oder einfach nur \emph{hervorgehoben}.
 		\end{frame}
@@ -586,7 +589,7 @@ oder \textit{kursiv}. Oder einfach nur
 				
 				\column{0.45\textwidth}
 				\slideheading{Ergebnis:}
-				\vspace{0.1cm}
+				\vspace{0.1cm}\\
 				\begin{tabular}{l||c|r}
 					Händler & Produkt & Preis\\
 					\hline
@@ -624,18 +627,17 @@ oder \textit{kursiv}. Oder einfach nur
 			\slideheading{\LaTeX-Code:}
 			\begin{latexcode}
 \begin{tabular}{l|p{8cm}}
-Spalte 1 & Spalte 2 \\
-\hline
+Spalte 1 & Spalte 2 \\ \hline
 Foo & Lorem ipsum dolor sit amet [...] \\
 Bar & Lorem ipsum [...]
 \end{tabular}
 			\end{latexcode}
 			
 			\slideheading{Ergebnis:}
+			\vspace{0.1cm}\\
 			\begin{tabular}{l|p{8cm}}
-				Spalte 1 & Spalte 2 \\
-				\hline
-				Foo & Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet nunc condimentum augue hendrerit rutrum. \\
+				Spalte 1 & Spalte 2 \\ \hline
+				Foo & Lorem ipsum dolor sit amet, consectetur adipiscing elit. \\
 				Bar & Lorem ipsum [...]
 			\end{tabular}
 		\end{frame}
@@ -672,7 +674,8 @@ Bar & Lorem ipsum [...]
 		
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		
-		\subsection{Mathematischer Textsatz}
+	\section{Mathematischer Textsatz}
+		\subsection{Theorie}
 		\begin{frame}[containsverbatim]{Mathe-Umgebung}
 			Es gibt verschiedene Mathe-Umgebungen:
 			\begin{itemize}
@@ -761,6 +764,7 @@ Die Probleminstanz \(\mathfrak{B}\) sei gegeben Durch die Menge \(\mathbb{N}\) u
 		
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		
+		\subsection{Beispiele}
 		\begin{frame}[containsverbatim]{Mathebeispiele: Matrizen}
 			\slideheading{\LaTeX{}-Code:}
 			\begin{latexcode}
