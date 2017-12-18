@@ -951,38 +951,24 @@ class MeineKlasse{
 		\begin{frame}[containsverbatim]{SI-Einheiten mit \texttt{siunitx}}
 			\slideheading{\LaTeX-Code:}
 			\begin{latexcode}
-
+\sisetup{...} % Einstellungen für siunitx
+Für Geschwindigkeiten bis zu
+\(v = \SI{50}{\percent} \cdot c\)
+(also \(\SIrange{0}{3e8}{\meter\per\second}\))
+erhalten wir Energien bis \(\SI{1.4}{\TeV}\)
+(\(\si{\tera\eV} = \SI{1.6022e-7}{\J}\)).
 			\end{latexcode}
 			\slideheading{Ergebnis:}
 
-\sisetup{
-	locale = DE ,
-	per-mode = symbol
-}			
+\sisetup{%
+  locale = DE,
+  per-mode = fraction,
+  range-phrase = \text{--},
+  range-units = single
+}		
 
-Die Energie beträgt \(\num{1.4e12}\) in der Einheit \(\si{\TeV}\), also \(\SI{1.4e12}{\tera\eV}\).
+Für Geschwindigkeiten bis zu \(v = \SI{50}{\percent} \cdot c\) (also \(\SIrange{0}{3e8}{\meter\per\second}\)) erhalten wir Energien bis \(\SI{1.4}{\TeV}\) (\(\si{\tera\eV} = \SI{1.6022e-7}{\J}\)).
 
-Für Geschwindigkeiten sind Werte von \(\SIrange{0}{3e8}{\meter\per\second}\) zulässig.
-
-			
-%\begin{align*}
-%n &= 2808
-%&&&
-%N &= \num{1.1e11}
-%\\
-%\ell &= \SI{26.7}{\km}
-%&&& r &= \SI{33}{\um}
-%\\
-%\sqrt{s} &= \SI{14}{\TeV} 
-%& \implies && v & \approx c
-%\\
-%\\
-%f &= \frac{n c}{\ell} = \SI{31.5}{\MHz}
-%\\
-%L_{Collider} &= \frac{f N^2}{A}
-%\ = \ \frac{N^2}{2 \pi r^2}
-%\ = \ \SI{5.069e22}{\per\cm\squared\per\s}
-%\end{align*}
 
 		\end{frame}
 				
