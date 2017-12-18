@@ -8,6 +8,7 @@
 \usepackage{color}
 \usepackage{tikz}
 \usepackage{pgf}
+\usepackage{tabularx}
 
 \usepackage{banyan-net}
 \usepackage{hypercube-5D}

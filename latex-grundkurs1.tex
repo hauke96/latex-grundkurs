@@ -556,7 +556,8 @@ oder \textit{kursiv}. Oder einfach nur
 		
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		
-		\begin{frame}[containsverbatim]{Tabellen mit \texttt{longtable}}
+%		\begin{frame}[containsverbatim]{Tabellen mit \texttt{longtable}}
+		\begin{frame}[containsverbatim]{Spaltentyp \texttt{p\{<breite>\}}}
 			\slideheading{\LaTeX-Code:}
 			\begin{latexcode}
 \begin{tabular}{l|p{8cm}}
@@ -573,6 +574,25 @@ Bar & Lorem ipsum [...]
 				Foo & Lorem ipsum dolor sit amet, consectetur adipiscing elit. \\
 				Bar & Lorem ipsum [...]
 			\end{tabular}
+		\end{frame}
+		
+		\begin{frame}[containsverbatim]{Automatische Breite mit \texttt{tabularx}}
+			\slideheading{\LaTeX-Code:}
+			\begin{latexcode}
+\begin{tabularx}{.85\textwidth}{l|X}
+Spalte 1 & Spalte 2 \\ \hline
+Foo & Lorem ipsum dolor sit amet [...] \\
+Bar & Lorem ipsum [...]
+\end{tabularx}
+			\end{latexcode}
+			
+			\slideheading{Ergebnis:}
+			\vspace{0.1cm}\\
+			\begin{tabularx}{.85\textwidth}{l|X}
+				Spalte 1 & Spalte 2 \\ \hline
+				Foo & Lorem ipsum dolor sit amet, consectetur adipiscing elit. \\
+				Bar & Lorem ipsum [...]
+			\end{tabularx}
 		\end{frame}
 		
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -649,12 +669,12 @@ verwenden. Oder auch Matheformeln als ganzen Block:
 			\slideheading{\LaTeX{}-Code:}
 			\begin{latexcode}
 Neben Summen ($\sum$) gibt es auch Integrale:
-\[ \int_a^b f(x) \mathrm{d}x \]
+\[ \int\limits_a^b f(x) \ \mathrm{d}x \]
 			\end{latexcode}
 			
 			\slideheading{Ergebnis:}
 			Neben Summen ($\sum$) gibt es auch Integrale:
-			\[ \int_a^b f(x) \mathrm{d}x \]
+			\[ \int\limits_a^b f(x) \ \mathrm{d}x \]
 		\end{frame}
 		
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -760,6 +780,7 @@ Die Probleminstanz \(\mathfrak{B}\) sei gegeben Durch die Menge \(\mathbb{N}\) u
 				\sin^2(\alpha) + \cos^2(\alpha) & = 1 \\
 				\tan(\alpha) & = \frac{\sin(\alpha)}{\cos(\alpha)}
 			\end{align}
+			\slideheading{Achtung}: \texttt{align} macht automatisch eine Mathe-Umgebung auf!
 		\end{frame}
 		
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -778,6 +799,7 @@ Die Probleminstanz \(\mathfrak{B}\) sei gegeben Durch die Menge \(\mathbb{N}\) u
 				\sin^2(\alpha) + \cos^2(\alpha) & = 1 \\
 				\tan(\alpha) & = \frac{\sin(\alpha)}{\cos(\alpha)}
 			\end{align*}
+			\slideheading{Achtung}: \texttt{align} macht automatisch eine Mathe-Umgebung auf!
 		\end{frame}
 		
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
