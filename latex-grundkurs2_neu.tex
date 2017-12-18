@@ -184,7 +184,7 @@ gewählt.
 			\end{itemize}
 			
 			\slideheading{\LaTeX-Code:}
-			\begin{latexcode}
+			\begin{smalllatexcode}
 \usepackage{minted}
 % ...
 \begin{minted}{java}
@@ -196,7 +196,7 @@ class MeineKlasse{
 	}
 }
 \end{minted}
-			\end{latexcode}
+			\end{smalllatexcode}
 		\end{frame}
 		
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -219,7 +219,7 @@ class MeineKlasse{
 		\begin{frame}[containsverbatim]{Mit \texttt{lstlisting}}
 			\slideheading{\LaTeX-Code:}
 			\begin{latexcode}
-\usepackage{listings}
+\usepackage{smallerlistings}
 \lstset{...} % style-einstellungen
 % ...
 \begin{lstlisting}[caption=Variablen]
@@ -231,7 +231,7 @@ class MeineKlasse{
 	}
 }
 \end{lstlisting}
-			\end{latexcode}
+			\end{smallerlatexcode}
 		\end{frame}
 		
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -539,7 +539,7 @@ class MeineKlasse{
 
 		\begin{frame}[containsverbatim]{Zustände}
 			\slideheading{\TikZ-Code:}
-			\begin{latexcode}
+			\begin{smallerlatexcode}
 \usetikzlibrary{
 	automata,
 	arrows}
@@ -552,7 +552,7 @@ class MeineKlasse{
 	\node[state]           (1) [right of=0] {$z_1$};
 	\node[state,accepting] (2) [right of=1] {$z_2$};
 \end{tikzpicture}
-			\end{latexcode}
+			\end{smallerlatexcode}
 		\end{frame}
 
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -576,7 +576,7 @@ class MeineKlasse{
 
 		\begin{frame}[containsverbatim]{Positionierung}
 			\slideheading{\TikZ-Code:}
-			\begin{smallerlatexcode}
+			\begin{smalllatexcode}
 \usetikzlibrary{
 	automata,
 	arrows,
@@ -591,7 +591,7 @@ class MeineKlasse{
 	\node [state] (b) [above right=1cm and 2cm of a] {$b$};
 	\node [state] (c) [below right of = a]           {$c$};
 \end{tikzpicture}
-			\end{smallerlatexcode}
+			\end{smalllatexcode}
 		\end{frame}
 
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -612,6 +612,42 @@ class MeineKlasse{
 			\end{center}
 		\end{frame}
 
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\begin{frame}[containsverbatim]{Genauere Positionierung}
+			\begin{columns}[t]
+				\column{0.775\textwidth}
+				\slideheading{\LaTeX{}-Code:}
+				\begin{smalllatexcode}
+\usetikzlibrary{calc}		
+% ...		
+\begin{tikzpicture}
+	\node [state] (a)                                {$a$};
+	\node [state] (b) [below right=1cm and 2cm of a] {$b$};
+	\node [state] (c) [at=(a|-b)]                    {$c$};
+	\node [state] (d) [at=(b|-a)]                    {$d$};
+	\node [state] (e) [at=($(a)!1/2!(d)$)]           {$e$};
+	\node [state] (f) [at=($(a)!2!(c)$)]             {$f$};
+\end{tikzpicture}
+				\end{smalllatexcode}
+				
+				\column{0.225\textwidth}
+				\hspace{3mm}
+				\slideheading{Ergebnis:}
+				\hspace{3mm}
+				\scalebox{0.75}{
+					\begin{tikzpicture}
+						\node [state] (a)                                {$a$};
+						\node [state] (b) [below right=1cm and 2cm of a] {$b$};
+						\node [state] (c) [at=(a|-b)]					{$c$};
+						\node [state] (d) [at=(b|-a)]					{$d$};
+						\node [state] (e) [at=($(a)!1/2!(d)$)] 			{$e$};
+						\node [state] (f) [at=($(a)!2!(c)$)]				{$f$};
+					\end{tikzpicture}
+				}
+			\end{columns}
+		\end{frame}		
+		
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 		\begin{frame}[containsverbatim]{Pfeile}
