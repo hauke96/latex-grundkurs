@@ -1,0 +1,975 @@
+\documentclass{beamer}
+
+\input{latex-grundkurs.inc}
+
+\title{\LaTeX{} advanced}
+\subtitle{\small Ti\textit{k}Z, etc.}
+\author
+{
+	Walter Stieben \texttt{\href{mailto:4stieben@informatik.uni-hamburg.de}{4stieben@inf}}\\
+	\href{http://hauke-stieler.de/}{Hauke Stieler} \texttt{\href{mailto:4stieler@informatik.uni-hamburg.de}{4stieler@inf}}\\
+  Ruben Felgenhauer \texttt{\href{mailto:4felgenh@informatik.uni-hamburg.de}{4felgenh@inf}}
+}
+
+\date{\footnotesize \today}
+
+\begin{document}
+	\maketitle
+		
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+	\begin{frame}
+		\begin{center}
+			Danke Henning (\texttt{8pridoeh}) dass wir deine Folien aus dem WS14/15 benutzen dürfen :D
+		\end{center}
+	\end{frame}
+		
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+
+		\section{\LaTeX Advanced}
+		\subsection{Referenzieren}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\begin{frame}[containsverbatim]{Referenzieren (Abschnitte)}
+			\slideheading{\LaTeX-Code:}
+			\begin{latexcode}
+\subsection{Cliquen in bipartiten Graphen}
+\label{sec:cliques}
+
+% Irgendwo anders
+Im Abschnitt \ref{sec:cliques} auf Seite
+\pageref{sec:cliques} wurde das Finden von
+Cliquen in bipartiten Graphen beschrieben.
+			\end{latexcode}
+			
+			\slideheading{Ergebnis:}
+			Im Abschnitt 3.2 auf Seite 7 wurde das Finden
+			von Cliquen in bipartiten Graphen beschrieben.
+		\end{frame}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\begin{frame}[containsverbatim]{Referenzieren (Figures)}
+			\slideheading{\LaTeX-Code:}
+			\begin{latexcode}
+\begin{figure}[t]
+	\includegraphics[width=7cm]{images/lichtstrahl}
+	\caption{Brechung eines Lichtstrahls beim Wechsel
+			 des Mediums}
+	\label{fig:lichtbrechung}
+\end{figure}
+% Irgendwo anders
+Der Lichtstrahl wird gebrochen, wie
+Abbildung \ref{fig:lichtbrechung} zeigt.
+			\end{latexcode}
+			
+			\slideheading{Ergebnis:}
+			Der Lichtstrahl wird gebrochen, wie Abbildung 3 zeigt.
+		\end{frame}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\subsection{Richtig Zitieren}
+		
+		\begin{frame}[containsverbatim]{Bib\TeX}
+			\begin{itemize}
+				\item Man verwaltet eine Bib\TeX{}-Datei (\texttt{*.bib}) mit Literaturangaben
+				\item Mit \texttt{\textbackslash{}cite[Seite X]\{Referenz\}} referenziert man eine solche Angabe, mit optionaler Seitenangabe.
+				\item Mit \texttt{\textbackslash{}footcite\{Referenz\}} kann die Referenz direkt in die Fußnote mit hochgestelltem Index geschrieben werden.
+				\item Vor \texttt{pdflatex} wirft man \texttt{bibtex} an
+			\end{itemize}
+		\end{frame}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\begin{frame}[containsverbatim]{Bib\TeX}
+			\slideheading{\LaTeX{}-Code:}
+			\begin{latexcode}
+% Im Header
+\bibliographystyle{alpha}
+
+% Beim Zitat
+Für die Lösung des Travelling-Salesman-Problems
+wurde ein heuristischer Algorithmus \cite{lin19973}
+gewählt.
+
+% An der Stelle des Literaturverzeichnis
+\bibliography{literatur}
+			\end{latexcode}
+		\end{frame}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\begin{frame}[containsverbatim]{Bib\TeX-Eintrag}
+			\slideheading{Bib\TeX{}-Eintrag:} (aus ``literatur.bib'')
+			\begin{latexcode}
+@article{lin1973,
+	author  = {Shen Lin and Brian W. Kernighan},
+	title   = {An Effective Heuristic Algorithm for the
+	           Travelling-Salesman Problem},
+	journal = {Operations Research},
+	volume  = {21},
+	year    = {1973},
+	pages   = {498--516},
+}
+			\end{latexcode}
+		\end{frame}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\begin{frame}{Bib\TeX{}-Ergebnis}
+			\slideheading{Ergebnis:}
+			
+			% Das hier ist ist wieder ein wenig geschummelt um ein
+			% Ergebnis, wie es in echten Dokumenten aussieht zu
+			% emulieren. Das geht sicherlich auch hübscher.
+			\vspace{0.2cm}
+			Für die Lösung des Travelling-Salesman-Problems
+			wurde ein heuristischer Algorithmus [LK73]
+			gewählt.
+			
+			\vspace{0.5cm}
+			{\Large \textbf{Literatur}}\\
+			
+			\vspace{0.3cm}
+			\begin{tabular}{lp{9cm}}
+				[LK73] & Shen Lin and Brian~W. Kernighan. An effective heuristic algorithm for
+				         the travelling-salesman problem.
+				         {\em Operations Research}, 21:498--516, 1973.
+			\end{tabular}
+		\end{frame}
+
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\begin{frame}{Bib\LaTeX{} und Biber}
+
+			\slideheading{Biber:}
+			\begin{itemize}
+				\item Moderner Ersatz für Bib\TeX{}
+				\item Guter UTF-8-Support
+				\item Bessere Verwaltung von Styles
+				\item Mehr Kontrolle über Sortierung
+				\item Nicht überall verbreitet
+			\end{itemize}
+			\slideheading{Bib\LaTeX{}}
+			\begin{itemize}
+				\item Package zum Einstellen vieler Dinge mittels \LaTeX{}-Code
+				\item Einfaches wissenschaftliches Zitieren
+				\item Für den Einsatz mit Biber entwickelt (UTF-8-Support)
+				\item Funktioniert mittelmäßig mit Bib\TeX{}
+			\end{itemize}
+
+
+		\end{frame}
+
+
+		
+		\subsection{Code-Highlighten}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\begin{frame}[containsverbatim]{Mit \texttt{minted}}
+			\begin{itemize}
+				\item \texttt{minted} arbeitet mit Pygments (python-library).
+				\item Benötigt \texttt{-shell-escape} als Parameter von \texttt{pdflatex}. 
+			\end{itemize}
+			
+			\slideheading{\LaTeX-Code:}
+			\begin{latexcode}
+\usepackage{minted}
+% ...
+\begin{minted}{java}
+class MeineKlasse{
+	private int meineVariable; // Deklaration
+	
+	public void meineMethode(){
+		meineVariable = 42; // Initialisierung
+	}
+}
+\end{minted}
+			\end{latexcode}
+		\end{frame}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\begin{frame}[containsverbatim]{Mit \texttt{minted}}
+			\slideheading{Ergebnis:}
+			\begin{minted}{java}
+class MeineKlasse{
+	private int meineVariable; // Deklaration
+	
+	public void meineMethode(){
+		meineVariable = 42; // Initialisierung
+	}
+}
+			\end{minted}
+		\end{frame}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\begin{frame}[containsverbatim]{Mit \texttt{lstlisting}}
+			\slideheading{\LaTeX-Code:}
+			\begin{latexcode}
+\usepackage{listings}
+\lstset{...} % style-einstellungen
+% ...
+\begin{lstlisting}[caption=Variablen]
+class MeineKlasse{
+	private int meineVariable; // Deklaration
+	
+	public void meineMethode(){
+		meineVariable = 42; // Initialisierung
+	}
+}
+\end{lstlisting}
+			\end{latexcode}
+		\end{frame}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\begin{frame}[containsverbatim]{Mit \texttt{lstlisting}}
+			\slideheading{Ergebnis:}
+			\begin{lstlisting}[caption=Variablen]
+class MeineKlasse{
+	private int meineVariable; // Deklaration
+	
+	public void meineMethode(){
+		meineVariable = 42; // Initialisierung
+	}
+}
+			\end{lstlisting}
+		\end{frame}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		\begin{frame}[containsverbatim]{Mit \texttt{algorithmic} (Pseudocode)}
+		
+		\end{frame}				
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\subsection{Makros}
+		\begin{frame}[containsverbatim]{Eigene Befehle}
+			\slideheading{\LaTeX-Code:}
+			\begin{latexcode}
+% TeX-style
+\def\heute{Heute ist der \today.}
+% LaTeX-style (besser)
+\newcommand{\heute}{Heute ist der \today.}
+\newcommand{\TikZ}{Ti\textit{k}Z}
+% Verwendung
+\heute
+\TikZ
+			\end{latexcode}
+			\slideheading{Ergebnis:}
+			Heute ist der \today.\\
+			\TikZ
+		\end{frame}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\begin{frame}[containsverbatim]{Eigene Befehle}
+			\slideheading{\LaTeX-Code:}
+			\begin{latexcode}
+% LaTeX-style
+\newcommand{\bus}[4]{Ein Bus der Linie #1 Richtung 
+                    #2 fährt von der Haltestelle
+                    #3 um #4 ab.}
+% Verwendung
+\bus{181}{Sternschanze}{Informatikum}{13:37}
+			\end{latexcode}
+			\slideheading{Ergebnis:}
+			\bus{181}{Sternschanze}{Informatikum}{13:37}
+		\end{frame}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\begin{frame}[containsverbatim]{Eigene Umgebungen}
+			\slideheading{\LaTeX-Code:}
+			\begin{latexcode}
+\newenvironment{textttit}
+               {\begingroup\ttfamily\itshape}
+               {\endgroup}
+% Verwendung
+\begin{textttit}
+	Dies ist ein Test
+\end{textttit}
+			\end{latexcode}
+			\slideheading{Ergebnis:}
+			\texttt{\textit{Dies ist ein Test}}
+		\end{frame}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+%		\section{HA-Tipps}
+%		
+%		\begin{frame}[containsverbatim]{\LaTeX{}-Beamer}
+%			\begin{center}
+%				Und jetzt ein paar Tipps für Hausaufgaben/-arbeiten
+%			\end{center}
+%		\end{frame}
+
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		\section{\protect\TikZ}
+		
+		\begin{frame}[containsverbatim]{\TikZ}
+			\begin{itemize}
+				\item \textbf{T}ikZ \textbf{i}st \textbf{k}ein \textbf{Z}eichenprogramm.
+				\item Abbildungen werden mit TikZ beschrieben und durch PGF gerendert.
+				\item Sehr umfangreiches Paket (Dokumentation: $>$1000 Seiten), viele Möglichkeiten.
+				\item Hat direkte Unterstützung für Petrinetze :-)
+				\item Overkill: Animationen in einer PDF mittels\\
+				JavaScript und \TikZ ~:o
+			\end{itemize}
+			
+			
+			\vspace{-1.25cm}
+			\hspace{8.5cm}
+			\begin{tikzpicture}
+				\draw[thick,rounded corners=8pt]
+				(0,0) -- (0,2) -- (1,3.25) -- (2,2) -- 
+				(2,0) -- (0,2) -- (2,2) -- (0,0) -- (2,0);
+			\end{tikzpicture}
+		\end{frame}
+
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\subsection{Grundlagen}
+
+		\begin{frame}[containsverbatim]{\TikZ}
+			\begin{columns}[t]
+				\column{0.7\textwidth}
+				\slideheading{\LaTeX{}-Code:}
+				\begin{latexcode}
+\begin{tikzpicture}
+	\draw[thick,rounded corners=8pt]
+		(0,0) -- (0,2) -- (1,3.25) --
+		(2,2) -- (2,0) -- (0,2) --
+		(2,2) -- (0,0) -- (2,0);
+\end{tikzpicture}
+				\end{latexcode}
+				
+				\column{0.3\textwidth}
+				\hspace{3mm}
+				\slideheading{Ergebnis:}
+				\hspace{3mm}
+				\begin{tikzpicture}
+					\draw[thick,rounded corners=8pt]
+					(0,0) -- (0,2) -- (1,3.25) -- (2,2) -- 
+					(2,0) -- (0,2) -- (2,2) -- (0,0) -- (2,0);
+				\end{tikzpicture}
+			\end{columns}
+		\end{frame}
+
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		\begin{frame}[containsverbatim]{Nodes und Lines}
+			\slideheading{\TikZ-Code:}
+			\begin{latexcode}
+\begin{tikzpicture}
+	\node[shape=rectangle,draw=black,rounded corners]
+		(s) at (0, 0) {S};
+	\node[shape=rectangle,draw=black,rounded corners]
+		(t) at (3, 0) {T};
+	
+	\draw[thick, ->]     (s)     -- (1, -1);
+	\draw[thick, dotted] 
+		(1, -1) to [bend right = 45] (2, -1);
+	\draw[thick,->]      (2, -1) -- (t);
+\end{tikzpicture}
+			\end{latexcode}
+		\end{frame}
+
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		\begin{frame}[containsverbatim]{Nodes und Lines}
+			\begin{center}
+				\slideheading{Ergebnis:}
+				\vspace{0.5cm}
+				\begin{tikzpicture}
+					\node[shape=rectangle,draw=black,rounded corners]
+						(s) at (0, 0) {S};
+					\node[shape=rectangle,draw=black,rounded corners]
+						(t) at (3, 0) {T};
+					
+					\draw[thick, ->]     (s)     -- (1, -1);
+					\draw[thick, dotted] 
+						(1, -1) to [bend right = 45] (2, -1);
+					\draw[thick,->]      (2, -1) -- (t);
+				\end{tikzpicture}
+			\end{center}
+		\end{frame}
+
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		\begin{frame}[containsverbatim]{Hobby-Kurven}
+			\begin{itemize}
+				\item Hobby-Kurven mittels \texttt{hobby}-Paket
+			\end{itemize}
+			\slideheading{\TikZ-Code:}
+			\begin{smalllatexcode}
+\begin{tikzpicture}
+	\node[shape=rectangle,draw=black,rounded corners]
+		(s) at (0, 0) {S};
+	\node[shape=rectangle,draw=black,rounded corners]
+		(t) at (3, 0) {T};
+	
+	\draw[thick, ->]     (s)     -- (1, -1);
+	\draw[thick, ->, dotted] 
+		(1, -1)
+		to[curve through={(1.5, -1.1) .. (1.5,-0.75) .. (1.5, -1.1)}]
+		(2, -1);
+	\draw[thick, ->]      (2, -1) -- (t);
+\end{tikzpicture}
+			\end{smalllatexcode}
+		\end{frame}
+
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		\begin{frame}[containsverbatim]{Hobby-Kurven}
+			\begin{center}
+				\slideheading{Ergebnis:}
+				\vspace{0.5cm}
+				\begin{tikzpicture}
+					\node[shape=rectangle,draw=black,rounded corners] (s) at (0, 0) {S};
+					\node[shape=rectangle,draw=black,rounded corners] (t) at (3, 0) {T};
+					
+					\draw[thick, ->]     (s)     -- (1, -1);
+					\draw[thick, ->, dotted] 
+ 						(1, -1) 
+ 						to[curve through={(1.5, -1.1) .. (1.5,-0.75) .. (1.5, -1.1)}]
+ 						(2, -1);
+					\draw[thick, ->]      (2, -1) -- (t);
+				\end{tikzpicture}
+			\end{center}
+		\end{frame}
+
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		\begin{frame}[containsverbatim]{Styles für gesamtes \TikZ picture}
+			\slideheading{\TikZ-Code:}
+			\begin{smalllatexcode}
+\begin{tikzpicture}
+	[
+		->,
+		thick,
+		knoten/.style={shape=rectangle,draw=black,rounded corners}
+	]
+	\node[knoten] (s) at (0, 0) {S};
+	\node[knoten] (t) at (3, 0) {T};
+	
+	\draw (s)     -- (1, -1);
+	\draw[dotted] 
+		(1, -1) 
+		to[curve through={(1.5, -1.1) .. (1.5,-0.75) .. (1.5, -1.1)}]
+		(2, -1);
+	\draw (2, -1) -- (t);
+\end{tikzpicture}
+			\end{smalllatexcode}
+		\end{frame}
+
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		\begin{frame}[containsverbatim]{Styles für gesamtes \TikZ picture}
+			\begin{center}
+				\slideheading{Ergebnis:}
+				\vspace{0.5cm}
+				\begin{tikzpicture}
+					[
+						->,
+						thick,
+						knoten/.style={shape=rectangle,draw=black,rounded corners}
+					]
+					\node[knoten] (s) at (0, 0) {S};
+					\node[knoten] (t) at (3, 0) {T};
+					
+					\draw (s)     -- (1, -1);
+					\draw[dotted] 
+ 						(1, -1) 
+ 						to[curve through={(1.5, -1.1) .. (1.5,-0.75) .. (1.5, -1.1)}]
+ 						(2, -1);
+					\draw (2, -1) -- (t);
+				\end{tikzpicture}
+			\end{center}
+		\end{frame}
+
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\subsection{Automaten}
+
+		\begin{frame}[containsverbatim]{Einführung}
+			\begin{itemize}
+				\item Automaten (state-machines) per \texttt{automata}-Paket
+				\item Für Positionierung \texttt{positioning}-Paket
+				\item Und für Pfeile \texttt{arrows}-Paket
+			\end{itemize}
+			Mehr Informationen über Automaten, Pfeile, Positionierung, Optionen, etc. gibt es unter \href{http://hauke-stieler.de/public/tikz-for-state-machines.pdf}{http://hauke-stieler.de/public/tikz-for-state-machines.pdf} (im selben Ordner ist auch die \texttt{*.tex} Datei).
+		\end{frame}
+
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		\begin{frame}[containsverbatim]{Zustände}
+			\slideheading{\TikZ-Code:}
+			\begin{latexcode}
+\usetikzlibrary{
+	automata,
+	arrows}
+% ...
+\begin{tikzpicture}[->,
+	>=stealth',
+	semithick]
+	
+	\node[state,initial]   (0)              {$z_0$};
+	\node[state]           (1) [right of=0] {$z_1$};
+	\node[state,accepting] (2) [right of=1] {$z_2$};
+\end{tikzpicture}
+			\end{latexcode}
+		\end{frame}
+
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		\begin{frame}[containsverbatim]{Zustände}
+			\begin{center}
+				\slideheading{Ergebnis:}
+				\vspace{0.5cm}
+				\begin{tikzpicture}[->,
+					>=stealth',
+					semithick]
+					
+					\node[state,initial]   (0)              {$z_0$};
+					\node[state]           (1) [right of=0] {$z_1$};
+					\node[state,accepting] (2) [right of=1] {$z_2$};
+				\end{tikzpicture}
+			\end{center}
+		\end{frame}
+
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		\begin{frame}[containsverbatim]{Positionierung}
+			\slideheading{\TikZ-Code:}
+			\begin{smallerlatexcode}
+\usetikzlibrary{
+	automata,
+	arrows,
+	positioning}
+% ...
+\begin{tikzpicture}[->,
+	>=stealth',
+	semithick,
+	node distance=2cm]
+	
+	\node [state] (a)                                {$a$};
+	\node [state] (b) [above right=1cm and 2cm of a] {$b$};
+	\node [state] (c) [below right of = a]           {$c$};
+\end{tikzpicture}
+			\end{smallerlatexcode}
+		\end{frame}
+
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		\begin{frame}[containsverbatim]{Positionierung}
+			\begin{center}
+				\slideheading{Ergebnis:}
+				\vspace{0.5cm}
+				\begin{tikzpicture}[->,
+					>=stealth',
+					semithick,
+					node distance=2cm]
+					
+					\node [state] (a)                                {$a$};
+					\node [state] (b) [above right=1cm and 2cm of a] {$b$};
+					\node [state] (c) [below right of = a]           {$c$};
+				\end{tikzpicture}
+			\end{center}
+		\end{frame}
+
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		\begin{frame}[containsverbatim]{Pfeile}
+			\slideheading{\TikZ-Code:}
+			\begin{smalllatexcode}
+\begin{tikzpicture}[->,
+	>=stealth',
+	semithick,
+	node distance=2cm]
+
+	\node [state,initial]   (a)            {$a$};
+	\node [state]           (b)
+		[above right=1cm and 2cm of a]     {$b$};
+	\node [state,accepting] (c)
+		[below right = 1cm and 1.5cm of a] {$c$};
+
+	\path (a) edge node {0} (b)
+	          edge node {1} (c)
+	      (c) edge node {2} (b);
+\end{tikzpicture}
+			\end{smalllatexcode}
+		\end{frame}
+
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		\begin{frame}[containsverbatim]{Pfeile}
+			\begin{center}
+				\slideheading{Ergebnis:}
+				\vspace{0.5cm}
+				\begin{tikzpicture}[->,
+					>=stealth',
+					semithick,
+					node distance=2cm]
+		
+					\node [state,initial]   (a)            {$a$};
+					\node [state]           (b)
+						[above right=1cm and 2cm of a]     {$b$};
+					\node [state,accepting] (c)
+						[below right = 1cm and 1.5cm of a] {$c$};
+				
+					\path (a) edge node {0} (b)
+					          edge node {1} (c)
+					      (c) edge node {2} (b);
+				\end{tikzpicture}
+			\end{center}
+		\end{frame}
+
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		\begin{frame}[containsverbatim]{Pfeile}
+			\slideheading{\TikZ-Code:}
+			\begin{smalllatexcode}
+\begin{tikzpicture}[->,
+	>=stealth',
+	semithick,
+	node distance=2cm]
+
+	\node [state,initial]   (a)            {$a$};
+	\node [state]           (b)
+		[above right=1cm and 2cm of a]     {$b$};
+	\node [state,accepting] (c)
+		[below right = 1cm and 1.5cm of a] {$c$};
+
+	\path (a) edge[above] node {0} (b)
+	          edge[below] node {1} (c)
+	      (c) edge[right] node {2} (b);
+\end{tikzpicture}
+			\end{smalllatexcode}
+		\end{frame}
+
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		\begin{frame}[containsverbatim]{Pfeile}
+			\begin{center}
+				\slideheading{Ergebnis:}
+				\vspace{0.5cm}
+				\begin{tikzpicture}[->,
+					>=stealth',
+					semithick,
+					node distance=2cm]
+		
+					\node [state,initial]   (a)            {$a$};
+					\node [state]           (b)
+						[above right=1cm and 2cm of a]     {$b$};
+					\node [state,accepting] (c)
+						[below right = 1cm and 1.5cm of a] {$c$};
+				
+					\path (a) edge[above] node {0} (b)
+					          edge[below] node {1} (c)
+					      (c) edge[right] node {2} (b);
+				\end{tikzpicture}
+			\end{center}
+		\end{frame}
+
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		\begin{frame}[containsverbatim]{Pfeile}
+			\slideheading{\TikZ-Code:}
+			\begin{smalllatexcode}
+\begin{tikzpicture}[->,>=stealth',
+	shorten >=5pt,
+	node distance=2.5cm,
+	semithick]
+
+	\node[initial,state]   (R)              {$z_r$};
+	\node[state]           (S) [right of=R] {$z_s$};
+	\node[state,accepting] (E) [right of=S] {$z_e$};
+	
+	\path   (R) edge [loop,above]       node {0}   (R)
+				edge [below]            node {1}   (S)
+		    (S) edge [loop,above]       node {0,1} (S)
+				edge [below]            node {1}   (E)
+		    (E) edge [bend left,below]  node {0}   (R)
+				edge [loop,above]       node {0,1} (E);
+\end{tikzpicture}
+			\end{smalllatexcode}
+		\end{frame}
+
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		\begin{frame}[containsverbatim]{Pfeile}
+			\begin{center}
+				\slideheading{Ergebnis:}
+				\vspace{0.5cm}
+				\begin{tikzpicture}[->,>=stealth',
+					shorten >=5pt,
+					node distance=2.5cm,
+					semithick]
+			
+					\node[initial,state]   (R)              {$z_r$};
+					\node[state]           (S) [right of=R] {$z_s$};
+					\node[state,accepting] (E) [right of=S] {$z_e$};
+					
+					\path 	(R)	edge [loop,above]       node {0} (R)
+								edge [below]            node {1} (S)
+							(S)	edge [loop,above]       node {0,1} (S)
+								edge [below]            node {1} (E)
+							(E)	edge [bend left,below]  node {0} (R)
+								edge [loop,above]       node {0,1} (E);
+				\end{tikzpicture}
+			\end{center}
+		\end{frame}
+
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		\subsection{Funktionen Zeichnen}
+		
+		\begin{frame}[containsverbatim]{\TikZ}
+			\begin{smalllatexcode}
+\usepackage{pgf}
+% ...
+\begin{tikzpicture}[>=latex,semithick,font=\scriptsize,scale=0.75]
+	\draw[very thin,color=lightgray] (-3.2,-1.2) grid (3.2,4.2);
+	\draw[->] (-3.2,0) -- (3.4,0) node[right] {$x$};
+	\draw[->] (0,-1.2) -- (0,4.4) node[above] {$y$};
+    
+	\foreach \x/\xtext in {-3/-3, -2/-2, -1/-1, 1/1, 2/2, 3/3}
+	\draw[shift={(\x,0)}] (0pt,2pt) -- (0pt,-2pt) node[below] {$\xtext$};
+	
+	\foreach \y/\ytext in {-1/-1, 1/1, 2/2, 3/3, 4/4}
+	\draw[shift={(0,\y)}] (2pt,0pt) -- (-2pt,0pt) node[left] {$\ytext$};
+    
+	\draw[thin,domain=-2.075:2.075,smooth,variable=\x,black]
+		plot ({\x},{\x*\x});
+	\draw[thin] node[inner sep=1mm,
+					fill=white,
+					draw=lightgray] at (2.25,3) {$f(x)=x^2$};
+\end{tikzpicture}
+			\end{smalllatexcode}
+		\end{frame}
+
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		\begin{frame}{\TikZ}
+			\begin{center}
+				\slideheading{Ergebnis:}
+				\begin{tikzpicture}[>=latex,semithick,font=\scriptsize,scale=0.75]
+					\draw[very thin,color=lightgray] (-3.2,-1.2) grid (3.2,4.2);
+				    
+					\draw[->] (-3.2,0) -- (3.4,0) node[right] {$x$};
+					\draw[->] (0,-1.2) -- (0,4.4) node[above] {$y$};
+				    
+					\foreach \x/\xtext in {-3/-3, -2/-2, -1/-1, 1/1, 2/2, 3/3}
+					\draw[shift={(\x,0)}] (0pt,2pt) -- (0pt,-2pt) node[below] {$\xtext$};
+				    
+					\foreach \y/\ytext in {-1/-1, 1/1, 2/2, 3/3, 4/4}
+					\draw[shift={(0,\y)}] (2pt,0pt) -- (-2pt,0pt) node[left] {$\ytext$};
+				    
+					\draw[thin,domain=-2.075:2.075,smooth,variable=\x,black]
+						plot ({\x},{\x*\x});
+					\draw[thin] node[inner sep=1mm,
+									fill=white,
+									draw=lightgray] at (2.25,3) {$f(x)=x^2$};
+				\end{tikzpicture}
+			\end{center}
+		\end{frame}
+
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		\begin{frame}[containsverbatim]{Banyan-Netz (3 Stufen)}
+%			\begin{center}
+%				\vspace{-1.5cm}
+%				\hspace{-1.5cm}
+%				\begin{tikzpicture}
+%				[
+%					scale = 0.75,
+%					transform shape
+%				]
+%					\banyan{3}
+%				\end{tikzpicture}
+%			\end{center}
+		\end{frame}
+
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		\begin{frame}[containsverbatim]{Banyan-Netz (5 Stufen)}
+%			\begin{center}
+%				\vspace{-0.5cm}
+%				\hspace{-1cm}
+%				\begin{tikzpicture}
+%				[
+%					scale = 0.19,
+%					transform shape
+%				]
+%					\banyan{5}
+%				\end{tikzpicture}
+%			\end{center}
+		\end{frame}
+
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		\begin{frame}[containsverbatim]{5-dimensionaler Hyperwürfel}
+%			\begin{center}
+%				\begin{tikzpicture}
+%				[
+%					scale = 0.5,
+%					transform shape,
+%				]
+%					\hypercube
+%				\end{tikzpicture}
+%			\end{center}
+		\end{frame}
+
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		\begin{frame}[containsverbatim]{}
+			\begin{center}
+				... mehrere kaputte Kaffeemaschinen später ...
+			\end{center}
+		\end{frame}
+
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		\begin{frame}[containsverbatim]{\TikZ{} at its best}
+%			\begin{center}
+%				\begin{tikzpicture}[scale=0.6,
+%				        %Option for nice arrows%
+%				        >=latex,%
+%				        inner sep=0pt,%
+%				        outer sep=2pt,%
+%				        mark coordinate/.style={outer sep=0pt,
+%				            minimum size=3pt, fill=black,circle}%
+%				    ]
+%				    %% some definitions
+%				    \def\R{0.5}       % sphere radius
+%				    \def\angEl{30}    % elevation angle
+%				    \def\angAz{-140}  % azimuth angle
+%				    \def\angPhi{-105} % longitude of point
+%				    \def\angBeta{55}  % latitude of point
+%				    \def\angGam{-190} % longitude of point
+%				    %% working planes
+%				    \pgfmathsetmacro\H{\R*cos(\angEl)}          % Distance to north pole
+%				    \LongitudePlane[xzplane]{\angEl}{\angAz}    % x-axis plane
+%				    %
+%				    \coordinate (O) at (0,0);
+%				    %
+%				    \begin{scope}[rotate around={-11.1:(0,0)},
+%				        field line/.style={color=red, smooth,
+%				            variable=\t, samples at={0,-5,-10,...,-360}}
+%				    ]
+%				        \clip[rotate around={11.1:(0,0)}] (-7,5) rectangle (7,-5);
+%				
+%				        % Computes a point on a field line given r and t
+%				        \newcommand{\fieldlinecurve}[2]{%
+%				            {(pow(#1,2))*(3*cos(#2)+cos(3*#2))}, {(pow(#1,2))*(sin(#2)+sin(3*#2))}%
+%				        }
+%				
+%				        % Longitudinal plnaes
+%				        \foreach \u in {0,-40,...,-160}{
+%				            \LongitudePlane[{{\u}zplane}]{\angEl}{\u}
+%				            \foreach \r in {0.25,0.5,...,2.25} {
+%				                \draw[{{\u}zplane}, field line]
+%				                plot (\fieldlinecurve{\r}{\t});
+%				            }
+%				        }
+%				        \foreach \u in {-200,-240,...,-320}{
+%				            \LongitudePlane[{{\u}zplane}]{\angEl}{\u}
+%				            \foreach \r in {0.25,0.5,...,2.25}{
+%				            \draw[{{\u}zplane}, dashed, field line]
+%				                plot (\fieldlinecurve{\r}{\t});
+%				            }
+%				        }
+%				        % Drawing plane for the B-vectors
+%				        \LongitudePlane[bzplane]{\angEl}{0}
+%				            \foreach \r in {0.25,0.5,...,2.25}{
+%				            \draw[bzplane, thick, field line]
+%				                plot (\fieldlinecurve{\r}{\t});
+%				        }
+%				
+%				        \begin{scope}[bzplane, very thick, ->, >=stealth]
+%				            \draw (\fieldlinecurve{1.25}{-30}) -- +(-30:0.79cm)  node[right] {$\vec{B_{r}}$};
+%				            \draw (\fieldlinecurve{1.25}{-30}) -- +(60:0.68cm)   node[right] {$\vec{B_{\theta}}$};
+%				            \draw (\fieldlinecurve{1.25}{30})  -- +(-150:0.79cm) node[below] {$\vec{B_{r}}$};
+%				            \draw (\fieldlinecurve{1.25}{30})  -- +(120:0.68cm)  node[above] {$\vec{B_{\theta}}$};
+%				        \end{scope}
+%				        %
+%				        \begin{scope}[rotate around={11.1:(0,0)}]
+%				            \fill[ball color=white,opacity=0.3] (O) circle (\R); %3D lighting effect
+%				            \draw (O) circle (\R);
+%				            \DrawLongitudeCircle[\R]{\angAz}      % xzplane
+%				            \DrawLongitudeCircle[\R]{\angAz + 90} % vzplane
+%				            \DrawLatitudeCircle[\R]{0}            % equator
+%				            \DrawLatitudeCircle[\R]{70}           % Latitude 70
+%				            \DrawLatitudeCircle[\R]{-70}          % Latitude -70
+%				        \end{scope}
+%				        %
+%				        \coordinate[mark coordinate] (Sm) at (0, \H);
+%				        \coordinate[mark coordinate] (Nm) at (0,-\H);
+%				        \path[xzplane] (Nm) -- +(0,-0.75) coordinate (Nm1) node[below] {$\mathbf{N}_m$}
+%				                       (Sm) -- +(0,0.75)  coordinate (Sm1) node[above] {$\mathbf{S}_m$};
+%				        \draw[very thick, dashed]    (Sm) -- (Nm);
+%				        \draw[very thick]            (Sm1) -- (Sm);
+%				        \draw[very thick,->,>=latex'](Nm) -- (Nm1);
+%				    \end{scope}
+%				\end{tikzpicture}
+%			\end{center}
+		\end{frame}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+%		\section{Beamer}
+%		
+%		\begin{frame}[containsverbatim]{\LaTeX{}-Beamer}
+%			\begin{center}
+%				Und jetzt \LaTeX-Beamer
+%			\end{center}
+%		\end{frame}
+
+		\section{Misc}
+		\subsection{Wissenschaftliche Arbeiten}
+	
+		\begin{frame}[containsverbatim]{Mehr Mathe mit \texttt{mathtools}}
+			\slideheading{\LaTeX-Code:}
+			\begin{latexcode}
+
+			\end{latexcode}
+			\slideheading{Ergebnis:}
+		\end{frame}
+
+
+		\begin{frame}[containsverbatim]{SI-Einheiten mit \texttt{siunitx}}
+			\slideheading{\LaTeX-Code:}
+			\begin{latexcode}
+
+			\end{latexcode}
+			\slideheading{Ergebnis:}
+		\end{frame}
+				
+		\begin{frame}[containsverbatim]{Noch mehr Mathe mit \texttt{physics}}
+			\slideheading{\LaTeX-Code:}
+			\begin{latexcode}
+
+			\end{latexcode}
+			\slideheading{Ergebnis:}
+		\end{frame}
+
+		\begin{frame}[containsverbatim]{Chemische Bilder mit \texttt{chemfig}}
+			\slideheading{\LaTeX-Code:}
+			\begin{latexcode}
+
+			\end{latexcode}
+			\slideheading{Ergebnis:}
+		\end{frame}
+
+
+
+\end{document}
