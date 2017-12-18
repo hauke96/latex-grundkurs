@@ -2,6 +2,13 @@
 
 \input{latex-grundkurs.inc}
 
+\usepackage{siunitx}
+\usepackage{physics}
+\usepackage{chemfig}
+\usepackage[siunitx]{circuitikz}
+\usepackage{algorithmic}
+\usepackage{mathtools}
+
 \title{\LaTeX{} advanced}
 \subtitle{\small Ti\textit{k}Z, etc.}
 \author
@@ -15,23 +22,23 @@
 
 \begin{document}
 	\maketitle
-		
+
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-		
+
 	\begin{frame}
 		\begin{center}
 			Danke Henning (\texttt{8pridoeh}) dass wir deine Folien aus dem WS14/15 benutzen dürfen :D
 		\end{center}
 	\end{frame}
-		
-	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-		
 
-		\section{\LaTeX Advanced}
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+		\section{Verweise}
 		\subsection{Referenzieren}
-		
+
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-		
+
 		\begin{frame}[containsverbatim]{Referenzieren (Abschnitte)}
 			\slideheading{\LaTeX-Code:}
 			\begin{latexcode}
@@ -43,14 +50,14 @@ Im Abschnitt \ref{sec:cliques} auf Seite
 \pageref{sec:cliques} wurde das Finden von
 Cliquen in bipartiten Graphen beschrieben.
 			\end{latexcode}
-			
+
 			\slideheading{Ergebnis:}
 			Im Abschnitt 3.2 auf Seite 7 wurde das Finden
 			von Cliquen in bipartiten Graphen beschrieben.
 		\end{frame}
-		
+
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-		
+
 		\begin{frame}[containsverbatim]{Referenzieren (Figures)}
 			\slideheading{\LaTeX-Code:}
 			\begin{latexcode}
@@ -64,25 +71,26 @@ Cliquen in bipartiten Graphen beschrieben.
 Der Lichtstrahl wird gebrochen, wie
 Abbildung \ref{fig:lichtbrechung} zeigt.
 			\end{latexcode}
-			
+
 			\slideheading{Ergebnis:}
 			Der Lichtstrahl wird gebrochen, wie Abbildung 3 zeigt.
 		\end{frame}
-		
+
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-		
+
 		\subsection{Richtig Zitieren}
-		
+
 		\begin{frame}[containsverbatim]{Bib\TeX}
 			\begin{itemize}
 				\item Man verwaltet eine Bib\TeX{}-Datei (\texttt{*.bib}) mit Literaturangaben
 				\item Mit \texttt{\textbackslash{}cite[Seite X]\{Referenz\}} referenziert man eine solche Angabe, mit optionaler Seitenangabe.
+				\item Mit \texttt{\textbackslash{}footcite\{Referenz\}} kann die Referenz direkt in die Fußnote mit hochgestelltem Index geschrieben werden.
 				\item Vor \texttt{pdflatex} wirft man \texttt{bibtex} an
 			\end{itemize}
 		\end{frame}
-		
+
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-		
+
 		\begin{frame}[containsverbatim]{Bib\TeX}
 			\slideheading{\LaTeX{}-Code:}
 			\begin{latexcode}
@@ -98,9 +106,9 @@ gewählt.
 \bibliography{literatur}
 			\end{latexcode}
 		\end{frame}
-		
+
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-		
+
 		\begin{frame}[containsverbatim]{Bib\TeX-Eintrag}
 			\slideheading{Bib\TeX{}-Eintrag:} (aus ``literatur.bib'')
 			\begin{latexcode}
@@ -115,12 +123,12 @@ gewählt.
 }
 			\end{latexcode}
 		\end{frame}
-		
+
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-		
+
 		\begin{frame}{Bib\TeX{}-Ergebnis}
 			\slideheading{Ergebnis:}
-			
+
 			% Das hier ist ist wieder ein wenig geschummelt um ein
 			% Ergebnis, wie es in echten Dokumenten aussieht zu
 			% emulieren. Das geht sicherlich auch hübscher.
@@ -128,10 +136,10 @@ gewählt.
 			Für die Lösung des Travelling-Salesman-Problems
 			wurde ein heuristischer Algorithmus [LK73]
 			gewählt.
-			
+
 			\vspace{0.5cm}
 			{\Large \textbf{Literatur}}\\
-			
+
 			\vspace{0.3cm}
 			\begin{tabular}{lp{9cm}}
 				[LK73] & Shen Lin and Brian~W. Kernighan. An effective heuristic algorithm for
@@ -139,85 +147,136 @@ gewählt.
 				         {\em Operations Research}, 21:498--516, 1973.
 			\end{tabular}
 		\end{frame}
-		
-		\subsection{Code-Highlighten}
-		
+
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-		
+
+		\begin{frame}{Bib\LaTeX{} und Biber}
+
+			\slideheading{Biber:}
+			\begin{itemize}
+				\item Moderner Ersatz für Bib\TeX{}
+				\item Guter UTF-8-Support
+				\item Bessere Verwaltung von Styles
+				\item Mehr Kontrolle über Sortierung
+				\item Nicht überall verbreitet
+			\end{itemize}
+			\slideheading{Bib\LaTeX{}}
+			\begin{itemize}
+				\item Package zum Einstellen vieler Dinge mittels \LaTeX{}-Code
+				\item Einfaches wissenschaftliches Zitieren
+				\item Für den Einsatz mit Biber entwickelt (UTF-8-Support)
+				\item Funktioniert mittelmäßig mit Bib\TeX{}
+			\end{itemize}
+
+
+		\end{frame}
+
+
+		\section{Quellcode}
+		\subsection{Code-Highlighten}
+
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 		\begin{frame}[containsverbatim]{Mit \texttt{minted}}
 			\begin{itemize}
 				\item \texttt{minted} arbeitet mit Pygments (python-library).
-				\item Benötigt \texttt{-shell-escape} als Parameter von \texttt{pdflatex}. 
+				\item Benötigt \texttt{-shell-escape} als Parameter von \texttt{pdflatex}.
 			\end{itemize}
-			
+
 			\slideheading{\LaTeX-Code:}
-			\begin{latexcode}
+			\begin{smalllatexcode}
 \usepackage{minted}
 % ...
 \begin{minted}{java}
 class MeineKlasse{
 	private int meineVariable; // Deklaration
-	
+
 	public void meineMethode(){
 		meineVariable = 42; // Initialisierung
 	}
 }
 \end{minted}
-			\end{latexcode}
+			\end{smalllatexcode}
 		\end{frame}
-		
+
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-		
+
 		\begin{frame}[containsverbatim]{Mit \texttt{minted}}
 			\slideheading{Ergebnis:}
 			\begin{minted}{java}
 class MeineKlasse{
 	private int meineVariable; // Deklaration
-	
+
 	public void meineMethode(){
 		meineVariable = 42; // Initialisierung
 	}
 }
 			\end{minted}
 		\end{frame}
-		
+
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-		
+
 		\begin{frame}[containsverbatim]{Mit \texttt{lstlisting}}
 			\slideheading{\LaTeX-Code:}
-			\begin{latexcode}
+			\begin{smallerlatexcode}
 \usepackage{listings}
 \lstset{...} % style-einstellungen
 % ...
 \begin{lstlisting}[caption=Variablen]
 class MeineKlasse{
 	private int meineVariable; // Deklaration
-	
+
 	public void meineMethode(){
 		meineVariable = 42; // Initialisierung
 	}
 }
 \end{lstlisting}
-			\end{latexcode}
+			\end{smallerlatexcode}
 		\end{frame}
-		
+
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-		
+
 		\begin{frame}[containsverbatim]{Mit \texttt{lstlisting}}
 			\slideheading{Ergebnis:}
 			\begin{lstlisting}[caption=Variablen]
 class MeineKlasse{
 	private int meineVariable; // Deklaration
-	
+
 	public void meineMethode(){
 		meineVariable = 42; // Initialisierung
 	}
 }
 			\end{lstlisting}
 		\end{frame}
-		
+
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-		
+
+		\begin{frame}[containsverbatim]{Mit \texttt{algorithmic} (Pseudocode)}
+			\slideheading{\LaTeX-Code:}
+			\begin{smalllatexcode}
+\begin{algorithmic}
+    \IF{some condition is true}
+        \STATE do some processing
+    \ELSIF{some other condition is true}
+        \STATE do some different processing
+    \ENDIF
+\end{algorithmic}
+			\end{smalllatexcode}
+			\slideheading{Ergebnis:}
+
+\begin{algorithmic}
+    \IF{some condition is true}
+        \STATE do some processing
+    \ELSIF{some other condition is true}
+        \STATE do some different processing
+    \ENDIF
+\end{algorithmic}
+
+		\end{frame}
+
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		\section{Makros}
 		\subsection{Makros}
 		\begin{frame}[containsverbatim]{Eigene Befehle}
 			\slideheading{\LaTeX-Code:}
@@ -235,14 +294,14 @@ class MeineKlasse{
 			Heute ist der \today.\\
 			\TikZ
 		\end{frame}
-		
+
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-		
+
 		\begin{frame}[containsverbatim]{Eigene Befehle}
 			\slideheading{\LaTeX-Code:}
 			\begin{latexcode}
 % LaTeX-style
-\newcommand{\bus}[4]{Ein Bus der Linie #1 Richtung 
+\newcommand{\bus}[4]{Ein Bus der Linie #1 Richtung
                     #2 fährt von der Haltestelle
                     #3 um #4 ab.}
 % Verwendung
@@ -251,9 +310,9 @@ class MeineKlasse{
 			\slideheading{Ergebnis:}
 			\bus{181}{Sternschanze}{Informatikum}{13:37}
 		\end{frame}
-		
+
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-		
+
 		\begin{frame}[containsverbatim]{Eigene Umgebungen}
 			\slideheading{\LaTeX-Code:}
 			\begin{latexcode}
@@ -271,8 +330,96 @@ class MeineKlasse{
 		
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		
+		\section{Math advanced}
+		\subsection{Math advanced}
+		
+		\begin{frame}[containsverbatim]{Mehr tolle Mathe-Tricks}
+			\slideheading{\LaTeX-Code:}
+			\begin{smalllatexcode}
+Große Klammern gehen auch: \(\left( \frac{n^2 + 1}{3} \right)^2\) \\
+Aus \(\int_a^b \ \sum_a^b\) wird \(\displaystyle \int\limits_a^b \ \sum_a^b \)
+			\end{smalllatexcode}
+			\slideheading{Ergebnis:}
+
+Große Klammern gehen auch: \(
+\displaystyle \left( \frac{n^2 + 1}{3} \right)^2
+\)\\
+Aus \(\int_a^b \ \sum_a^b\) wird \(\displaystyle \ \int\limits_a^b \ \sum_a^b  \)
+
+
+
+			\slideheading{Anmerkung:} Über \texttt{\textbackslash{}everymath\{\textbackslash{}displaystyle\}} kann jeder Mathe-Modus automatisch im \texttt{displaystyle} sein.
+
+		\end{frame}
+
+		\begin{frame}[containsverbatim]{Mehr Mathe mit \texttt{mathtools}}
+			\slideheading{\LaTeX-Code:}
+			\begin{smalllatexcode}
+\mathsf{sinc}(x) \coloneqq \begin{dcases}
+1 & x = 0 \\
+\frac{\sin(x)}{x} & \text{sonst}
+\end{dcases} \\
+\underbrace{\exp(i x)}_{\text{Hier wird es hässlich}}
+= \cos(x) + \underbracket{i \sin(x)}_{\mathclap{\text{Hier wird es hübsch}}}
+			\end{smalllatexcode}
+			\slideheading{Ergebnis:}
+
+\(
+\mathsf{sinc}(x) \coloneqq \begin{dcases}
+1 & x = 0 \\
+\frac{\sin(x)}{x} & \text{sonst}
+\end{dcases} \\[5mm]
+\underbrace{\exp(i x)}_{\text{Hier wird es hässlich}} = \cos(x) + \underbracket{i \sin(x)}_{\mathclap{\text{Hier wird es hübsch}}}
+\)
+		\end{frame}
+
+		\begin{frame}[containsverbatim]{SI-Einheiten mit \texttt{siunitx}}
+			\slideheading{\LaTeX-Code:}
+			\begin{latexcode}
+\sisetup{...} % Einstellungen für siunitx
+Wissenschaftliche Notation: \(n = \num{1.1e3}\) \\
+Einheiten: \(\si{\J} = \si{\kg\m\squared\per\s\squared}\) \\
+Kombiniert: \(\SI{50}{\percent} c = \SI{1.5e8}{\m\per\s}\) \\
+Intervalle: \(\SIrange{1.3e5}{3.6e6}{\kg\m\per\s}\)
+			\end{latexcode}
+			\slideheading{Ergebnis:}
+
+\sisetup{%
+  locale = DE,
+  per-mode = fraction,
+  range-phrase = \text{--},
+  range-units = single
+}
+
+Wissenschaftliche Notation: \(n = \num{1.1e3}\) \\
+Einheiten: \(\si{\J} = \si{\kg\m\squared\per\s\squared}\) \\
+Kombiniert: \(\SI{50}{\percent} c = \SI{1.5e8}{\m\per\s}\) \\
+Intervalle: \(\SIrange{1.3e5}{3.6e6}{\kg\m\per\s}\)
+
+		\end{frame}
+
+		\begin{frame}[containsverbatim]{Noch mehr Mathe mit \texttt{physics}}
+			\slideheading{\LaTeX-Code:}
+			\begin{latexcode}
+Beträge und Normen:
+\(\norm{\vec{x}} = \sum_{k=1}^n \abs{x_k}^2 \) \\
+Landau-Notation: \(\order{n \cdot \log(n)} \) \\
+Differentiale: \(\int f(x) \dd{x};
+\quad \dv{f}{x}; \quad \pdv[2]{f}{x}\)
+			\end{latexcode}
+			\slideheading{Ergebnis:}
+
+Beträge und Normen: \(\displaystyle \norm{\vec{x}} = \sum_{k=1}^n \abs{x_k}^2 \) \\
+Landau-Notation: \(\displaystyle \order{n \cdot \log(n)} \) \\
+Differentiale: \(\displaystyle \int f(x) \dd{x}; \quad \dv{f}{x}; \quad \pdv[2]{f}{x}\) \\
+
+		\end{frame}		
+		
+
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 %		\section{HA-Tipps}
-%		
+%
 %		\begin{frame}[containsverbatim]{\LaTeX{}-Beamer}
 %			\begin{center}
 %				Und jetzt ein paar Tipps für Hausaufgaben/-arbeiten
@@ -282,7 +429,8 @@ class MeineKlasse{
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 		\section{\protect\TikZ}
-		
+		\subsection{\protect\TikZ}
+
 		\begin{frame}[containsverbatim]{\TikZ}
 			\begin{itemize}
 				\item \textbf{T}ikZ \textbf{i}st \textbf{k}ein \textbf{Z}eichenprogramm.
@@ -292,19 +440,19 @@ class MeineKlasse{
 				\item Overkill: Animationen in einer PDF mittels\\
 				JavaScript und \TikZ ~:o
 			\end{itemize}
-			
-			
+
+
 			\vspace{-1.25cm}
 			\hspace{8.5cm}
 			\begin{tikzpicture}
 				\draw[thick,rounded corners=8pt]
-				(0,0) -- (0,2) -- (1,3.25) -- (2,2) -- 
+				(0,0) -- (0,2) -- (1,3.25) -- (2,2) --
 				(2,0) -- (0,2) -- (2,2) -- (0,0) -- (2,0);
 			\end{tikzpicture}
 		\end{frame}
 
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-		
+
 		\subsection{Grundlagen}
 
 		\begin{frame}[containsverbatim]{\TikZ}
@@ -319,14 +467,14 @@ class MeineKlasse{
 		(2,2) -- (0,0) -- (2,0);
 \end{tikzpicture}
 				\end{latexcode}
-				
+
 				\column{0.3\textwidth}
 				\hspace{3mm}
 				\slideheading{Ergebnis:}
 				\hspace{3mm}
 				\begin{tikzpicture}
 					\draw[thick,rounded corners=8pt]
-					(0,0) -- (0,2) -- (1,3.25) -- (2,2) -- 
+					(0,0) -- (0,2) -- (1,3.25) -- (2,2) --
 					(2,0) -- (0,2) -- (2,2) -- (0,0) -- (2,0);
 				\end{tikzpicture}
 			\end{columns}
@@ -342,9 +490,9 @@ class MeineKlasse{
 		(s) at (0, 0) {S};
 	\node[shape=rectangle,draw=black,rounded corners]
 		(t) at (3, 0) {T};
-	
+
 	\draw[thick, ->]     (s)     -- (1, -1);
-	\draw[thick, dotted] 
+	\draw[thick, dotted]
 		(1, -1) to [bend right = 45] (2, -1);
 	\draw[thick,->]      (2, -1) -- (t);
 \end{tikzpicture}
@@ -362,9 +510,9 @@ class MeineKlasse{
 						(s) at (0, 0) {S};
 					\node[shape=rectangle,draw=black,rounded corners]
 						(t) at (3, 0) {T};
-					
+
 					\draw[thick, ->]     (s)     -- (1, -1);
-					\draw[thick, dotted] 
+					\draw[thick, dotted]
 						(1, -1) to [bend right = 45] (2, -1);
 					\draw[thick,->]      (2, -1) -- (t);
 				\end{tikzpicture}
@@ -384,9 +532,9 @@ class MeineKlasse{
 		(s) at (0, 0) {S};
 	\node[shape=rectangle,draw=black,rounded corners]
 		(t) at (3, 0) {T};
-	
+
 	\draw[thick, ->]     (s)     -- (1, -1);
-	\draw[thick, ->, dotted] 
+	\draw[thick, ->, dotted]
 		(1, -1)
 		to[curve through={(1.5, -1.1) .. (1.5,-0.75) .. (1.5, -1.1)}]
 		(2, -1);
@@ -404,10 +552,10 @@ class MeineKlasse{
 				\begin{tikzpicture}
 					\node[shape=rectangle,draw=black,rounded corners] (s) at (0, 0) {S};
 					\node[shape=rectangle,draw=black,rounded corners] (t) at (3, 0) {T};
-					
+
 					\draw[thick, ->]     (s)     -- (1, -1);
-					\draw[thick, ->, dotted] 
- 						(1, -1) 
+					\draw[thick, ->, dotted]
+ 						(1, -1)
  						to[curve through={(1.5, -1.1) .. (1.5,-0.75) .. (1.5, -1.1)}]
  						(2, -1);
 					\draw[thick, ->]      (2, -1) -- (t);
@@ -428,10 +576,10 @@ class MeineKlasse{
 	]
 	\node[knoten] (s) at (0, 0) {S};
 	\node[knoten] (t) at (3, 0) {T};
-	
+
 	\draw (s)     -- (1, -1);
-	\draw[dotted] 
-		(1, -1) 
+	\draw[dotted]
+		(1, -1)
 		to[curve through={(1.5, -1.1) .. (1.5,-0.75) .. (1.5, -1.1)}]
 		(2, -1);
 	\draw (2, -1) -- (t);
@@ -453,10 +601,10 @@ class MeineKlasse{
 					]
 					\node[knoten] (s) at (0, 0) {S};
 					\node[knoten] (t) at (3, 0) {T};
-					
+
 					\draw (s)     -- (1, -1);
-					\draw[dotted] 
- 						(1, -1) 
+					\draw[dotted]
+ 						(1, -1)
  						to[curve through={(1.5, -1.1) .. (1.5,-0.75) .. (1.5, -1.1)}]
  						(2, -1);
 					\draw (2, -1) -- (t);
@@ -465,7 +613,7 @@ class MeineKlasse{
 		\end{frame}
 
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-		
+
 		\subsection{Automaten}
 
 		\begin{frame}[containsverbatim]{Einführung}
@@ -481,7 +629,7 @@ class MeineKlasse{
 
 		\begin{frame}[containsverbatim]{Zustände}
 			\slideheading{\TikZ-Code:}
-			\begin{latexcode}
+			\begin{smallerlatexcode}
 \usetikzlibrary{
 	automata,
 	arrows}
@@ -489,12 +637,12 @@ class MeineKlasse{
 \begin{tikzpicture}[->,
 	>=stealth',
 	semithick]
-	
+
 	\node[state,initial]   (0)              {$z_0$};
 	\node[state]           (1) [right of=0] {$z_1$};
 	\node[state,accepting] (2) [right of=1] {$z_2$};
 \end{tikzpicture}
-			\end{latexcode}
+			\end{smallerlatexcode}
 		\end{frame}
 
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -506,7 +654,7 @@ class MeineKlasse{
 				\begin{tikzpicture}[->,
 					>=stealth',
 					semithick]
-					
+
 					\node[state,initial]   (0)              {$z_0$};
 					\node[state]           (1) [right of=0] {$z_1$};
 					\node[state,accepting] (2) [right of=1] {$z_2$};
@@ -518,7 +666,7 @@ class MeineKlasse{
 
 		\begin{frame}[containsverbatim]{Positionierung}
 			\slideheading{\TikZ-Code:}
-			\begin{smallerlatexcode}
+			\begin{smalllatexcode}
 \usetikzlibrary{
 	automata,
 	arrows,
@@ -528,12 +676,12 @@ class MeineKlasse{
 	>=stealth',
 	semithick,
 	node distance=2cm]
-	
+
 	\node [state] (a)                                {$a$};
 	\node [state] (b) [above right=1cm and 2cm of a] {$b$};
 	\node [state] (c) [below right of = a]           {$c$};
 \end{tikzpicture}
-			\end{smallerlatexcode}
+			\end{smalllatexcode}
 		\end{frame}
 
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -546,12 +694,48 @@ class MeineKlasse{
 					>=stealth',
 					semithick,
 					node distance=2cm]
-					
+
 					\node [state] (a)                                {$a$};
 					\node [state] (b) [above right=1cm and 2cm of a] {$b$};
 					\node [state] (c) [below right of = a]           {$c$};
 				\end{tikzpicture}
 			\end{center}
+		\end{frame}
+
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		\begin{frame}[containsverbatim]{Genauere Positionierung}
+			\begin{columns}[t]
+				\column{0.775\textwidth}
+				\slideheading{\LaTeX{}-Code:}
+				\begin{smalllatexcode}
+\usetikzlibrary{calc}
+% ...
+\begin{tikzpicture}
+	\node [state] (a)                                {$a$};
+	\node [state] (b) [below right=1cm and 2cm of a] {$b$};
+	\node [state] (c) [at=(a|-b)]                    {$c$};
+	\node [state] (d) [at=(b|-a)]                    {$d$};
+	\node [state] (e) [at=($(a)!1/2!(d)$)]           {$e$};
+	\node [state] (f) [at=($(a)!2!(c)$)]             {$f$};
+\end{tikzpicture}
+				\end{smalllatexcode}
+
+				\column{0.225\textwidth}
+				\hspace{3mm}
+				\slideheading{Ergebnis:}
+				\hspace{3mm}
+				\scalebox{0.75}{
+					\begin{tikzpicture}
+						\node [state] (a)                                {$a$};
+						\node [state] (b) [below right=1cm and 2cm of a] {$b$};
+						\node [state] (c) [at=(a|-b)]					{$c$};
+						\node [state] (d) [at=(b|-a)]					{$d$};
+						\node [state] (e) [at=($(a)!1/2!(d)$)] 			{$e$};
+						\node [state] (f) [at=($(a)!2!(c)$)]				{$f$};
+					\end{tikzpicture}
+				}
+			\end{columns}
 		\end{frame}
 
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -587,13 +771,13 @@ class MeineKlasse{
 					>=stealth',
 					semithick,
 					node distance=2cm]
-		
+
 					\node [state,initial]   (a)            {$a$};
 					\node [state]           (b)
 						[above right=1cm and 2cm of a]     {$b$};
 					\node [state,accepting] (c)
 						[below right = 1cm and 1.5cm of a] {$c$};
-				
+
 					\path (a) edge node {0} (b)
 					          edge node {1} (c)
 					      (c) edge node {2} (b);
@@ -634,13 +818,13 @@ class MeineKlasse{
 					>=stealth',
 					semithick,
 					node distance=2cm]
-		
+
 					\node [state,initial]   (a)            {$a$};
 					\node [state]           (b)
 						[above right=1cm and 2cm of a]     {$b$};
 					\node [state,accepting] (c)
 						[below right = 1cm and 1.5cm of a] {$c$};
-				
+
 					\path (a) edge[above] node {0} (b)
 					          edge[below] node {1} (c)
 					      (c) edge[right] node {2} (b);
@@ -661,7 +845,7 @@ class MeineKlasse{
 	\node[initial,state]   (R)              {$z_r$};
 	\node[state]           (S) [right of=R] {$z_s$};
 	\node[state,accepting] (E) [right of=S] {$z_e$};
-	
+
 	\path   (R) edge [loop,above]       node {0}   (R)
 				edge [below]            node {1}   (S)
 		    (S) edge [loop,above]       node {0,1} (S)
@@ -682,11 +866,11 @@ class MeineKlasse{
 					shorten >=5pt,
 					node distance=2.5cm,
 					semithick]
-			
+
 					\node[initial,state]   (R)              {$z_r$};
 					\node[state]           (S) [right of=R] {$z_s$};
 					\node[state,accepting] (E) [right of=S] {$z_e$};
-					
+
 					\path 	(R)	edge [loop,above]       node {0} (R)
 								edge [below]            node {1} (S)
 							(S)	edge [loop,above]       node {0,1} (S)
@@ -700,7 +884,7 @@ class MeineKlasse{
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 		\subsection{Funktionen Zeichnen}
-		
+
 		\begin{frame}[containsverbatim]{\TikZ}
 			\begin{smalllatexcode}
 \usepackage{pgf}
@@ -709,13 +893,13 @@ class MeineKlasse{
 	\draw[very thin,color=lightgray] (-3.2,-1.2) grid (3.2,4.2);
 	\draw[->] (-3.2,0) -- (3.4,0) node[right] {$x$};
 	\draw[->] (0,-1.2) -- (0,4.4) node[above] {$y$};
-    
+
 	\foreach \x/\xtext in {-3/-3, -2/-2, -1/-1, 1/1, 2/2, 3/3}
 	\draw[shift={(\x,0)}] (0pt,2pt) -- (0pt,-2pt) node[below] {$\xtext$};
-	
+
 	\foreach \y/\ytext in {-1/-1, 1/1, 2/2, 3/3, 4/4}
 	\draw[shift={(0,\y)}] (2pt,0pt) -- (-2pt,0pt) node[left] {$\ytext$};
-    
+
 	\draw[thin,domain=-2.075:2.075,smooth,variable=\x,black]
 		plot ({\x},{\x*\x});
 	\draw[thin] node[inner sep=1mm,
@@ -732,16 +916,16 @@ class MeineKlasse{
 				\slideheading{Ergebnis:}
 				\begin{tikzpicture}[>=latex,semithick,font=\scriptsize,scale=0.75]
 					\draw[very thin,color=lightgray] (-3.2,-1.2) grid (3.2,4.2);
-				    
+
 					\draw[->] (-3.2,0) -- (3.4,0) node[right] {$x$};
 					\draw[->] (0,-1.2) -- (0,4.4) node[above] {$y$};
-				    
+
 					\foreach \x/\xtext in {-3/-3, -2/-2, -1/-1, 1/1, 2/2, 3/3}
 					\draw[shift={(\x,0)}] (0pt,2pt) -- (0pt,-2pt) node[below] {$\xtext$};
-				    
+
 					\foreach \y/\ytext in {-1/-1, 1/1, 2/2, 3/3, 4/4}
 					\draw[shift={(0,\y)}] (2pt,0pt) -- (-2pt,0pt) node[left] {$\ytext$};
-				    
+
 					\draw[thin,domain=-2.075:2.075,smooth,variable=\x,black]
 						plot ({\x},{\x*\x});
 					\draw[thin] node[inner sep=1mm,
@@ -752,6 +936,8 @@ class MeineKlasse{
 		\end{frame}
 
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		\subsection{\TikZ{} an die Grenzen getrieben}
 
 		\begin{frame}[containsverbatim]{Banyan-Netz (3 Stufen)}
 			\begin{center}
@@ -807,7 +993,7 @@ class MeineKlasse{
 
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-		\begin{frame}[containsverbatim]{\TikZ at its best}
+		\begin{frame}[containsverbatim]{\TikZ{} at its best}
 			\begin{center}
 				\begin{tikzpicture}[scale=0.6,
 				        %Option for nice arrows%
@@ -835,12 +1021,12 @@ class MeineKlasse{
 				            variable=\t, samples at={0,-5,-10,...,-360}}
 				    ]
 				        \clip[rotate around={11.1:(0,0)}] (-7,5) rectangle (7,-5);
-				
+
 				        % Computes a point on a field line given r and t
 				        \newcommand{\fieldlinecurve}[2]{%
 				            {(pow(#1,2))*(3*cos(#2)+cos(3*#2))}, {(pow(#1,2))*(sin(#2)+sin(3*#2))}%
 				        }
-				
+
 				        % Longitudinal plnaes
 				        \foreach \u in {0,-40,...,-160}{
 				            \LongitudePlane[{{\u}zplane}]{\angEl}{\u}
@@ -862,7 +1048,7 @@ class MeineKlasse{
 				            \draw[bzplane, thick, field line]
 				                plot (\fieldlinecurve{\r}{\t});
 				        }
-				
+
 				        \begin{scope}[bzplane, very thick, ->, >=stealth]
 				            \draw (\fieldlinecurve{1.25}{-30}) -- +(-30:0.79cm)  node[right] {$\vec{B_{r}}$};
 				            \draw (\fieldlinecurve{1.25}{-30}) -- +(60:0.68cm)   node[right] {$\vec{B_{\theta}}$};
@@ -891,14 +1077,66 @@ class MeineKlasse{
 				\end{tikzpicture}
 			\end{center}
 		\end{frame}
-		
+
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-		
+
 %		\section{Beamer}
-%		
+%
 %		\begin{frame}[containsverbatim]{\LaTeX{}-Beamer}
 %			\begin{center}
 %				Und jetzt \LaTeX-Beamer
 %			\end{center}
 %		\end{frame}
+
+		\subsection{Was sonst so geht}
+
+		\begin{frame}[containsverbatim]{Chemische Bilder mit \texttt{chemfig}}
+			\slideheading{\LaTeX-Code:}
+			\begin{latexcode}
+\chemfig{A*6(-=-(-B-C=D)=-=-)}
+			\end{latexcode}
+			\slideheading{Ergebnis:}
+
+			\chemfig{A*6(-=-(-B-C=D)=-=-)}
+		\end{frame}
+
+		\begin{frame}[containsverbatim]{Schaltskizzen mit Circui\TikZ}
+			\begin{columns}[t]
+				\column{0.55\textwidth}
+				\slideheading{\LaTeX{}-Code:}
+				\begin{smalllatexcode}
+\begin{circuitikz}[european,cute inductors]
+\draw (0,0) to [short, *-] (6,0)
+	to [lamp] (6,2)
+	to [R, l_=1<\kilo\ohm>] (6,4)
+	to [short] (5,4)
+	(0,4)  to [short, *-] (1,4)
+	to [R, l_=5<\ohm>] (3,4)
+	to [L] (5,4)
+	to [L,*-*] (5,0);
+\end{circuitikz}
+				\end{smalllatexcode}
+
+				\column{0.45\textwidth}
+				\hspace{3mm}
+				\slideheading{Ergebnis:}
+				\hspace{3mm}
+				\scalebox{0.7}{
+				\begin{circuitikz}[european,cute inductors]
+					\draw (0,0) to [short, *-] (6,0)
+						to [lamp] (6,2)
+						to [R, l_=1<\kilo\ohm>] (6,4)
+						to [short] (5,4)
+						(0,4)  to [short, *-] (1,4)
+						to [R, l_=5<\ohm>] (3,4)
+						to [L] (5,4)
+						to [L,*-*] (5,0);
+					\end{circuitikz}
+				}
+			\end{columns}
+
+
+
+		\end{frame}
+
 \end{document}
