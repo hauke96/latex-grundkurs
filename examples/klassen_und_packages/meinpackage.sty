@@ -1,0 +1,14 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{meinpackage}[2000/01/01 Mein Package]
+
+\RequirePackage{lmodern}
+
+\newcommand{\helloworld}{Hello World!}
+
+\DeclareOption{german}{
+  \renewcommand{\helloworld}{Hallo Welt!}
+}
+
+\ProcessOptions\relax
+
+\endinput

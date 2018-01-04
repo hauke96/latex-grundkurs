@@ -22,7 +22,7 @@
 \date{\footnotesize \today}
 
 % Auskommentieren, um tikzpicture temporär zu deaktivieren:
-\RenewEnviron{tikzpicture}[1][]{\par\texttt{tikzpicture}\par}
+% \RenewEnviron{tikzpicture}[1][]{\par\texttt{tikzpicture}\par}
 
 \begin{document}
 	\maketitle
@@ -316,8 +316,8 @@ Host fbi
 
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-		\section{Makros}
-		\subsection{Makros}
+		\section{\LaTeX{} erweitern}
+		\subsection{Makros \& Umgebungen}
 		\begin{frame}[containsverbatim]{Eigene Befehle}
 			\slideheading{\LaTeX-Code:}
 			\begin{latexcode}
@@ -366,6 +366,85 @@ Host fbi
 			\end{latexcode}
 			\slideheading{Ergebnis:}
 			\texttt{\textit{Dies ist ein Test}}
+		\end{frame}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		\subsection{Packages \& Klassen}
+
+		\begin{frame}[containsverbatim]{Eigene Packages}
+			\slideheading{\LaTeX-Code (meinpackage.sty):}
+			\begin{smallerlatexcode}
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{meinpackage}[2000/01/01 Mein Package]
+
+\newcommand{\helloworld}{Hello World!}
+
+\DeclareOption{german}{
+  \renewcommand{\helloworld}{Hallo Welt!}
+}
+
+\ProcessOptions\relax
+
+\endinput
+			\end{smallerlatexcode}
+		\end{frame}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		\begin{frame}[containsverbatim]{Eigene Klassen}
+			\slideheading{\LaTeX-Code (meineklasse.cls):}
+			\begin{smalllatexcode}
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesClass{meineklasse}[2000/01/01 Meine Klasse]
+
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[T1]{fontenc}
+\RequirePackage[ngerman]{babel}
+\RequirePackage{lmodern}
+
+\DeclareOption{sans}{
+  \renewcommand*\familydefault{\sfdefault}
+}
+
+\ProcessOptions\relax
+
+\LoadClass[a4paper,10pt]{scrartcl}
+
+\endinput
+			\end{smalllatexcode}
+		\end{frame}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		\begin{frame}[containsverbatim]{Benutzung}
+			\begin{columns}[t]
+				\column{.6\textwidth}
+				\slideheading{\LaTeX-Code:}
+				\begin{smallerlatexcode}
+\documentclass[sans]{meineklasse}
+
+\usepackage[german]{meinpackage}
+
+\begin{document}
+	\helloworld
+\end{document}
+				\end{smallerlatexcode}		
+				\column{.4\textwidth}
+				\vspace*{10mm}
+				\begin{minipage}{\textwidth}
+					\begin{center}
+						\slideheading{Ergebnis:}
+						\\[5mm]
+						\textsf{Hallo Welt!}
+					\end{center}
+				\end{minipage}
+			\end{columns}
+			\vspace*{5mm}			
+			\slideheading{Mehr Infos:}
+			\url{http://ctan.mirrors.hoobly.com/macros/latex/doc/clsguide.pdf}
+			\\
+			\url{https://en.wikibooks.org/wiki/LaTeX/Creating_Packages}	
 		\end{frame}
 		
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -952,8 +1031,9 @@ Differentiale: \(\displaystyle \int f(x) \dd{x}; \quad \dv{f}{x}; \quad \pdv[2]{
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 		\begin{frame}{\TikZ}
-			\begin{center}
+%			\begin{center}
 				\slideheading{Ergebnis:}
+				
 				\begin{tikzpicture}[>=latex,semithick,font=\scriptsize,scale=0.75]
 					\draw[very thin,color=lightgray] (-3.2,-1.2) grid (3.2,4.2);
 
@@ -972,7 +1052,10 @@ Differentiale: \(\displaystyle \int f(x) \dd{x}; \quad \dv{f}{x}; \quad \pdv[2]{
 									fill=white,
 									draw=lightgray] at (2.25,3) {$f(x)=x^2$};
 				\end{tikzpicture}
-			\end{center}
+
+				\slideheading{Alternative:}
+				Gnuplot lässt sich vielfältig mit \LaTeX{} kombinieren
+%			\end{center}
 		\end{frame}
 
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1120,6 +1203,14 @@ Differentiale: \(\displaystyle \int f(x) \dd{x}; \quad \dv{f}{x}; \quad \pdv[2]{
 
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+		\begin{frame}[containsverbatim]{}
+			\begin{center}
+				\textbf{BEWARE} \\
+				Das Kompilieren dieses Dokumentes dauert auf einem \(\SI{4}{\GHz}\)-Quad Core knapp eine halbe Minute! 
+			\end{center}
+		\end{frame}
+
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %		\section{Beamer}
 %
 %		\begin{frame}[containsverbatim]{\LaTeX{}-Beamer}
