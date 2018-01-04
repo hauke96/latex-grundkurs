@@ -10,6 +10,8 @@
 \usepackage{mathtools}
 \usepackage{environ}
 
+\usetikzlibrary{petri}
+
 \title{\LaTeX{} advanced}
 \subtitle{\small Ti\textit{k}Z, etc.}
 \author
@@ -1291,6 +1293,53 @@ Differentiale: \(\displaystyle \int f(x) \dd{x}; \quad \dv{f}{x}; \quad \pdv[2]{
 
 		\end{frame}
 		
+		\begin{frame}[containsverbatim]{Petrinetze}
+			\begin{columns}[t]
+				\column{0.65\textwidth}
+				\slideheading{\LaTeX{}-Code:}
+				\begin{smalllatexcode}
+\usetikzlibrary{petri}
+\begin{tikzpicture}[node distance=1.5cm,auto]
+    \node [place,tokens=1] (p1)      {};
+    \node [place] (p2) [below of=p1] {};
+    \node [place] (p3)  [below of=p2] {};
+
+    \node [transition] (t1) [left of=p2] {$t_1$}
+      edge [pre,bend left]                  (p1)
+      edge [post,bend right]                (p3)
+      edge [post]                           (p2);
+
+    \node [transition] (t2) [right of=p2] {$t_2$}
+      edge [pre]                            (p2)
+      edge [pre,bend left]                  (p3)
+      edge [post,bend right] node[swap] {2} (p1);
+\end{tikzpicture}
+				\end{smalllatexcode}
+
+				\column{0.35\textwidth}
+				\hspace{3mm}
+				\slideheading{Ergebnis:}
+				\hspace{3mm}
+				\scalebox{0.8}{
+					\begin{tikzpicture}[node distance=2cm,auto]
+					    \node [place,tokens=1] (p1)      {};
+					    \node [place] (p2) [below of=p1] {};
+					    \node [place] (p3)  [below of=p2] {};
+					
+					    \node [transition] (t1) [left of=p2] {$t_1$}
+					      edge [pre,bend left]                  (p1)
+					      edge [post,bend right]                (p3)
+					      edge [post]                           (p2);
+					
+					    \node [transition] (t2) [right of=p2] {$t_2$}
+					      edge [pre]                            (p2)
+					      edge [pre,bend left]                  (p3)
+					      edge [post,bend right] node[swap] {2} (p1);
+					\end{tikzpicture}
+				}
+			\end{columns}		
+		\end{frame}
+
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		
 		\section{VCS \& Co.}
