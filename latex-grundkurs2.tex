@@ -448,6 +448,25 @@ Host fbi
 		\end{frame}
 		
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		\begin{frame}[containsverbatim]{Alternative: Include-Dateien}
+		
+			\texttt{\textbackslash{}input\{<datei>\}} lädt den Inhalt von \texttt{<datei>} stumpf, als ob er so im Dokument stehen würde. \texttt{\textbackslash{}include\{<datei>\}} macht eine neue Seite auf und kann nicht geschachtelt werden, legt aber eigene \texttt{aux}-Dateien an und kann somit Seitenzahlen und Querverweise beachten.
+	
+			\slideheading{\LaTeX-Code (beispiel.inc):}
+			\begin{latexcode}
+Hallo \LaTeX!
+			\end{latexcode}
+			\slideheading{\LaTeX-Code (Hauptdokument):}
+			\begin{latexcode}
+\input{beispiel.inc}
+			\end{latexcode}
+			\slideheading{Ergebnis:}
+			
+			Hallo \LaTeX!
+		\end{frame}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%		
 		
 		\section{Math advanced}
 		\subsection{Math advanced}
