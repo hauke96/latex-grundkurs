@@ -109,3 +109,5 @@
 \newcommand{\slideheading}[1]{\textbf{#1}}
 \newcommand{\TikZ}{Ti\textit{k}Z}
 \newcommand{\bus}[4]{Ein Bus der Linie #1 Richtung #2 fährt von #3 um #4 ab.}
+
+\beamertemplatenavigationsymbolsempty

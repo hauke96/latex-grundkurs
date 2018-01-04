@@ -8,6 +8,7 @@
 \usepackage[siunitx]{circuitikz}
 \usepackage{algorithmic}
 \usepackage{mathtools}
+\usepackage{environ}
 
 \title{\LaTeX{} advanced}
 \subtitle{\small Ti\textit{k}Z, etc.}
@@ -19,6 +20,9 @@
 }
 
 \date{\footnotesize \today}
+
+% Auskommentieren, um tikzpicture temporär zu deaktivieren:
+\RenewEnviron{tikzpicture}[1][]{\par\texttt{tikzpicture}\par}
 
 \begin{document}
 	\maketitle
@@ -250,7 +254,43 @@ class MeineKlasse{
 		\end{frame}
 
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\begin{frame}[containsverbatim]{Mit \texttt{verbatim}}
+			\slideheading{\LaTeX-Code:}
+			\begin{smallerlatexcode}
+\begin{verbatim}
+# ~/.ssh/config
+Host fbi
+  User 7nachnam
+  ForwardX11 yes
+  HostName rzssh1.informatik.uni-hamburg.de
+  DynamicForward 7777
+  #LocalForward 6631 linuxprint.informatik.uni-hamburg.de:631
+\end{verbatim}
+			\end{smallerlatexcode}
+		\end{frame}
 
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		\begin{frame}[containsverbatim]{Mit \texttt{verbatim}}
+			\slideheading{Ergebnis:}
+{
+\small
+			\begin{verbatim}
+# ~/.ssh/config
+Host fbi
+  User 7nachnam
+  ForwardX11 yes
+  HostName rzssh1.informatik.uni-hamburg.de
+  DynamicForward 7777
+  #LocalForward 6631 linuxprint.informatik.uni-hamburg.de:631			
+			\end{verbatim}
+}
+
+		\end{frame}		
+
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
 		\begin{frame}[containsverbatim]{Mit \texttt{algorithmic} (Pseudocode)}
 			\slideheading{\LaTeX-Code:}
 			\begin{smalllatexcode}
@@ -1088,6 +1128,8 @@ Differentiale: \(\displaystyle \int f(x) \dd{x}; \quad \dv{f}{x}; \quad \pdv[2]{
 %			\end{center}
 %		\end{frame}
 
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 		\subsection{Was sonst so geht}
 
 		\begin{frame}[containsverbatim]{Chemische Bilder mit \texttt{chemfig}}
@@ -1099,6 +1141,8 @@ Differentiale: \(\displaystyle \int f(x) \dd{x}; \quad \dv{f}{x}; \quad \pdv[2]{
 
 			\chemfig{A*6(-=-(-B-C=D)=-=-)}
 		\end{frame}
+
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 		\begin{frame}[containsverbatim]{Schaltskizzen mit Circui\TikZ}
 			\begin{columns}[t]
@@ -1135,8 +1179,100 @@ Differentiale: \(\displaystyle \int f(x) \dd{x}; \quad \dv{f}{x}; \quad \pdv[2]{
 				}
 			\end{columns}
 
+		\end{frame}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\section{VCS \& Co.}
+		\subsection{Versionsverwaltung}
+		
+		\begin{frame}[containsverbatim]{Version control in a nutshell}
+				\slideheading{Versionsverwaltungs-Software (VCS):}
+				\begin{itemize}
+					\item Ermöglicht es, an vielen Rechnern Dateien kollaborativ zu bearbeiten
+					\item Über Branches könnt ihr parallel an den gleichen Dateien arbeiten
+					\item Branches können zusammengeführt werden (merge)
+					\item Vllt. seht ihr noch ein KBS dazu ;)
+				\end{itemize}
+				\slideheading{Git:}
+				\begin{itemize}
+					\item Das populärste VCS von Linus Torvalds
+					\item Unter Linux meist vorinstalliert, unter Windows z.B. via git-scm
+					\item Dezentral, vielseitig, einfach, mächtig
+				\end{itemize}
+		\end{frame}
 
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\begin{frame}[containsverbatim]{.gitignore}
+			\begin{itemize}
+				\item Die \texttt{.gitignore} verwaltet automatisch ignorierte Dateien im Repository
+				\item \LaTeX{} erzeugt viele temporäre Dateien
+				\item The lazy way: \url{https://github.com/github/gitignore} \\[5mm]
+				\url{https://raw.githubusercontent.com/github/gitignore/master/TeX.gitignore}
+			\end{itemize}
+		\end{frame}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\begin{frame}[containsverbatim]{.gitignore}
+			\slideheading{Beispiel:}
+			{ \small
+			\begin{verbatim}
+## Core latex/pdflatex auxiliary files:
+*.aux
+*.log
 
+[...]
+
+## Intermediate documents:
+*.dvi
+*-converted-to.*
+# *.ps
+# *.pdf
+
+[...]
+			\end{verbatim}
+			}
+		\end{frame}
+
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+		\begin{frame}[containsverbatim]{make \& latexmk}
+		\slideheading{make:}
+		\begin{itemize}
+			\item \texttt{make} automatisiert das Bauen von Projekten
+			\item Macht Dokumentation meistens überflüssig
+			\item Automatischer Abgleich von Änderungsdatum von Quelle und Ziel
+			\item Festlegen des Build-Prozesses durch Regeln in der \texttt{Makefile}
+			\item Regelfindung per Pattern-Matching
+		\end{itemize}
+		\slideheading{latexmk:}
+		\begin{itemize}
+			\item Kann \LaTeX{}-Dokumente vollautomatisch kompilieren
+			\item Alternative: \texttt{latexrun}
+		\end{itemize}
+		\end{frame}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%		
+
+		\begin{frame}[containsverbatim]{make \& latexmk}
+			\slideheading{Beispiel für Makefile:}
+			{ \small
+			\begin{verbatim}
+.PHONY: default all clean 
+
+default: all
+
+all: Abgabe.pdf
+
+%.pdf: %.tex
+	latexmk -pdf $<
+
+clean:
+	latexmk -C	
+			\end{verbatim}
+			}
 		\end{frame}
 
 \end{document}
