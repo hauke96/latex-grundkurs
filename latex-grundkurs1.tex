@@ -646,7 +646,7 @@ Bar & Lorem ipsum [...]
 			\begin{itemize}
 				\item Die \texttt{\$...\$} Umgebung
 				\begin{itemize}
-					\item Mathe innerhalb von Text (stammt nicht aus \LaTeX, sondern aus \TeX{} und sollte vermieden werden)
+					\item Mathe innerhalb von Text (stammt nicht aus \LaTeX, sondern aus \TeX{})
 				\end{itemize}
 				\item Die \texttt{\textbackslash(...\textbackslash)} Umgebung
 				\begin{itemize}
@@ -855,16 +855,15 @@ Die Probleminstanz \(\mathfrak{B}\) sei gegeben Durch die Menge \(\mathbb{N}\) u
 			\slideheading{\LaTeX{}-Code:}\\
 			{\footnotesize
 			\begin{latexcode}
-\section{Aufgabe 1: Vereinfacung von \(\mathcal{Z}\)}
+\section{Aufgabe 1: Vereinfachung von \(\mathcal{Z}\)}
 Wir \textit{vereinfachen} den Term
 \(w\cdot\frac{1}{w\cdot\frac{1}{w+1}}\) für später:
 \begin{align}
-	\mathcal{Z} &= w\cdot\frac{1}{w\cdot\frac{1}{w+1}}           \\
-	\mathcal{Z} &=       \frac{w}{w\cdot\frac{1}{w+1}}\label{foo}\\
-	\mathcal{Z} &=       \frac{w}{      \frac{w}{w+1}}           \\
+	\mathcal{Z} &= w\cdot\frac{1}{w\cdot\frac{1}{w+1}} \\
+	\mathcal{Z} &=       \frac{w}{w\cdot\frac{1}{w+1}} \\
+	\mathcal{Z} &=       \frac{w}{      \frac{w}{w+1}} \\
 	\mathcal{Z} &= w+1
 \end{align}
-Schritt \textbf{\ref{foo}} ist sehr wichtig.
 			\end{latexcode}
 			}
 		\end{frame}
