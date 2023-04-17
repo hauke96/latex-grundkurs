@@ -155,7 +155,7 @@ Die \LaTeX-Distribution stellt eine Sammlung von Paketen und Programmen zum Komp
 			Menschen \TeX/\LaTeX-Code auf eurem Rechner/Server ausführen.
 			
 			\vspace{0.2cm}
-			\slideheading{Anmerkung:} Man kann \textbf{\url{https://www.overleaf.com}} zum live-nachcoden benutzen.
+			\slideheading{Anmerkung:} Man kann \href{https://latexbase.com}{latexbase.com} \href{https://www.overleaf.com}{overleaf.com} zum live-mitcoden benutzen.
 		\end{frame}
 		
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -249,8 +249,8 @@ Die \LaTeX-Distribution stellt eine Sammlung von Paketen und Programmen zum Komp
 	Hello World!
 \end{document}
 			\end{latexcode}
-			\begin{textblock}{10}(7.5,10.5)
-				\includegraphics[width=5.5cm]{images/erstes-dokument-scrartcl}
+			\begin{textblock}{10}(7.75,10.75)
+				\includegraphics[width=5.25cm]{images/erstes-dokument-scrartcl}
 			\end{textblock}
 		\end{frame}
 		
@@ -272,8 +272,8 @@ Die \LaTeX-Distribution stellt eine Sammlung von Paketen und Programmen zum Komp
 	Hello World!
 \end{document}
 			\end{latexcode}
-			\begin{textblock}{10}(7.5,10.5)
-				\includegraphics[width=5.5cm]{images/erstes-dokument-article}
+			\begin{textblock}{10}(7.75,10.75)
+				\includegraphics[width=5.25cm]{images/erstes-dokument-article}
 			\end{textblock}
 		\end{frame}
 		
@@ -281,23 +281,18 @@ Die \LaTeX-Distribution stellt eine Sammlung von Paketen und Programmen zum Komp
 		
 		\begin{frame}[containsverbatim]{Gliederung des Dokumentes}
 			\slideheading{\LaTeX-Code:}
-			\begin{latexcode}
+			\begin{smalllatexcode}
 \section{Finden von maximalen Cliquen in Graphen}
-Maximale Cliquen haben viele reale Anwendungsfälle.
-\subsection{NP-Vollständigkeit}
-Das Problem ist NP-vollständig.
-			\end{latexcode}
-			
-			\vspace{0.1cm}
+    Maximale Cliquen haben viele reale Anwendungsfälle.
+    \subsection{NP-Vollständigkeit}
+        Das Problem ist NP-Vollständig.
+        \subsubsection{Bedeutung}
+            Das heißt es ist sehr schwer.
+			\end{smalllatexcode}
+			\vspace{0.2cm}
 			\slideheading{Ergebnis:}
-			\vspace{0.3cm}\\
-			{\Large \textbf{1 Finden von maximalen Cliquen}}
-			\vspace{2mm}\\
-			Maximale Cliquen haben viele reale Anwendungsfälle.
-			\vspace{4mm}\\
-			\textbf{1.1 NP-Vollständigkeit}
-			\vspace{2mm}\\
-			Das Problem ist NP-vollständig.
+			\vspace{0.2cm}\\
+			\includegraphics[width=0.725\linewidth]{images/gliederung-beispiel}
 		\end{frame}
 		
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -312,17 +307,25 @@ Zeilenumbruch.
 Dieser       Text\newline
 auch
 
-Dies ist ein Absatz
+Dies ist ein Absatz mit
+Einrückung.
+
+\noindent Dies auch,
+aber ohne Einrückung.
 				\end{latexcode}
 				\column{.5\textwidth}
 				\slideheading{Ergebnis:}
 				\vspace{1mm}\\
 				Dieser Text hat einen\\
-				Zeilenumbruch
+				Zeilenumbruch.
 				Dieser       Text\newline
 				auch
 				
-				~~~~Dies ist ein Absatz
+				~~~~Dies ist ein Absatz mit
+				Einrückung.
+				
+				\noindent Dies auch,
+				aber ohne Einrückung.
 			\end{columns}
 		\end{frame}
 		
@@ -386,9 +389,8 @@ oder \textit{kursiv}. Oder einfach nur
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		
 		\begin{frame}[t]{Übung}
-			\slideheading{Übung:}
-			\vspace{0.1cm}\\
-			Schachtel eine Aufzählung, so wie hier:\vspace{0.2cm}\\
+			Schachtelung eine Aufzählung, so wie hier:
+			\vspace{0.2cm}\\
 			\begin{itemize}
 				\item Kartoffeln
 				\begin{itemize}
@@ -402,7 +404,7 @@ oder \textit{kursiv}. Oder einfach nur
 		
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		
-		\begin{frame}[t,containsverbatim]{Geschachtelte Auflistungen}
+		\begin{frame}[t,containsverbatim]{Übung -- Auflösung}
 			\begin{columns}[t]
 				\column{.6\textwidth}
 				\slideheading{\LaTeX-Code:}
@@ -476,7 +478,7 @@ oder \textit{kursiv}. Oder einfach nur
 % ...
 \begin{enumerate}[1]
 	\item Erster Punkt
-	    \begin{enumerate}[(a).]
+	    \begin{enumerate}[a.]
 	    \item Erster Unterpunkt
 	    \item Zweiter Unterpunkte
 	    \end{enumerate}
@@ -489,7 +491,7 @@ oder \textit{kursiv}. Oder einfach nur
 				\slideheading{Ergebnis:}
 				\begin{enumerate}[1]
 					\item Erster Punkt
-					    \begin{enumerate}[(a).]
+					    \begin{enumerate}[a.]
 					    \item Erster Unterpunkt
 					    \item Zweiter Unterpunkte
 					    \end{enumerate}
@@ -555,15 +557,28 @@ oder \textit{kursiv}. Oder einfach nur
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		
 		\begin{frame}[t]{Übung}
-			\slideheading{Übung:}
-			\vspace{0.1cm}\\
-			Erstelle eine Tabelle mit \textbf{automatischem} Zeilenumbruch:\vspace{0.2cm}\\
-			
-			\begin{tabular}{l|p{7cm}}
-				Spalte 1 & Spalte 2 \\ \hline
-				Foo & Lorem ipsum dolor sit amet, consectetur adipiscing elit. \\
-				Bar & Lorem ipsum [...]
+			Erstelle folgende Tabelle:\\
+			\vspace{0.5cm}\\
+			\begin{tabular}{c|l}
+				Symbol & Name \\
+				\hline
+				$\mathbb{N}$ & Natürliche Zahlen \\
+				$\mathbb{R}$ & Reelle Zahlen
 			\end{tabular}
+		\end{frame}
+	
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\begin{frame}[containsverbatim]{Übung -- Auflösung}
+			\slideheading{\LaTeX-Code:}
+			\begin{latexcode}
+\begin{tabular}{c|l}
+	Symbol       & Name \\
+	\hline
+	$\mathbb{N}$ & Natürliche Zahlen \\
+	$\mathbb{R}$ & Reelle Zahlen
+\end{tabular}
+			\end{latexcode}
 		\end{frame}
 		
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -591,7 +606,7 @@ Bar & Lorem ipsum [...]
 		\begin{frame}[containsverbatim]{Automatische Breite mit \texttt{tabularx}}
 			\slideheading{\LaTeX-Code:}
 			\begin{latexcode}
-\begin{tabularx}{.85\textwidth}{l|X}
+\begin{tabularx}{\textwidth}{l|X}
 Spalte 1 & Spalte 2 \\ \hline
 Foo & Lorem ipsum dolor sit amet [...] \\
 Bar & Lorem ipsum [...]
@@ -600,9 +615,9 @@ Bar & Lorem ipsum [...]
 			
 			\slideheading{Ergebnis:}
 			\vspace{0.1cm}\\
-			\begin{tabularx}{.85\textwidth}{l|X}
+			\begin{tabularx}{\textwidth}{l|X}
 				Spalte 1 & Spalte 2 \\ \hline
-				Foo & Lorem ipsum dolor sit amet, consectetur adipiscing elit. \\
+				Foo & Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed diam nonumy eirmod. \\
 				Bar & Lorem ipsum [...]
 			\end{tabularx}
 		\end{frame}
@@ -613,15 +628,20 @@ Bar & Lorem ipsum [...]
 			\slideheading{\LaTeX-Code:}
 			\begin{latexcode}
 \usepackage{graphicx}
-\includegraphics[width=3cm]{images/gnu}
+\includegraphics[width=2cm]{images/gnu}
+\includegraphics[width=1cm]{images/gnu}
 			\end{latexcode}
 			
 			\slideheading{Ergebnis:}
-			\includegraphics[width=2.5cm]{images/gnu}
+			\vspace{0.1cm}\\
+			\includegraphics[width=2cm]{images/gnu}
+			\includegraphics[width=1cm]{images/gnu}
 		\end{frame}
 		
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		
+	\section{Mathematischer Textsatz}
+		\subsection{Theorie}
 		\begin{frame}[containsverbatim]{\texttt{ams}-Pakete der American Mathematical Society}
 			Für komplexere mathematische Darstellungen müssen die
 			\texttt{ams}-Pakete der American Mathematical Society eingebunden
@@ -630,27 +650,25 @@ Bar & Lorem ipsum [...]
 			\vspace{0.5cm}
 			\slideheading{\LaTeX{}-Code:}
 			\begin{latexcode}
-% Im Header
-\usepackage{amsmath}
-\usepackage{amsfonts}
-\usepackage{amssymb}
+				% Im Header
+				\usepackage{amsmath}
+				\usepackage{amsfonts}
+				\usepackage{amssymb}
 			\end{latexcode}
 		\end{frame}
-		
+			
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-		
-	\section{Mathematischer Textsatz}
-		\subsection{Theorie}
+
 		\begin{frame}[containsverbatim]{Mathe-Umgebung}
 			Es gibt verschiedene Mathe-Umgebungen:
 			\begin{itemize}
 				\item Die \texttt{\$...\$} Umgebung
 				\begin{itemize}
-					\item Mathe innerhalb von Text (stammt nicht aus \LaTeX, sondern aus \TeX{})
+					\item Mathe innerhalb von Text (stammt nicht aus \LaTeX, sondern aus \TeX{}, weit verbreitet)
 				\end{itemize}
 				\item Die \texttt{\textbackslash(...\textbackslash)} Umgebung
 				\begin{itemize}
-					\item Mathe innerhalb von Text (stammt aus \LaTeX und funktioniert besser mit den \texttt{ams}-Paketen)
+					\item Mathe innerhalb von Text (stammt aus \LaTeX\ und funktioniert besser mit den \texttt{ams}-Paketen und z.B. in Überschriften)
 				\end{itemize}
 				\item Die \texttt{\textbackslash[...\textbackslash]} Umgebung
 				\begin{itemize}
@@ -664,13 +682,14 @@ Bar & Lorem ipsum [...]
 		\begin{frame}[containsverbatim]{Mathe-Umgebung}
 			\slideheading{\LaTeX{}-Code:}
 			\begin{latexcode}
-Wir können im Text Wurzeln, wie z.\,B. \( \sqrt{2} \)
-verwenden. Oder auch Matheformeln als ganzen Block:
+Wir können im Text inline-Mathe, wie z.\,B.
+\(x \cdot \sqrt{2} \) verwenden. Oder auch
+Matheformeln als ganzen Block:
 \[ \sum_{k=1}^n k = \frac{n(n+1)}{2} \]
 			\end{latexcode}
 			
-			\slideheading{Ergebnis:}
-			Wir können im Text Wurzeln, wie z.\,B. \( \sqrt{2} \)
+			\slideheading{Ergebnis:}\\
+			Wir können im Text inline-Mathe, wie z.\,B. \(x \cdot \sqrt{2} \)
 			verwenden. Oder auch Matheformeln als ganzen Block:
 			\[ \sum_{k=1}^n k = \frac{n(n+1)}{2} \]
 		\end{frame}
@@ -680,12 +699,12 @@ verwenden. Oder auch Matheformeln als ganzen Block:
 		\begin{frame}[containsverbatim]{Mathe-Umgebung}
 			\slideheading{\LaTeX{}-Code:}
 			\begin{latexcode}
-Neben Summen ($\sum$) gibt es auch Integrale:
+Neben Summen ($\sum_1^n$) gibt es auch Integrale:
 \[ \int\limits_a^b f(x) \ \mathrm{d}x \]
 			\end{latexcode}
 			
-			\slideheading{Ergebnis:}
-			Neben Summen ($\sum$) gibt es auch Integrale:
+			\slideheading{Ergebnis:}\\
+			Neben Summen ($\sum_1^n$) gibt es auch Integrale:
 			\[ \int\limits_a^b f(x) \ \mathrm{d}x \]
 		\end{frame}
 		
@@ -699,7 +718,7 @@ die Menge \(\mathbb{N}\) und einer Zahl \(n\), sowie
 der Eingabe \(\mathcal{A}\).
 			\end{latexcode}
 			
-			\slideheading{Ergebnis:}
+			\slideheading{Ergebnis:}\\
 Die Probleminstanz \(\mathfrak{B}\) sei gegeben Durch die Menge \(\mathbb{N}\) und einer Zahl \(n\), sowie der Eingabe \(\mathcal{A}\).
 		\end{frame}
 		
@@ -842,26 +861,23 @@ Die Probleminstanz \(\mathfrak{B}\) sei gegeben Durch die Menge \(\mathbb{N}\) u
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		
 		\begin{frame}[t]{Finale Übung}
-			\slideheading{Übung:} Bilde dieses Dokument nach:\vspace{0.2cm}
-			
+			Bilde dieses Dokument nach:
+			\vspace{0.2cm}
 			\begin{center}
-				\includegraphics[width=0.95\textwidth]{images/mathe-uebung-1}
+				\includegraphics[width=\linewidth]{images/mathe-uebung-1}
 			\end{center}
 		\end{frame}
 			
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		
-		\begin{frame}[containsverbatim]{Finale Übung}
+		\begin{frame}[containsverbatim]{Finale Übung -- Auflösung}
 			\slideheading{\LaTeX{}-Code:}\\
 			{\footnotesize
 			\begin{latexcode}
 \section{Aufgabe 1: Vereinfachung von \(\mathcal{Z}\)}
-Wir \textit{vereinfachen} den Term
-\(w\cdot\frac{1}{w\cdot\frac{1}{w+1}}\) für später:
+Wir \textit{vereinfachen} den Term für später:
 \begin{align}
-	\mathcal{Z} &= w\cdot\frac{1}{w\cdot\frac{1}{w+1}} \\
-	\mathcal{Z} &=       \frac{w}{w\cdot\frac{1}{w+1}} \\
-	\mathcal{Z} &=       \frac{w}{      \frac{w}{w+1}} \\
+	\mathcal{Z} &= \frac{w}{ \frac{w}{w+1} } \\
 	\mathcal{Z} &= w+1
 \end{align}
 			\end{latexcode}
