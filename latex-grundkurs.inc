@@ -94,6 +94,7 @@
 \setbeamertemplate{toc}{circle}
 \setbeamertemplate{itemize subitem}[triangle] % if you want a triangle
 \setbeamercovered{transparent}
+\setbeamercolor{boxColor}{fg=white,bg=myBlue}
 
 %Für [Seite]/[Anzahl-Seiten] in der unteren rechten ecke
 \newcommand*\oldmacro{}%
@@ -109,5 +110,18 @@
 \newcommand{\slideheading}[1]{\textbf{#1}}
 \newcommand{\TikZ}{Ti\textit{k}Z}
 \newcommand{\bus}[4]{Ein Bus der Linie #1 Richtung #2 fährt von #3 um #4 ab.}
+
+\newcommand{\sectionTitleFrame}
+{
+	\begin{frame}
+		\begin{center}
+			~ % non breaking spaces needed for some reason ...
+			\begin{beamercolorbox}[wd=0.75\textwidth,sep=2.5mm,center]{boxColor}
+				\secname
+			\end{beamercolorbox}
+			~
+		\end{center}
+	\end{frame}
+}
 
 \beamertemplatenavigationsymbolsempty

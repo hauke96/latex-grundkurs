@@ -28,18 +28,21 @@
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		
 	\begin{frame}
-		\begin{minipage}[0.5\textheight]{0.5\textwidth}
+		\begin{minipage}[0.5\textheight]{0.58\textwidth}
 			\tableofcontents[hideallsubsections]
 		\end{minipage}
-		\begin{minipage}{0.45\textwidth}
-			\includegraphics[width=1.05\textwidth]{./images/gib-word-keine-chance}
+		\begin{minipage}{0.38\textwidth}
+			\includegraphics[width=\textwidth]{./images/gib-word-keine-chance}
 		\end{minipage}
 	\end{frame}
 		
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		
-	\section{Was ist \LaTeX{}}
+	\section{Was ist \LaTeX{}?}
+		\sectionTitleFrame
+		
 		\subsection{Einführung}
+		
 		\begin{frame}{Was ist \LaTeX{}}
 			\slideheading{\LaTeX{} und \TeX{}:}
 			\begin{itemize}
@@ -52,7 +55,7 @@
 			\begin{itemize}
 				\item Ergebnis sieht hübsch aus
 				\item \LaTeX{} kümmert sich um die Formatierung
-				\item Der Quelltext lässt sich Versionsverwalten
+				\item Der Quelltext lässt sich Versionsverwalten (\textrightarrow\ git)
 				\item Für mathematische Formeln sehr gut
 				\item ``Ich möchte X mit \LaTeX{} machen'' $\rightarrow$
 				Suchmaschine: ``latex X'' eingeben $\rightarrow$
@@ -155,18 +158,20 @@ Die \LaTeX-Distribution stellt eine Sammlung von Paketen und Programmen zum Komp
 			Menschen \TeX/\LaTeX-Code auf eurem Rechner/Server ausführen.
 			
 			\vspace{0.2cm}
-			\slideheading{Anmerkung:} Man kann \href{https://latexbase.com}{latexbase.com} \href{https://www.overleaf.com}{overleaf.com} zum live-mitcoden benutzen.
+			\slideheading{Anmerkung:} Man kann \href{https://latexbase.com}{latexbase.com} oder \href{https://www.overleaf.com}{overleaf.com} zum live-mitcoden benutzen.
 		\end{frame}
 		
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		
-		\section{Grundlagen von \LaTeX{} und \TeX}
+	\section{Grundlagen von \LaTeX{} und \TeX}
+		\sectionTitleFrame
+		
 		\subsection{Theorie}
 		
 		\begin{frame}{Dokumentenklassen}
 			\begin{itemize}
 				\item Die Dokumentenklasse beschreibt wie ein Dokument aussieht
-				\item Ihr beschreibt was ihr schreibt (z.\,B. was eine Überschrift ist)
+				\item Ihr \emph{beschreibt} was ihr schreibt (z.\,B. was eine Überschrift ist)
 				\item \LaTeX{} formatiert euer Dokument mit Hilfe der Dokumentenklasse, \textbf{nicht ihr}!
 			\end{itemize}
 			\vspace{0.1cm}
@@ -176,6 +181,7 @@ Die \LaTeX-Distribution stellt eine Sammlung von Paketen und Programmen zum Komp
 				\item[scrlttr2, letter:] Briefe
 				\item[scrreprt, report:] Reports, Umfang mehr als 15 Seiten
 				\item[scrbook, book:] Bücher
+				\item[beamer] Präsentationen wie die hier
 			\end{description}
 		\end{frame}
 		
@@ -186,9 +192,10 @@ Die \LaTeX-Distribution stellt eine Sammlung von Paketen und Programmen zum Komp
 			\begin{itemize}
 				\item Beginnen mit einem Backslash ( \textbackslash... )
 				\item Parameter in geschweiften Klammern ( \{...\} )
-				\item \textit{Optionale} Parameter in eckigen ( [...] )
+				\item \emph{Optionale} Parameter in eckigen ( [...] )
 				\item Manchmal auch als \texttt{*}-Variante (leicht verändertes Verhalten; s. \texttt{align} und \texttt{align*} Umgebung später)
 			\end{itemize}
+			\pause
 			\slideheading{Umgebungen:}
 			\begin{itemize}
 				\item Beginnen mit dem \texttt{\textbackslash begin\{name\}} Befehl
@@ -202,31 +209,19 @@ Die \LaTeX-Distribution stellt eine Sammlung von Paketen und Programmen zum Komp
 		\begin{frame}{Aufbau des Dokumentes}
 			\slideheading{Dokument:}
 			\begin{enumerate}
-				\item Dokumentenklasse wählen
-				\item Pakete laden
-				\item Einstellungen vornehmen, Styles ändern, Befehle definieren, et.
-				\item Dokument öffnen
-				\item Inhalte schreiben
-				\item Dokument schließen
+				\item Preamble:
+					\begin{enumerate}
+						\item Dokumentenklasse wählen
+						\item Pakete laden
+						\item Einstellungen vornehmen, Styles ändern, Befehle definieren, et.
+					\end{enumerate}
+				\item Body:
+					\begin{enumerate}
+						\item Dokument öffnen
+						\item Inhalte schreiben
+						\item Dokument schließen
+					\end{enumerate}
 			\end{enumerate}
-		\end{frame}
-		
-		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-		
-		\begin{frame}{Schriftgrößen}
-			\slideheading{Schriftgrößen:}\hspace{5mm}
-			\begin{tabular}{l l}
-				tiny 			& \tiny\textbackslash tiny\normalsize\\
-				scriptsize 		& \scriptsize\textbackslash scriptsize\normalsize\\
-				footnotesize 	& \footnotesize\textbackslash footnotesize\normalsize\\
-				small 			& \small\textbackslash small\normalsize\\
-				normalsize 		& \normalsize\textbackslash normalsize\normalsize\\
-				large 			& \large\textbackslash large\normalsize\\
-				Large 			& \Large\textbackslash Large\normalsize\\
-				LARGE 			& \LARGE\textbackslash LARGE\normalsize\\
-				huge 			& \huge\textbackslash huge\normalsize\\
-				Huge 			& \Huge\textbackslash Huge\normalsize
-			\end{tabular}
 		\end{frame}
 		
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -279,20 +274,47 @@ Die \LaTeX-Distribution stellt eine Sammlung von Paketen und Programmen zum Komp
 		
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		
+		\begin{frame}{Schriftgrößen}
+			\slideheading{Schriftgrößen:}\hspace{5mm}
+			\begin{tabular}{l l}
+				tiny 			& {\tiny\textbackslash tiny}\\
+				scriptsize 		& {\scriptsize\textbackslash scriptsize}\\
+				footnotesize 	& {\footnotesize\textbackslash footnotesize}\\
+				small 			& {\small\textbackslash small}\\
+				normalsize 		& {\normalsize\textbackslash normalsize}\\
+				large 			& {\large\textbackslash large}\\
+				Large 			& {\Large\textbackslash Large}\\
+				LARGE 			& {\LARGE\textbackslash LARGE}\\
+				huge 			& {\huge\textbackslash huge}\\
+				Huge 			& {\Huge\textbackslash Huge}
+			\end{tabular}
+		\end{frame}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
 		\begin{frame}[containsverbatim]{Gliederung des Dokumentes}
-			\slideheading{\LaTeX-Code:}
-			\begin{smalllatexcode}
-\section{Finden von maximalen Cliquen in Graphen}
-    Maximale Cliquen haben viele reale Anwendungsfälle.
-    \subsection{NP-Vollständigkeit}
-        Das Problem ist NP-Vollständig.
-        \subsubsection{Bedeutung}
-            Das heißt es ist sehr schwer.
-			\end{smalllatexcode}
-			\vspace{0.2cm}
-			\slideheading{Ergebnis:}
-			\vspace{0.2cm}\\
-			\includegraphics[width=0.725\linewidth]{images/gliederung-beispiel}
+			\begin{columns}[t]
+				\column{.5\textwidth}
+				\slideheading{\LaTeX-Code:}
+				\vspace{0.1cm}\\
+				\begin{smalllatexcode}
+\section{Cliquen in Graphen}
+  Cliquen haben reale Anwendungsfälle.
+  
+  \subsection{NP-Vollständigkeit}
+    Das Problem ist NP-Vollständig.
+    
+    \subsubsection{Bedeutung}
+      Das heißt es ist sehr schwer.
+      
+  \subsection*{Hinweise}
+    Cliquen klingt wie klicken.
+				\end{smalllatexcode}
+				\column{.5\textwidth}
+				\slideheading{Ergebnis:}
+				\vspace{0.2cm}\\
+				\includegraphics[width=1.5\linewidth]{images/gliederung-beispiel}
+			\end{columns}
 		\end{frame}
 		
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -302,10 +324,12 @@ Die \LaTeX-Distribution stellt eine Sammlung von Paketen und Programmen zum Komp
 				\column{.5\textwidth}
 				\slideheading{\LaTeX-Code:}
 				\begin{latexcode}
-Dieser Text hat einen\\
+Dieser\\Text
+hat
+einen
 Zeilenumbruch.
-Dieser       Text\newline
-auch
+Dieser       Text
+aber\newline auch.
 
 Dies ist ein Absatz mit
 Einrückung.
@@ -316,10 +340,10 @@ aber ohne Einrückung.
 				\column{.5\textwidth}
 				\slideheading{Ergebnis:}
 				\vspace{1mm}\\
-				Dieser Text hat einen\\
+				Dieser\\Text hat einen
 				Zeilenumbruch.
-				Dieser       Text\newline
-				auch
+				Dieser       Text
+				aber\newline auch.
 				
 				~~~~Dies ist ein Absatz mit
 				Einrückung.
@@ -334,16 +358,18 @@ aber ohne Einrückung.
 		\begin{frame}[containsverbatim]{Einfache Textformatierung}
 			\slideheading{\LaTeX-Code:}
 			\begin{latexcode}
-Dies ist \textbf{fett} oder \texttt{typewriter}
-oder \textit{kursiv}. Oder einfach nur
-\emph{hervorgehoben}.
+Text kann \textbf{fett} oder \texttt{typewriter}
+oder \textit{kursiv} oder einfach nur
+\emph{hervorgehoben} sein.
+% Und dies ist ein Kommentar :)
 			\end{latexcode}
 			
 			\vspace{0.1cm}
 			\slideheading{Ergebnis:}
 			\vspace{0.1cm}\\
-			Dies ist \textbf{fett} oder \texttt{typewriter} oder
-			\textit{kursiv}. Oder einfach nur \emph{hervorgehoben}.
+			Text kann \textbf{fett} oder \texttt{typewriter}
+			oder \textit{kursiv} oder einfach nur
+			\emph{hervorgehoben} sein.
 		\end{frame}
 		
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -469,37 +495,39 @@ oder \textit{kursiv}. Oder einfach nur
 		
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		
-		\begin{frame}[containsverbatim]{\texttt{enumerate}-Packet}
-			\begin{columns}[t]
-				\column{.6\textwidth}
-				\slideheading{\LaTeX-Code:}
-				\begin{latexcode}
-\usepackage{enumerate}
-% ...
-\begin{enumerate}[1]
-	\item Erster Punkt
-	    \begin{enumerate}[a.]
-	    \item Erster Unterpunkt
-	    \item Zweiter Unterpunkte
-	    \end{enumerate}
-	\item Zweiter Punkt
-	\item Dritter Punkt
-\end{enumerate}
-				\end{latexcode}
-				
-				\column{.4\textwidth}
-				\slideheading{Ergebnis:}
-				\begin{enumerate}[1]
-					\item Erster Punkt
-					    \begin{enumerate}[a.]
-					    \item Erster Unterpunkt
-					    \item Zweiter Unterpunkte
-					    \end{enumerate}
-					\item Zweiter Punkt
-					\item Dritter Punkt
-				\end{enumerate}
-			\end{columns}
-		\end{frame}
+% Hat keinen wirklich Mehrwert, oder?
+
+%		\begin{frame}[containsverbatim]{\texttt{enumerate}-Packet}
+%			\begin{columns}[t]
+%				\column{.6\textwidth}
+%				\slideheading{\LaTeX-Code:}
+%				\begin{latexcode}
+%\usepackage{enumerate}
+%% ...
+%\begin{enumerate}[1]
+%	\item Erster Punkt
+%	    \begin{enumerate}[a.]
+%	    \item Erster Unterpunkt
+%	    \item Zweiter Unterpunkte
+%	    \end{enumerate}
+%	\item Zweiter Punkt
+%	\item Dritter Punkt
+%\end{enumerate}
+%				\end{latexcode}
+%				
+%				\column{.4\textwidth}
+%				\slideheading{Ergebnis:}
+%				\begin{enumerate}[1]
+%					\item Erster Punkt
+%					    \begin{enumerate}[a.]
+%					    \item Erster Unterpunkt
+%					    \item Zweiter Unterpunkte
+%					    \end{enumerate}
+%					\item Zweiter Punkt
+%					\item Dritter Punkt
+%				\end{enumerate}
+%			\end{columns}
+%		\end{frame}
 		
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		
@@ -509,15 +537,15 @@ oder \textit{kursiv}. Oder einfach nur
 \begin{description}
 	\item[Kile] Guter Editor für GNU/Linux (KDE).
 	\item[AUCTeX] für Emacs-Benutzer
-	\item[Texmaker] Editor für alle Betriebssysteme
+	\item[Texstudio] Editor für alle Betriebssysteme
 \end{description}
 			\end{latexcode}
 			
 			\slideheading{Ergebnis:}
 			\begin{description}
-				\item[Kile] Einfacher Editor für GNU/Linux (KDE).
+				\item[Kile] Guter Editor für GNU/Linux (KDE).
 				\item[AUCTeX] für Emacs-Benutzer
-				\item[Texmaker] Editor für alle Betriebssysteme
+				\item[Texstudio] Editor für alle Betriebssysteme
 			\end{description}
 		\end{frame}
 		
@@ -529,13 +557,13 @@ oder \textit{kursiv}. Oder einfach nur
 				\slideheading{\LaTeX-Code:}
 				\begin{latexcode}
 \begin{tabular}{l||c|r}
-	Händler & Produkt & Preis\\
+	Händler  & Produkt & Preis\\
 	\hline
 	\hline
-	Ohbi & Fliesen & 17,95\\
-	Porsche & Motor & 270,15\\
+	Ohbi     & Fliesen & 17,95\\
+	Porrsche & Motoren & 270,15\\
 	\hline
-	Farber & Stift & 2,99
+	Farber   & Stifte  & 2,99
 \end{tabular}
 				\end{latexcode}
 				
@@ -543,13 +571,13 @@ oder \textit{kursiv}. Oder einfach nur
 				\slideheading{Ergebnis:}
 				\vspace{0.1cm}\\
 				\begin{tabular}{l||c|r}
-					Händler & Produkt & Preis\\
+					Händler  & Produkt & Preis\\
 					\hline
 					\hline
-					Ohbi & Fliesen & 17,95\\
-					Porsche & Motor & 270,15\\
+					Ohbi     & Fliesen & 17,95\\
+					Porrsche & Motoren & 270,15\\
 					\hline
-					Farber & Stift & 2,99
+					Farber   & Stifte  & 2,99
 				\end{tabular}
 			\end{columns}
 		\end{frame}
@@ -562,8 +590,8 @@ oder \textit{kursiv}. Oder einfach nur
 			\begin{tabular}{c|l}
 				Symbol & Name \\
 				\hline
-				$\mathbb{N}$ & Natürliche Zahlen \\
-				$\mathbb{R}$ & Reelle Zahlen
+				N      & \tiny\emph{Natürliche} Zahlen \\
+				R      & \emph{Reelle} Zahlen
 			\end{tabular}
 		\end{frame}
 	
@@ -573,10 +601,10 @@ oder \textit{kursiv}. Oder einfach nur
 			\slideheading{\LaTeX-Code:}
 			\begin{latexcode}
 \begin{tabular}{c|l}
-	Symbol       & Name \\
+	Symbol & Name \\
 	\hline
-	$\mathbb{N}$ & Natürliche Zahlen \\
-	$\mathbb{R}$ & Reelle Zahlen
+	N      & \tiny\emph{Natürliche} Zahlen \\
+	R      & \emph{Reelle} Zahlen
 \end{tabular}
 			\end{latexcode}
 		\end{frame}
@@ -588,9 +616,9 @@ oder \textit{kursiv}. Oder einfach nur
 			\slideheading{\LaTeX-Code:}
 			\begin{latexcode}
 \begin{tabular}{l|p{8cm}}
-Spalte 1 & Spalte 2 \\ \hline
-Foo & Lorem ipsum dolor sit amet [...] \\
-Bar & Lorem ipsum [...]
+	Spalte 1 & Spalte 2 \\ \hline
+	Foo      & Lorem ipsum dolor sit amet [...] \\
+	Bar      & Lorem ipsum [...]
 \end{tabular}
 			\end{latexcode}
 			
@@ -607,9 +635,9 @@ Bar & Lorem ipsum [...]
 			\slideheading{\LaTeX-Code:}
 			\begin{latexcode}
 \begin{tabularx}{\textwidth}{l|X}
-Spalte 1 & Spalte 2 \\ \hline
-Foo & Lorem ipsum dolor sit amet [...] \\
-Bar & Lorem ipsum [...]
+	Spalte 1 & Spalte 2 \\ \hline
+	Foo      & Lorem ipsum dolor sit amet [...] \\
+	Bar      & Lorem ipsum [...]
 \end{tabularx}
 			\end{latexcode}
 			
@@ -628,6 +656,7 @@ Bar & Lorem ipsum [...]
 			\slideheading{\LaTeX-Code:}
 			\begin{latexcode}
 \usepackage{graphicx}
+% ...
 \includegraphics[width=2cm]{images/gnu}
 \includegraphics[width=1cm]{images/gnu}
 			\end{latexcode}
@@ -641,7 +670,10 @@ Bar & Lorem ipsum [...]
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		
 	\section{Mathematischer Textsatz}
+		\sectionTitleFrame
+	
 		\subsection{Theorie}
+		
 		\begin{frame}[containsverbatim]{\texttt{ams}-Pakete der American Mathematical Society}
 			Für komplexere mathematische Darstellungen müssen die
 			\texttt{ams}-Pakete der American Mathematical Society eingebunden
@@ -650,7 +682,7 @@ Bar & Lorem ipsum [...]
 			\vspace{0.5cm}
 			\slideheading{\LaTeX{}-Code:}
 			\begin{latexcode}
-				% Im Header
+				% Im preamble/header
 				\usepackage{amsmath}
 				\usepackage{amsfonts}
 				\usepackage{amssymb}
@@ -662,17 +694,15 @@ Bar & Lorem ipsum [...]
 		\begin{frame}[containsverbatim]{Mathe-Umgebung}
 			Es gibt verschiedene Mathe-Umgebungen:
 			\begin{itemize}
-				\item Die \texttt{\$...\$} Umgebung
+				\item Inline Mathe:
 				\begin{itemize}
-					\item Mathe innerhalb von Text (stammt nicht aus \LaTeX, sondern aus \TeX{}, weit verbreitet)
+					\item Die \texttt{\$...\$} Umgebung: Stammt nicht aus \LaTeX, sondern aus \TeX{}, weit verbreitet
+					\item Die \texttt{\textbackslash(...\textbackslash)} Umgebung: Stammt aus \LaTeX\ und funktioniert besser mit den \texttt{ams}-Paketen und z.B. in Überschriften
 				\end{itemize}
-				\item Die \texttt{\textbackslash(...\textbackslash)} Umgebung
+				\item Eigenständiges Mathe:
 				\begin{itemize}
-					\item Mathe innerhalb von Text (stammt aus \LaTeX\ und funktioniert besser mit den \texttt{ams}-Paketen und z.B. in Überschriften)
-				\end{itemize}
-				\item Die \texttt{\textbackslash[...\textbackslash]} Umgebung
-				\begin{itemize}
-					\item Einzeilige Matheumgebung für eine Formel/Gleichung
+					\item Die \texttt{\$\$...\$\$} Umgebung: Aus \TeX
+					\item Die \texttt{\textbackslash[...\textbackslash]} Umgebung: Aus \LaTeX
 				\end{itemize}
 			\end{itemize}
 		\end{frame}
@@ -861,7 +891,7 @@ Die Probleminstanz \(\mathfrak{B}\) sei gegeben Durch die Menge \(\mathbb{N}\) u
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		
 		\begin{frame}[t]{Finale Übung}
-			Bilde dieses Dokument nach:
+			Bilde dieses Dokument nach (inkl. Überschrift):
 			\vspace{0.2cm}
 			\begin{center}
 				\includegraphics[width=\linewidth]{images/mathe-uebung-1}
@@ -874,11 +904,13 @@ Die Probleminstanz \(\mathfrak{B}\) sei gegeben Durch die Menge \(\mathbb{N}\) u
 			\slideheading{\LaTeX{}-Code:}\\
 			{\footnotesize
 			\begin{latexcode}
-\section{Aufgabe 1: Vereinfachung von \(\mathcal{Z}\)}
-Wir \textit{vereinfachen} den Term für später:
+\section{Vereinfachung von \(\mathcal{Z}_n\)}
+
+Wir \textit{vereinfachen} den Term:
+
 \begin{align}
-	\mathcal{Z} &= \frac{w}{ \frac{w}{w+1} } \\
-	\mathcal{Z} &= w+1
+	\mathcal{Z}_n &= \frac{w}{ \frac{w}{w+1} } \\
+	              &= w+n
 \end{align}
 			\end{latexcode}
 			}
