@@ -26,3 +26,6 @@
 *.snm
 *.synctex.gz
 *.pyg
+*.run.xml
+*-blx.bib
+*.auxlock

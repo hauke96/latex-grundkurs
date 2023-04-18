@@ -6,21 +6,7 @@
 \usepackage{lastpage}
 \usepackage{listings}
 \usepackage{color}
-\usepackage{tikz}
-\usepackage{pgf}
 \usepackage{tabularx}
-
-\usepackage{banyan-net}
-\usepackage{hypercube-5D}
-
-\usetikzlibrary{
-	calc,
-	intersections,
-	through,
-	positioning,
-	hobby,
-	automata,
-	arrows}
 
 \newcommand\pgfmathsinandcos[3]{%
     \pgfmathsetmacro#1{sin(#3)}%

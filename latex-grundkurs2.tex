@@ -9,8 +9,21 @@
 \usepackage{algorithmic}
 \usepackage{mathtools}
 \usepackage{environ}
+%\usepackage{banyan-net}
+%\usepackage{hypercube-5D}
+\usepackage{tikz}
+\usepackage{pgf}
 
-\usetikzlibrary{petri}
+\usetikzlibrary{
+	arrows,
+	automata,
+	calc,
+	intersections,
+	hobby,
+	petri,
+	positioning,
+	through
+}
 
 \title{\LaTeX{} advanced}
 \subtitle{\small Ti\textit{k}Z, etc.}
@@ -37,11 +50,19 @@
 			\item Hauke Stieler \texttt{\href{mailto:4stieler@informatik.uni-hamburg.de}{4stieler@inf}}
 		\end{itemize}
 	\end{frame}
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\begin{frame}
+		\tableofcontents[hideallsubsections]
+	\end{frame}
 
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-		\section{Verweise}
+	\section{Verweise}
+		\sectionTitleFrame
+	
 		\subsection{Referenzieren}
 
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -57,8 +78,8 @@ Im Abschnitt \ref{sec:cliques} auf Seite
 \pageref{sec:cliques} wurde das Finden von
 Cliquen in bipartiten Graphen beschrieben.
 			\end{latexcode}
-
-			\slideheading{Ergebnis:}
+			\vspace{0.5cm}
+			\slideheading{Ergebnis:}\\
 			Im Abschnitt 3.2 auf Seite 7 wurde das Finden
 			von Cliquen in bipartiten Graphen beschrieben.
 		\end{frame}
@@ -70,16 +91,16 @@ Cliquen in bipartiten Graphen beschrieben.
 			\begin{latexcode}
 \begin{figure}[t]
 	\includegraphics[width=7cm]{images/lichtstrahl}
-	\caption{Brechung eines Lichtstrahls beim Wechsel
-			 des Mediums}
-	\label{fig:lichtbrechung}
+	\caption{Brechung eines Lichtstrahls.}
+	\label{fig:lichtbrechung} % NACH der caption!
 \end{figure}
+
 % Irgendwo anders
 Der Lichtstrahl wird gebrochen, wie
 Abbildung \ref{fig:lichtbrechung} zeigt.
 			\end{latexcode}
-
-			\slideheading{Ergebnis:}
+			\vspace{0.5cm}
+			\slideheading{Ergebnis:}\\
 			Der Lichtstrahl wird gebrochen, wie Abbildung 3 zeigt.
 		\end{frame}
 
@@ -87,12 +108,32 @@ Abbildung \ref{fig:lichtbrechung} zeigt.
 
 		\subsection{Richtig Zitieren}
 
-		\begin{frame}[containsverbatim]{Bib\TeX}
+		\begin{frame}[containsverbatim]{Bib\TeX \& Bib\LaTeX}
 			\begin{itemize}
 				\item Man verwaltet eine Bib\TeX{}-Datei (\texttt{*.bib}) mit Literaturangaben
 				\item Mit \texttt{\textbackslash{}cite[Seite X]\{Referenz\}} referenziert man eine solche Angabe, mit optionaler Seitenangabe.
 				\item Mit \texttt{\textbackslash{}footcite\{Referenz\}} kann die Referenz direkt in die Fußnote mit hochgestelltem Index geschrieben werden.
 				\item Vor \texttt{pdflatex} wirft man \texttt{bibtex} an
+			\end{itemize}
+		\end{frame}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\begin{frame}{Bib\LaTeX{} und Biber}
+			\slideheading{Biber:}
+			\begin{itemize}
+				\item Moderner Ersatz für Bib\TeX{}
+				\item Guter UTF-8-Support
+				\item Bessere Verwaltung von Styles
+				\item Mehr Kontrolle über Sortierung
+				\item Nicht überall verbreitet
+			\end{itemize}
+			\slideheading{Bib\LaTeX{}}
+			\begin{itemize}
+				\item Package zum Einstellen vieler Dinge mittels \LaTeX{}-Code
+				\item Einfaches wissenschaftliches Zitieren
+				\item Für den Einsatz mit Biber entwickelt (UTF-8-Support)
+				\item Funktioniert mittelmäßig mit Bib\TeX{}
 			\end{itemize}
 		\end{frame}
 
@@ -102,22 +143,25 @@ Abbildung \ref{fig:lichtbrechung} zeigt.
 			\slideheading{\LaTeX{}-Code:}
 			\begin{latexcode}
 % Im Header
-\bibliographystyle{alpha}
+\usepackage[backend=bibtex8,style=alphabetic]{biblatex}
+\addbibresource{../literatur}
 
 % Beim Zitat
 Für die Lösung des Travelling-Salesman-Problems
-wurde ein heuristischer Algorithmus \cite{lin19973}
+wurde ein heuristischer Algorithmus \cite{lin1973}
 gewählt.
 
-% An der Stelle des Literaturverzeichnis
+% Literaturverzeichnis anzeigen
+\printbibliography
 \bibliography{literatur}
 			\end{latexcode}
 		\end{frame}
 
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-		\begin{frame}[containsverbatim]{Bib\TeX-Eintrag}
-			\slideheading{Bib\TeX{}-Eintrag:} (aus ``literatur.bib'')
+		\begin{frame}[containsverbatim]{Bib\LaTeX-Eintrag}
+			\slideheading{Bib\LaTeX{}-Eintrag:} (aus ``literatur.bib'')
+			\vspace{0.2cm}
 			\begin{latexcode}
 @article{lin1973,
 	author  = {Shen Lin and Brian W. Kernighan},
@@ -134,52 +178,15 @@ gewählt.
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 		\begin{frame}{Bib\TeX{}-Ergebnis}
-			\slideheading{Ergebnis:}
-
-			% Das hier ist ist wieder ein wenig geschummelt um ein
-			% Ergebnis, wie es in echten Dokumenten aussieht zu
-			% emulieren. Das geht sicherlich auch hübscher.
+			\vspace{0.75cm}
+			\slideheading{Ergebnis:}\\
 			\vspace{0.2cm}
-			Für die Lösung des Travelling-Salesman-Problems
-			wurde ein heuristischer Algorithmus [LK73]
-			gewählt.
-
-			\vspace{0.5cm}
-			{\Large \textbf{Literatur}}\\
-
-			\vspace{0.3cm}
-			\begin{tabular}{lp{9cm}}
-				[LK73] & Shen Lin and Brian~W. Kernighan. An effective heuristic algorithm for
-				         the travelling-salesman problem.
-				         {\em Operations Research}, 21:498--516, 1973.
-			\end{tabular}
+			\includegraphics[width=\textwidth]{images/biblatex-example.pdf}
 		\end{frame}
 
-		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-		\begin{frame}{Bib\LaTeX{} und Biber}
-
-			\slideheading{Biber:}
-			\begin{itemize}
-				\item Moderner Ersatz für Bib\TeX{}
-				\item Guter UTF-8-Support
-				\item Bessere Verwaltung von Styles
-				\item Mehr Kontrolle über Sortierung
-				\item Nicht überall verbreitet
-			\end{itemize}
-			\slideheading{Bib\LaTeX{}}
-			\begin{itemize}
-				\item Package zum Einstellen vieler Dinge mittels \LaTeX{}-Code
-				\item Einfaches wissenschaftliches Zitieren
-				\item Für den Einsatz mit Biber entwickelt (UTF-8-Support)
-				\item Funktioniert mittelmäßig mit Bib\TeX{}
-			\end{itemize}
-
-
-		\end{frame}
-
-
-		\section{Quellcode}
+	\section{Quellcode}
+		\sectionTitleFrame
+	
 		\subsection{Code-Highlighten}
 
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -227,9 +234,9 @@ class MeineKlasse{
 			\slideheading{\LaTeX-Code:}
 			\begin{smallerlatexcode}
 \usepackage{listings}
-\lstset{...} % style-einstellungen
+\lstset{...} % Style-Einstellungen
 % ...
-\begin{lstlisting}[caption=Variablen]
+\begin{lstlisting}[caption=Deklaration und Initialisierung von Variablen]
 class MeineKlasse{
 	private int meineVariable; // Deklaration
 
@@ -245,7 +252,7 @@ class MeineKlasse{
 
 		\begin{frame}[containsverbatim]{Mit \texttt{lstlisting}}
 			\slideheading{Ergebnis:}
-			\begin{lstlisting}[caption=Variablen]
+			\begin{lstlisting}[caption=Deklaration und Initialisierung von Variablen]
 class MeineKlasse{
 	private int meineVariable; // Deklaration
 
@@ -262,7 +269,7 @@ class MeineKlasse{
 			\slideheading{\LaTeX-Code:}
 			\begin{smallerlatexcode}
 \begin{verbatim}
-# ~/.ssh/config
+~$ cat .ssh/config
 Host fbi
   User 7nachnam
   ForwardX11 yes
@@ -280,7 +287,7 @@ Host fbi
 {
 \small
 			\begin{verbatim}
-# ~/.ssh/config
+~$ cat .ssh/config
 Host fbi
   User 7nachnam
   ForwardX11 yes
@@ -319,8 +326,11 @@ Host fbi
 
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-		\section{\LaTeX{} erweitern}
+	\section{\LaTeX{} erweitern}
+		\sectionTitleFrame
+	
 		\subsection{Makros \& Umgebungen}
+		
 		\begin{frame}[containsverbatim]{Eigene Befehle}
 			\slideheading{\LaTeX-Code:}
 			\begin{latexcode}
@@ -340,7 +350,7 @@ Host fbi
 
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-		\begin{frame}[containsverbatim]{Eigene Befehle}
+		\begin{frame}[containsverbatim]{Eigene Befehle -- Parameter}
 			\slideheading{\LaTeX-Code:}
 			\begin{latexcode}
 % LaTeX-style
@@ -352,6 +362,23 @@ Host fbi
 			\end{latexcode}
 			\slideheading{Ergebnis:}
 			\bus{181}{Sternschanze}{Informatikum}{13:37}
+		\end{frame}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\begin{frame}[containsverbatim]{Eigene Befehle -- Optionale Parameter}
+		\slideheading{\LaTeX-Code:}
+		\begin{latexcode}
+			% LaTeX-style
+			\newcommand{\bus}[2][181]{Linie #1 Richtung #2.}
+			% Verwendung
+			\bus{Sternschanze}
+			\bus[22]{Blankenese}
+		\end{latexcode}
+		\slideheading{Ergebnis:}\\
+		\vspace{0.2cm}
+		Linie 181 Richtung Sternschanze.
+		Linie 22 Richtung Blankenese.
 		\end{frame}
 
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -395,7 +422,7 @@ Host fbi
 		
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-		\begin{frame}[containsverbatim]{Eigene Klassen}
+		\begin{frame}[containsverbatim]{Eigene Dokumentenklassen}
 			\slideheading{\LaTeX-Code (meineklasse.cls):}
 			\begin{smalllatexcode}
 \NeedsTeXFormat{LaTeX2e}
@@ -453,8 +480,10 @@ Host fbi
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 		\begin{frame}[containsverbatim]{Alternative: Include-Dateien}
-		
-			\texttt{\textbackslash{}input\{<datei>\}} lädt den Inhalt von \texttt{<datei>} stumpf, als ob er so im Dokument stehen würde. \texttt{\textbackslash{}include\{<datei>\}} macht eine neue Seite auf und kann nicht geschachtelt werden, legt aber eigene \texttt{aux}-Dateien an und kann somit Seitenzahlen und Querverweise beachten.
+			\begin{itemize}
+				\item \texttt{\textbackslash{}input\{<datei>\}} lädt den Inhalt von \texttt{<datei>} stumpf, als ob er so im Dokument stehen würde.
+				\item \texttt{\textbackslash{}include\{<datei>\}} macht eine neue Seite auf und kann nicht geschachtelt werden, legt aber eigene \texttt{aux}-Dateien an und kann somit Seitenzahlen und Querverweise beachten.
+			\end{itemize}
 	
 			\slideheading{\LaTeX-Code (beispiel.inc):}
 			\begin{latexcode}
@@ -471,7 +500,9 @@ Hallo \LaTeX!
 		
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%		
 		
-		\section{Math advanced}
+	\section{Math advanced}
+		\sectionTitleFrame
+		
 		\subsection{Math advanced}
 		
 		\begin{frame}[containsverbatim]{Mehr tolle Mathe-Tricks}
@@ -492,27 +523,48 @@ Aus \(\int_a^b \ \sum_a^b\) wird \(\displaystyle \ \int\limits_a^b \ \sum_a^b  \
 			\slideheading{Anmerkung:} Über \texttt{\textbackslash{}everymath\{\textbackslash{}displaystyle\}} kann jeder Mathe-Modus automatisch im \texttt{displaystyle} sein.
 
 		\end{frame}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%		
 
 		\begin{frame}[containsverbatim]{Mehr Mathe mit \texttt{mathtools}}
 			\slideheading{\LaTeX-Code:}
 			\begin{smalllatexcode}
-\mathsf{sinc}(x) \coloneqq \begin{dcases}
-1 & x = 0 \\
-\frac{\sin(x)}{x} & \text{sonst}
-\end{dcases} \\
-\underbrace{\exp(i x)}_{\text{Hier wird es hässlich}}
-= \cos(x) + \underbracket{i \sin(x)}_{\mathclap{\text{Hier wird es hübsch}}}
+\mathsf{sinc}(x) \coloneqq
+\begin{dcases}
+	1                 & x = 0 \\
+	\frac{\sin(x)}{x} & \text{sonst}
+\end{dcases}
 			\end{smalllatexcode}
+			\vspace{0.3cm}
 			\slideheading{Ergebnis:}
-
-\(
-\mathsf{sinc}(x) \coloneqq \begin{dcases}
-1 & x = 0 \\
-\frac{\sin(x)}{x} & \text{sonst}
-\end{dcases} \\[5mm]
-\underbrace{\exp(i x)}_{\text{Hier wird es hässlich}} = \cos(x) + \underbracket{i \sin(x)}_{\mathclap{\text{Hier wird es hübsch}}}
-\)
+			\vspace{0.1cm}\\
+			\(
+			\mathsf{sinc}(x) \coloneqq
+			\begin{dcases}
+				1                 & x = 0 \\
+				\frac{\sin(x)}{x} & \text{sonst}
+			\end{dcases}
+			\)
 		\end{frame}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%		
+		
+		\begin{frame}[containsverbatim]{Mehr Mathe mit \texttt{mathtools}}
+			\slideheading{\LaTeX-Code:}
+			\begin{smalllatexcode}
+\underbrace{\exp(i x)}_{\text{Hier wird es hässlich}}
+=
+\cos(x) + \underbracket{i \sin(x)}_{\mathclap{\text{Hier wird es hübsch}}}
+			\end{smalllatexcode}
+			\vspace{0.3cm}
+			\slideheading{Ergebnis:}
+			\vspace{0.1cm}\\
+			\(
+				\underbrace{\exp(i x)}_{\text{Hier wird es hässlich}} = \cos(x) + \underbracket{i \sin(x)}_{\mathclap{\text{Hier wird es hübsch}}}
+			\)
+		\end{frame}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%		
 
 		\begin{frame}[containsverbatim]{SI-Einheiten mit \texttt{siunitx}}
 			\slideheading{\LaTeX-Code:}
@@ -538,6 +590,8 @@ Kombiniert: \(\SI{50}{\percent} c = \SI{1.5e8}{\m\per\s}\) \\
 Intervalle: \(\SIrange{1.3e5}{3.6e6}{\kg\m\per\s}\)
 
 		\end{frame}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%		
 
 		\begin{frame}[containsverbatim]{Noch mehr Mathe mit \texttt{physics}}
 			\slideheading{\LaTeX-Code:}
@@ -569,17 +623,17 @@ Differentiale: \(\displaystyle \int f(x) \dd{x}; \quad \dv{f}{x}; \quad \pdv[2]{
 
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-		\section{\protect\TikZ}
+	\section{\protect\TikZ}
+		\sectionTitleFrame
+		
 		\subsection{\protect\TikZ}
 
 		\begin{frame}[containsverbatim]{\TikZ}
 			\begin{itemize}
 				\item \textbf{T}ikZ \textbf{i}st \textbf{k}ein \textbf{Z}eichenprogramm.
 				\item Abbildungen werden mit TikZ beschrieben und durch PGF gerendert.
-				\item Sehr umfangreiches Paket (Dokumentation: $>$1000 Seiten), viele Möglichkeiten.
-				\item Hat direkte Unterstützung für Petrinetze :-)
-				\item Overkill: Animationen in einer PDF mittels\\
-				JavaScript und \TikZ ~:o
+				\item Sehr umfangreiches Paket (Dokumentation: $>$1000 Seiten) mit vielen Möglichkeiten.
+				\item Direkte Unterstützung für Petrinetze \&\newline Automaten ;-)
 			\end{itemize}
 
 
@@ -595,6 +649,67 @@ Differentiale: \(\displaystyle \int f(x) \dd{x}; \quad \dv{f}{x}; \quad \pdv[2]{
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 		\subsection{Grundlagen}
+		
+		\begin{frame}[containsverbatim]{\TikZ}
+			\begin{columns}[t]
+				\column{0.7\textwidth}
+				\slideheading{\LaTeX{}-Code:}
+				\begin{latexcode}
+\begin{tikzpicture}
+	\node (v1) at (0,0) {$v_1$};
+	
+	\coordinate (c) at (2, 1);
+	\node[draw,rectangle] (v2)
+	    at (c) {$v_2$};
+\end{tikzpicture}
+				\end{latexcode}
+				
+				\column{0.3\textwidth}
+				\hspace{3mm}
+				\slideheading{Ergebnis:}\\
+				\hspace{3mm}
+				\vspace{0.2cm}
+				\begin{tikzpicture}
+					\node (v1) at (0,0) {$v_1$};
+					
+					\coordinate (c) at (2, 1);
+					\node[draw,rectangle] (v2) at (c) {$v_2$};
+				\end{tikzpicture}
+			\end{columns}
+		\end{frame}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\subsection{Grundlagen}
+		
+		\begin{frame}[containsverbatim]{\TikZ}
+			\begin{columns}[t]
+				\column{0.7\textwidth}
+				\slideheading{\LaTeX{}-Code:}
+				\begin{latexcode}
+\begin{tikzpicture}
+	\node (v) at (3,1) {$v$};
+	
+	\draw (0,0) -- (2,0) --
+          (2,1) -- (v);
+\end{tikzpicture}
+				\end{latexcode}
+				
+				\column{0.3\textwidth}
+				\hspace{3mm}
+				\slideheading{Ergebnis:}\\
+				\hspace{3mm}
+				\vspace{0.2cm}
+				\begin{tikzpicture}
+					\node (v) at (3,1) {$v$};
+					
+					\draw (0,0) -- (2,0) --
+					      (2,1) -- (v);
+				\end{tikzpicture}
+			\end{columns}
+		\end{frame}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 		\begin{frame}[containsverbatim]{\TikZ}
 			\begin{columns}[t]
@@ -627,10 +742,8 @@ Differentiale: \(\displaystyle \int f(x) \dd{x}; \quad \dv{f}{x}; \quad \pdv[2]{
 			\slideheading{\TikZ-Code:}
 			\begin{latexcode}
 \begin{tikzpicture}
-	\node[shape=rectangle,draw=black,rounded corners]
-		(s) at (0, 0) {S};
-	\node[shape=rectangle,draw=black,rounded corners]
-		(t) at (3, 0) {T};
+	\node[red]       (s) at (0, 0) {S};
+	\node[fill=gray] (t) at (3, 0) {T};
 
 	\draw[thick, ->]     (s)     -- (1, -1);
 	\draw[thick, dotted]
@@ -643,14 +756,12 @@ Differentiale: \(\displaystyle \int f(x) \dd{x}; \quad \dv{f}{x}; \quad \pdv[2]{
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 		\begin{frame}[containsverbatim]{Nodes und Lines}
+			\slideheading{Ergebnis:}\\
+			\vspace{0.5cm}
 			\begin{center}
-				\slideheading{Ergebnis:}
-				\vspace{0.5cm}
 				\begin{tikzpicture}
-					\node[shape=rectangle,draw=black,rounded corners]
-						(s) at (0, 0) {S};
-					\node[shape=rectangle,draw=black,rounded corners]
-						(t) at (3, 0) {T};
+					\node[red] (s) at (0, 0) {S};
+					\node[fill=gray] (t) at (3, 0) {T};
 
 					\draw[thick, ->]     (s)     -- (1, -1);
 					\draw[thick, dotted]
@@ -660,49 +771,47 @@ Differentiale: \(\displaystyle \int f(x) \dd{x}; \quad \dv{f}{x}; \quad \pdv[2]{
 			\end{center}
 		\end{frame}
 
-		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-		\begin{frame}[containsverbatim]{Hobby-Kurven}
-			\begin{itemize}
-				\item Hobby-Kurven mittels \texttt{hobby}-Paket
-			\end{itemize}
-			\slideheading{\TikZ-Code:}
-			\begin{smalllatexcode}
-\begin{tikzpicture}
-	\node[shape=rectangle,draw=black,rounded corners]
-		(s) at (0, 0) {S};
-	\node[shape=rectangle,draw=black,rounded corners]
-		(t) at (3, 0) {T};
-
-	\draw[thick, ->]     (s)     -- (1, -1);
-	\draw[thick, ->, dotted]
-		(1, -1)
-		to[curve through={(1.5, -1.1) .. (1.5,-0.75) .. (1.5, -1.1)}]
-		(2, -1);
-	\draw[thick, ->]      (2, -1) -- (t);
-\end{tikzpicture}
-			\end{smalllatexcode}
-		\end{frame}
-
-		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-		\begin{frame}[containsverbatim]{Hobby-Kurven}
-			\begin{center}
-				\slideheading{Ergebnis:}
-				\vspace{0.5cm}
-				\begin{tikzpicture}
-					\node[shape=rectangle,draw=black,rounded corners] (s) at (0, 0) {S};
-					\node[shape=rectangle,draw=black,rounded corners] (t) at (3, 0) {T};
-
-					\draw[thick, ->]     (s)     -- (1, -1);
-					\draw[thick, ->, dotted]
- 						(1, -1)
- 						to[curve through={(1.5, -1.1) .. (1.5,-0.75) .. (1.5, -1.1)}]
- 						(2, -1);
-					\draw[thick, ->]      (2, -1) -- (t);
-				\end{tikzpicture}
-			\end{center}
-		\end{frame}
+%		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%		\begin{frame}[containsverbatim]{Hobby-Kurven}
+%			\begin{itemize}
+%				\item Hobby-Kurven mittels \texttt{hobby}-Paket
+%			\end{itemize}
+%			\slideheading{\TikZ-Code:}
+%			\begin{smalllatexcode}
+%\begin{tikzpicture}
+%	\node[red]       (s) at (0, 0) {S};
+%	\node[fill=gray] (t) at (3, 0) {T};
+%
+%	\draw[thick, ->]     (s)     -- (1, -1);
+%	\draw[thick, ->, dotted]
+%		(1, -1)
+%		to[curve through={(1.5, -1.1) .. (1.5,-0.75) .. (1.5, -1.1)}]
+%		(2, -1);
+%	\draw[thick, ->]      (2, -1) -- (t);
+%\end{tikzpicture}
+%			\end{smalllatexcode}
+%		\end{frame}
+%
+%		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%		\begin{frame}[containsverbatim]{Hobby-Kurven}
+%			\begin{center}
+%				\slideheading{Ergebnis:}
+%				\vspace{0.5cm}
+%				\begin{tikzpicture}
+%					\node[red]       (s) at (0, 0) {S};
+%					\node[fill=gray] (t) at (3, 0) {T};
+%
+%					\draw[thick, ->]     (s)     -- (1, -1);
+%					\draw[thick, ->, dotted]
+% 						(1, -1)
+% 						to[curve through={(1.5, -1.1) .. (1.5,-0.75) .. (1.5, -1.1)}]
+% 						(2, -1);
+%					\draw[thick, ->]      (2, -1) -- (t);
+%				\end{tikzpicture}
+%			\end{center}
+%		\end{frame}
 
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -711,44 +820,25 @@ Differentiale: \(\displaystyle \int f(x) \dd{x}; \quad \dv{f}{x}; \quad \pdv[2]{
 			\begin{smalllatexcode}
 \begin{tikzpicture}
 	[
-		->,
-		thick,
+		->, thick,
 		knoten/.style={shape=rectangle,draw=black,rounded corners}
 	]
 	\node[knoten] (s) at (0, 0) {S};
 	\node[knoten] (t) at (3, 0) {T};
-
-	\draw (s)     -- (1, -1);
-	\draw[dotted]
-		(1, -1)
-		to[curve through={(1.5, -1.1) .. (1.5,-0.75) .. (1.5, -1.1)}]
-		(2, -1);
-	\draw (2, -1) -- (t);
+	\draw[->] (s) -- (t);
 \end{tikzpicture}
 			\end{smalllatexcode}
-		\end{frame}
-
-		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-		\begin{frame}[containsverbatim]{Styles für gesamtes \TikZ picture}
+			\vspace{0.2cm}
+			\slideheading{Ergebnis:}\\
 			\begin{center}
-				\slideheading{Ergebnis:}
-				\vspace{0.5cm}
 				\begin{tikzpicture}
 					[
-						->,
-						thick,
+						->, thick,
 						knoten/.style={shape=rectangle,draw=black,rounded corners}
 					]
 					\node[knoten] (s) at (0, 0) {S};
 					\node[knoten] (t) at (3, 0) {T};
-
-					\draw (s)     -- (1, -1);
-					\draw[dotted]
- 						(1, -1)
- 						to[curve through={(1.5, -1.1) .. (1.5,-0.75) .. (1.5, -1.1)}]
- 						(2, -1);
-					\draw (2, -1) -- (t);
+					\draw[->] (s) -- (t);
 				\end{tikzpicture}
 			\end{center}
 		\end{frame}
@@ -759,11 +849,12 @@ Differentiale: \(\displaystyle \int f(x) \dd{x}; \quad \dv{f}{x}; \quad \pdv[2]{
 
 		\begin{frame}[containsverbatim]{Einführung}
 			\begin{itemize}
-				\item Automaten (state-machines) per \texttt{automata}-Paket
+				\item Automaten (state machines) per \texttt{automata}-Paket
 				\item Für Positionierung \texttt{positioning}-Paket
 				\item Und für Pfeile \texttt{arrows}-Paket
 			\end{itemize}
-			Mehr Informationen über Automaten, Pfeile, Positionierung, Optionen, etc. gibt es unter \href{http://hauke-stieler.de/public/tikz-for-state-machines.pdf}{http://hauke-stieler.de/public/tikz-for-state-machines.pdf} (im selben Ordner ist auch die \texttt{*.tex} Datei).
+			Mehr Informationen über Automaten, Pfeile, Positionierung, Optionen, etc. gibt es unter \href{http://hauke-stieler.de/public/tikz-for-state-machines.pdf}{hauke-stieler.de/public/tikz-for-state-machines.pdf}\\
+			{\tiny(im selben Ordner ist auch die entsprechende \texttt{*.tex} Datei)}
 		\end{frame}
 
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -789,9 +880,9 @@ Differentiale: \(\displaystyle \int f(x) \dd{x}; \quad \dv{f}{x}; \quad \pdv[2]{
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 		\begin{frame}[containsverbatim]{Zustände}
+			\slideheading{Ergebnis:}\\
+			\vspace{0.5cm}
 			\begin{center}
-				\slideheading{Ergebnis:}
-				\vspace{0.5cm}
 				\begin{tikzpicture}[->,
 					>=stealth',
 					semithick]
@@ -828,9 +919,9 @@ Differentiale: \(\displaystyle \int f(x) \dd{x}; \quad \dv{f}{x}; \quad \pdv[2]{
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 		\begin{frame}[containsverbatim]{Positionierung}
+			\slideheading{Ergebnis:}\\
+			\vspace{0.5cm}
 			\begin{center}
-				\slideheading{Ergebnis:}
-				\vspace{0.5cm}
 				\begin{tikzpicture}[->,
 					>=stealth',
 					semithick,
@@ -864,7 +955,7 @@ Differentiale: \(\displaystyle \int f(x) \dd{x}; \quad \dv{f}{x}; \quad \pdv[2]{
 
 				\column{0.225\textwidth}
 				\hspace{3mm}
-				\slideheading{Ergebnis:}
+				\slideheading{Ergebnis:}\\
 				\hspace{3mm}
 				\scalebox{0.75}{
 					\begin{tikzpicture}
@@ -905,9 +996,9 @@ Differentiale: \(\displaystyle \int f(x) \dd{x}; \quad \dv{f}{x}; \quad \pdv[2]{
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 		\begin{frame}[containsverbatim]{Pfeile}
+			\slideheading{Ergebnis:}\\
+			\vspace{0.5cm}
 			\begin{center}
-				\slideheading{Ergebnis:}
-				\vspace{0.5cm}
 				\begin{tikzpicture}[->,
 					>=stealth',
 					semithick,
@@ -952,9 +1043,9 @@ Differentiale: \(\displaystyle \int f(x) \dd{x}; \quad \dv{f}{x}; \quad \pdv[2]{
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 		\begin{frame}[containsverbatim]{Pfeile}
+			\slideheading{Ergebnis:}\\
+			\vspace{0.5cm}
 			\begin{center}
-				\slideheading{Ergebnis:}
-				\vspace{0.5cm}
 				\begin{tikzpicture}[->,
 					>=stealth',
 					semithick,
@@ -1000,9 +1091,9 @@ Differentiale: \(\displaystyle \int f(x) \dd{x}; \quad \dv{f}{x}; \quad \pdv[2]{
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 		\begin{frame}[containsverbatim]{Pfeile}
+			\slideheading{Ergebnis:}\\
+			\vspace{0.5cm}
 			\begin{center}
-				\slideheading{Ergebnis:}
-				\vspace{0.5cm}
 				\begin{tikzpicture}[->,>=stealth',
 					shorten >=5pt,
 					node distance=2.5cm,
@@ -1043,9 +1134,8 @@ Differentiale: \(\displaystyle \int f(x) \dd{x}; \quad \dv{f}{x}; \quad \pdv[2]{
 
 	\draw[thin,domain=-2.075:2.075,smooth,variable=\x,black]
 		plot ({\x},{\x*\x});
-	\draw[thin] node[inner sep=1mm,
-					fill=white,
-					draw=lightgray] at (2.25,3) {$f(x)=x^2$};
+	\draw[thin] node[inner sep=1mm, fill=white, draw=lightgray]
+	    at (2.25,3) {$f(x)=x^2$};
 \end{tikzpicture}
 			\end{smalllatexcode}
 		\end{frame}
@@ -1080,159 +1170,159 @@ Differentiale: \(\displaystyle \int f(x) \dd{x}; \quad \dv{f}{x}; \quad \pdv[2]{
 %			\end{center}
 		\end{frame}
 
-		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-		\subsection{\protect\TikZ{} an die Grenzen getrieben}
-
-		\begin{frame}[containsverbatim]{Banyan-Netz (3 Stufen)}
-			\begin{center}
-				\vspace{-1.5cm}
-				\hspace{-1.5cm}
-				\begin{tikzpicture}
-				[
-					scale = 0.75,
-					transform shape
-				]
-					\banyan{3}
-				\end{tikzpicture}
-			\end{center}
-		\end{frame}
-
-		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-		\begin{frame}[containsverbatim]{Banyan-Netz (5 Stufen)}
-			\begin{center}
-				\vspace{-0.5cm}
-				\hspace{-1cm}
-				\begin{tikzpicture}
-				[
-					scale = 0.19,
-					transform shape
-				]
-					\banyan{5}
-				\end{tikzpicture}
-			\end{center}
-		\end{frame}
-
-		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-		\begin{frame}[containsverbatim]{5-dimensionaler Hyperwürfel}
-			\begin{center}
-				\begin{tikzpicture}
-				[
-					scale = 0.5,
-					transform shape,
-				]
-					\hypercube
-				\end{tikzpicture}
-			\end{center}
-		\end{frame}
-
-		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-		\begin{frame}[containsverbatim]{}
-			\begin{center}
-				... mehrere kaputte Kaffeemaschinen später ...
-			\end{center}
-		\end{frame}
-
-		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-		\begin{frame}[containsverbatim]{\TikZ{} at its best}
-			\begin{center}
-				\begin{tikzpicture}[scale=0.6,
-				        %Option for nice arrows%
-				        >=latex,%
-				        inner sep=0pt,%
-				        outer sep=2pt,%
-				        mark coordinate/.style={outer sep=0pt,
-				            minimum size=3pt, fill=black,circle}%
-				    ]
-				    %% some definitions
-				    \def\R{0.5}       % sphere radius
-				    \def\angEl{30}    % elevation angle
-				    \def\angAz{-140}  % azimuth angle
-				    \def\angPhi{-105} % longitude of point
-				    \def\angBeta{55}  % latitude of point
-				    \def\angGam{-190} % longitude of point
-				    %% working planes
-				    \pgfmathsetmacro\H{\R*cos(\angEl)}          % Distance to north pole
-				    \LongitudePlane[xzplane]{\angEl}{\angAz}    % x-axis plane
-				    %
-				    \coordinate (O) at (0,0);
-				    %
-				    \begin{scope}[rotate around={-11.1:(0,0)},
-				        field line/.style={color=red, smooth,
-				            variable=\t, samples at={0,-5,-10,...,-360}}
-				    ]
-				        \clip[rotate around={11.1:(0,0)}] (-7,5) rectangle (7,-5);
-
-				        % Computes a point on a field line given r and t
-				        \newcommand{\fieldlinecurve}[2]{%
-				            {(pow(#1,2))*(3*cos(#2)+cos(3*#2))}, {(pow(#1,2))*(sin(#2)+sin(3*#2))}%
-				        }
-
-				        % Longitudinal plnaes
-				        \foreach \u in {0,-40,...,-160}{
-				            \LongitudePlane[{{\u}zplane}]{\angEl}{\u}
-				            \foreach \r in {0.25,0.5,...,2.25} {
-				                \draw[{{\u}zplane}, field line]
-				                plot (\fieldlinecurve{\r}{\t});
-				            }
-				        }
-				        \foreach \u in {-200,-240,...,-320}{
-				            \LongitudePlane[{{\u}zplane}]{\angEl}{\u}
-				            \foreach \r in {0.25,0.5,...,2.25}{
-				            \draw[{{\u}zplane}, dashed, field line]
-				                plot (\fieldlinecurve{\r}{\t});
-				            }
-				        }
-				        % Drawing plane for the B-vectors
-				        \LongitudePlane[bzplane]{\angEl}{0}
-				            \foreach \r in {0.25,0.5,...,2.25}{
-				            \draw[bzplane, thick, field line]
-				                plot (\fieldlinecurve{\r}{\t});
-				        }
-
-				        \begin{scope}[bzplane, very thick, ->, >=stealth]
-				            \draw (\fieldlinecurve{1.25}{-30}) -- +(-30:0.79cm)  node[right] {$\vec{B_{r}}$};
-				            \draw (\fieldlinecurve{1.25}{-30}) -- +(60:0.68cm)   node[right] {$\vec{B_{\theta}}$};
-				            \draw (\fieldlinecurve{1.25}{30})  -- +(-150:0.79cm) node[below] {$\vec{B_{r}}$};
-				            \draw (\fieldlinecurve{1.25}{30})  -- +(120:0.68cm)  node[above] {$\vec{B_{\theta}}$};
-				        \end{scope}
-				        %
-				        \begin{scope}[rotate around={11.1:(0,0)}]
-				            \fill[ball color=white,opacity=0.3] (O) circle (\R); %3D lighting effect
-				            \draw (O) circle (\R);
-				            \DrawLongitudeCircle[\R]{\angAz}      % xzplane
-				            \DrawLongitudeCircle[\R]{\angAz + 90} % vzplane
-				            \DrawLatitudeCircle[\R]{0}            % equator
-				            \DrawLatitudeCircle[\R]{70}           % Latitude 70
-				            \DrawLatitudeCircle[\R]{-70}          % Latitude -70
-				        \end{scope}
-				        %
-				        \coordinate[mark coordinate] (Sm) at (0, \H);
-				        \coordinate[mark coordinate] (Nm) at (0,-\H);
-				        \path[xzplane] (Nm) -- +(0,-0.75) coordinate (Nm1) node[below] {$\mathbf{N}_m$}
-				                       (Sm) -- +(0,0.75)  coordinate (Sm1) node[above] {$\mathbf{S}_m$};
-				        \draw[very thick, dashed]    (Sm) -- (Nm);
-				        \draw[very thick]            (Sm1) -- (Sm);
-				        \draw[very thick,->,>=latex'](Nm) -- (Nm1);
-				    \end{scope}
-				\end{tikzpicture}
-			\end{center}
-		\end{frame}
-
-		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-		\begin{frame}[containsverbatim]{}
-			\begin{center}
-				\textbf{BEWARE} \\
-				Das Kompilieren dieses Dokumentes dauert auf einem \(\SI{4}{\GHz}\)-Quad Core knapp eine halbe Minute! 
-			\end{center}
-		\end{frame}
-
-		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%		\subsection{\protect\TikZ{} an die Grenzen getrieben}
+%
+%		\begin{frame}[containsverbatim]{Banyan-Netz (3 Stufen)}
+%			\begin{center}
+%				\vspace{-1.5cm}
+%				\hspace{-1.5cm}
+%				\begin{tikzpicture}
+%				[
+%					scale = 0.75,
+%					transform shape
+%				]
+%					\banyan{3}
+%				\end{tikzpicture}
+%			\end{center}
+%		\end{frame}
+%
+%		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%		\begin{frame}[containsverbatim]{Banyan-Netz (5 Stufen)}
+%			\begin{center}
+%				\vspace{-0.5cm}
+%				\hspace{-1cm}
+%				\begin{tikzpicture}
+%				[
+%					scale = 0.19,
+%					transform shape
+%				]
+%					\banyan{5}
+%				\end{tikzpicture}
+%			\end{center}
+%		\end{frame}
+%
+%		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%		\begin{frame}[containsverbatim]{5-dimensionaler Hyperwürfel}
+%			\begin{center}
+%				\begin{tikzpicture}
+%				[
+%					scale = 0.5,
+%					transform shape,
+%				]
+%					\hypercube
+%				\end{tikzpicture}
+%			\end{center}
+%		\end{frame}
+%
+%		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%		\begin{frame}[containsverbatim]{}
+%			\begin{center}
+%				... mehrere kaputte Kaffeemaschinen später ...
+%			\end{center}
+%		\end{frame}
+%
+%		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%		\begin{frame}[containsverbatim]{\TikZ{} at its best}
+%			\begin{center}
+%				\begin{tikzpicture}[scale=0.6,
+%				        %Option for nice arrows%
+%				        >=latex,%
+%				        inner sep=0pt,%
+%				        outer sep=2pt,%
+%				        mark coordinate/.style={outer sep=0pt,
+%				            minimum size=3pt, fill=black,circle}%
+%				    ]
+%				    %% some definitions
+%				    \def\R{0.5}       % sphere radius
+%				    \def\angEl{30}    % elevation angle
+%				    \def\angAz{-140}  % azimuth angle
+%				    \def\angPhi{-105} % longitude of point
+%				    \def\angBeta{55}  % latitude of point
+%				    \def\angGam{-190} % longitude of point
+%				    %% working planes
+%				    \pgfmathsetmacro\H{\R*cos(\angEl)}          % Distance to north pole
+%				    \LongitudePlane[xzplane]{\angEl}{\angAz}    % x-axis plane
+%				    %
+%				    \coordinate (O) at (0,0);
+%				    %
+%				    \begin{scope}[rotate around={-11.1:(0,0)},
+%				        field line/.style={color=red, smooth,
+%				            variable=\t, samples at={0,-5,-10,...,-360}}
+%				    ]
+%				        \clip[rotate around={11.1:(0,0)}] (-7,5) rectangle (7,-5);
+%
+%				        % Computes a point on a field line given r and t
+%				        \newcommand{\fieldlinecurve}[2]{%
+%				            {(pow(#1,2))*(3*cos(#2)+cos(3*#2))}, {(pow(#1,2))*(sin(#2)+sin(3*#2))}%
+%				        }
+%
+%				        % Longitudinal plnaes
+%				        \foreach \u in {0,-40,...,-160}{
+%				            \LongitudePlane[{{\u}zplane}]{\angEl}{\u}
+%				            \foreach \r in {0.25,0.5,...,2.25} {
+%				                \draw[{{\u}zplane}, field line]
+%				                plot (\fieldlinecurve{\r}{\t});
+%				            }
+%				        }
+%				        \foreach \u in {-200,-240,...,-320}{
+%				            \LongitudePlane[{{\u}zplane}]{\angEl}{\u}
+%				            \foreach \r in {0.25,0.5,...,2.25}{
+%				            \draw[{{\u}zplane}, dashed, field line]
+%				                plot (\fieldlinecurve{\r}{\t});
+%				            }
+%				        }
+%				        % Drawing plane for the B-vectors
+%				        \LongitudePlane[bzplane]{\angEl}{0}
+%				            \foreach \r in {0.25,0.5,...,2.25}{
+%				            \draw[bzplane, thick, field line]
+%				                plot (\fieldlinecurve{\r}{\t});
+%				        }
+%
+%				        \begin{scope}[bzplane, very thick, ->, >=stealth]
+%				            \draw (\fieldlinecurve{1.25}{-30}) -- +(-30:0.79cm)  node[right] {$\vec{B_{r}}$};
+%				            \draw (\fieldlinecurve{1.25}{-30}) -- +(60:0.68cm)   node[right] {$\vec{B_{\theta}}$};
+%				            \draw (\fieldlinecurve{1.25}{30})  -- +(-150:0.79cm) node[below] {$\vec{B_{r}}$};
+%				            \draw (\fieldlinecurve{1.25}{30})  -- +(120:0.68cm)  node[above] {$\vec{B_{\theta}}$};
+%				        \end{scope}
+%				        %
+%				        \begin{scope}[rotate around={11.1:(0,0)}]
+%				            \fill[ball color=white,opacity=0.3] (O) circle (\R); %3D lighting effect
+%				            \draw (O) circle (\R);
+%				            \DrawLongitudeCircle[\R]{\angAz}      % xzplane
+%				            \DrawLongitudeCircle[\R]{\angAz + 90} % vzplane
+%				            \DrawLatitudeCircle[\R]{0}            % equator
+%				            \DrawLatitudeCircle[\R]{70}           % Latitude 70
+%				            \DrawLatitudeCircle[\R]{-70}          % Latitude -70
+%				        \end{scope}
+%				        %
+%				        \coordinate[mark coordinate] (Sm) at (0, \H);
+%				        \coordinate[mark coordinate] (Nm) at (0,-\H);
+%				        \path[xzplane] (Nm) -- +(0,-0.75) coordinate (Nm1) node[below] {$\mathbf{N}_m$}
+%				                       (Sm) -- +(0,0.75)  coordinate (Sm1) node[above] {$\mathbf{S}_m$};
+%				        \draw[very thick, dashed]    (Sm) -- (Nm);
+%				        \draw[very thick]            (Sm1) -- (Sm);
+%				        \draw[very thick,->,>=latex'](Nm) -- (Nm1);
+%				    \end{scope}
+%				\end{tikzpicture}
+%			\end{center}
+%		\end{frame}
+%
+%		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%		\begin{frame}[containsverbatim]{}
+%			\begin{center}
+%				\textbf{BEWARE} \\
+%				Das Kompilieren dieses Dokumentes dauert auf einem \(\SI{4}{\GHz}\)-Quad Core knapp eine halbe Minute! 
+%			\end{center}
+%		\end{frame}
+%
+%		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %		\section{Beamer}
 %
 %		\begin{frame}[containsverbatim]{\LaTeX{}-Beamer}
